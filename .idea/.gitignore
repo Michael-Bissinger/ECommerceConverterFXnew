@@ -3,6 +3,6 @@
 /workspace.xml
 
 
-/ressources/finaldestination/*
-/ressources/original/*
-/ressources/workspace/*
+/out/ressources/finaldestination/*
+/out/ressources/original/*
+/out/ressources/workspace/*
