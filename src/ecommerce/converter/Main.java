@@ -24,7 +24,7 @@ import java.io.File;
 
 public class Main extends Application{
 
-    public static String FILEPATH = null; // Store filepath
+    public static String FILEPATH = null; // Store filepath from Drag and Drop
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -54,8 +54,6 @@ public class Main extends Application{
         dropped.setEditable(false);
 
         VBox dragTarget = new VBox();
-        //dragTarget.setSpacing(10);
-        //dragTarget.setPadding(new Insets(15,20, 10,10));
         dragTarget.setStyle("-fx-padding: 10;" +
                 "-fx-border-style: solid inside;" +
                 "-fx-border-width: 2;" +
@@ -95,6 +93,8 @@ public class Main extends Application{
                     FILEPATH = db.getFiles().toString();
                     System.out.println("Filepath: " + FILEPATH);
 
+
+                    // Set color on green after File is dragged/dropped
                     dragTarget.setStyle("-fx-padding: 10;" +
                             "-fx-border-style: solid inside;" +
                             "-fx-border-width: 2;" +
@@ -152,19 +152,19 @@ public class Main extends Application{
         // Add to GridPane
 
         //Drag and Drop
-        grid.add(dragTarget, 0, 0, 1, 1);
+        grid.add(dragTarget, 0, 0, 2, 2);
         //grid.add(directory_rawfile, 1, 0, 1, 1);
 
-        grid.add(lbl_platform, 0, 1, 1, 1);
-        grid.add(platforms_box, 1, 1, 1, 1);
+        grid.add(lbl_platform, 0, 2, 1, 1);
+        grid.add(platforms_box, 1, 2, 1, 1);
 
-        grid.add(lbl_operation, 0, 2, 1, 1);
-        grid.add(operation_box, 1, 2, 1, 1);
+        grid.add(lbl_operation, 0, 3, 1, 1);
+        grid.add(operation_box, 1, 3, 1, 1);
 
-        grid.add(lbl_newfile, 0, 3, 1, 1);
-        grid.add(directory_newfile, 1, 3, 1, 1);
+        grid.add(lbl_newfile, 0, 4, 1, 1);
+        grid.add(directory_newfile, 1, 4, 1, 1);
 
-        grid.add(btn, 1, 4, 1, 1);
+        grid.add(btn, 1, 5, 1, 1);
 
         // ****** Scene setup ********
         Scene scene = new Scene(grid, 500, 500);
@@ -184,8 +184,6 @@ public class Main extends Application{
 
                     if (FILEPATH != null) {
 
-
-                    //String filepath = "abc"; // TODO: Get real filepath by Drag and Drop
                     ConvertMain.start(platforms_box.getSelectionModel().getSelectedItem().toString(), operation_box.getSelectionModel().getSelectedItem().toString(), FILEPATH);
 
                     } else {
