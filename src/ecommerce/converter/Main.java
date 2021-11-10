@@ -40,17 +40,29 @@ public class Main extends Application{
         lbl_platform.setTextAlignment(TextAlignment.LEFT);
         Label lbl_newfile = new Label("Fertige Datei:");
         lbl_newfile.setTextAlignment(TextAlignment.LEFT);
+        Label lbl_operation = new Label("Operation:");
+        lbl_operation.setTextAlignment(TextAlignment.LEFT);
 
-        ObservableList<String> options =
+
+        // Platform-Choice
+        ObservableList<String> platformoptions =
                 FXCollections.observableArrayList(
                         "Amazon",
                         "Carrefour",
                         "Conrad",
                         "eBay",
-                        "Manomano"
+                        "Manomano",
+                        "Real"
                 );
-        final ComboBox platforms_box = new ComboBox(options);
+        final ComboBox platforms_box = new ComboBox(platformoptions);
 
+        // "Gebühren" or "Full"-Choice
+        ObservableList<String> operationoptions =
+                FXCollections.observableArrayList(
+                        "Nur Gebühren"
+                );
+        final ComboBox operation_box = new ComboBox(operationoptions);
+        operation_box.getSelectionModel().selectFirst();
 
 
 
@@ -74,10 +86,13 @@ public class Main extends Application{
         grid.add(lbl_platform, 0, 1, 1, 1);
         grid.add(platforms_box, 1, 1, 1, 1);
 
-        grid.add(lbl_newfile, 0, 2, 1, 1);
-        grid.add(directory_newfile, 1, 2, 1, 1);
+        grid.add(lbl_operation, 0, 2, 1, 1);
+        grid.add(operation_box, 1, 2, 1, 1);
 
-        grid.add(btn, 1, 3, 1, 1);
+        grid.add(lbl_newfile, 0, 3, 1, 1);
+        grid.add(directory_newfile, 1, 3, 1, 1);
+
+        grid.add(btn, 1, 4, 1, 1);
 
         // ****** Scene setup ********
         Scene scene = new Scene(grid, 500, 500);
@@ -94,7 +109,7 @@ public class Main extends Application{
                 if (platforms_box.getSelectionModel().getSelectedItem() != null) {
 
                     String filepath = "abc"; // TODO: Get real filepath by Drag and Drop
-                    ConvertMain.start(platforms_box.getSelectionModel().getSelectedItem().toString(), filepath);
+                    ConvertMain.start(platforms_box.getSelectionModel().getSelectedItem().toString(), operation_box.getSelectionModel().getSelectedItem().toString(), filepath);
 
 
                 } else {
