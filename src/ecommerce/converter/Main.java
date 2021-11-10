@@ -12,17 +12,24 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.scene.layout.GridPane;
 
 public class Main extends Application{
 
+    public static String FILEPATH=""; // Store filepath
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         //Scene scene = new Scene(new Label("Foo"));
         //Scene scene = new Scene(new GridPane(), 500, 500);
+
+
 
 
         // Drag and Drop
@@ -42,6 +49,50 @@ public class Main extends Application{
         lbl_newfile.setTextAlignment(TextAlignment.LEFT);
         Label lbl_operation = new Label("Operation:");
         lbl_operation.setTextAlignment(TextAlignment.LEFT);
+
+
+        // Drag and Drop
+
+        Label label_rawfile_drop = new Label("Datei hier einfügen!");
+        Label dropped = new Label("");
+        VBox dragTarget = new VBox();
+        dragTarget.getChildren().addAll(label_rawfile_drop,dropped);
+        dragTarget.setOnDragOver(new EventHandler<DragEvent>() {
+
+            @Override
+            public void handle(DragEvent event) {
+                if (event.getGestureSource() != dragTarget
+                        && event.getDragboard().hasFiles()) {
+                    /* allow for both copying and moving, whatever user chooses */
+                    event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+                }
+                event.consume();
+            }
+        });
+
+        dragTarget.setOnDragDropped(new EventHandler<DragEvent>() {
+
+            @Override
+            public void handle(DragEvent event) {
+                String filepath_drag;
+
+                Dragboard db = event.getDragboard();
+                boolean success = false;
+                if (db.hasFiles()) {
+                    dropped.setText(db.getFiles().toString());
+                    FILEPATH = db.getFiles().toString();
+                    System.out.println("Filepath: " + FILEPATH);
+                    success = true;
+                }
+                /* let the source know whether the string was successfully
+                 * transferred and used */
+                event.setDropCompleted(success);
+
+                event.consume();
+            }
+        });
+
+
 
 
         // Platform-Choice
@@ -80,8 +131,12 @@ public class Main extends Application{
 
         // Add to GridPane
 
-        grid.add(lbl_rawfile, 0, 0, 1, 1);
-        grid.add(directory_rawfile, 1, 0, 1, 1);
+        //grid.add(lbl_rawfile, 0, 0, 1, 1);
+        //grid.add(directory_rawfile, 1, 0, 1, 1);
+
+        //Drag and Drop
+        grid.add(dragTarget, 0, 0, 1, 1);
+        //grid.add(directory_rawfile, 1, 0, 1, 1);
 
         grid.add(lbl_platform, 0, 1, 1, 1);
         grid.add(platforms_box, 1, 1, 1, 1);
@@ -101,24 +156,31 @@ public class Main extends Application{
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        // Start programm
+        // Start program
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
 
+                System.out.println("---------------START------------------");
+
                 if (platforms_box.getSelectionModel().getSelectedItem() != null) {
 
-                    String filepath = "abc"; // TODO: Get real filepath by Drag and Drop
-                    ConvertMain.start(platforms_box.getSelectionModel().getSelectedItem().toString(), operation_box.getSelectionModel().getSelectedItem().toString(), filepath);
+                    //String filepath = "abc"; // TODO: Get real filepath by Drag and Drop
+                    ConvertMain.start(platforms_box.getSelectionModel().getSelectedItem().toString(), operation_box.getSelectionModel().getSelectedItem().toString(), FILEPATH);
 
 
                 } else {
 
                     System.out.println("Plattform muss ausgewählt werden!");
+
                 }
+
+
 
                 //System.out.println(platforms_box.getSelectionModel().getSelectedItem());
                 //System.out.println("Konvertierung startet!");
+
+                System.out.println("----------------END-------------------");
 
             }
         });
