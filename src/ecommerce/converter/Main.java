@@ -20,9 +20,11 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.scene.layout.GridPane;
 
+import java.io.File;
+
 public class Main extends Application{
 
-    public static String FILEPATH=""; // Store filepath
+    public static String FILEPATH = null; // Store filepath
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -31,18 +33,12 @@ public class Main extends Application{
 
 
 
-
-        // Drag and Drop
-        //TODO: https://stackoverflow.com/questions/32534113/javafx-drag-and-drop-a-file-into-a-program
-
-
         // Controls
-        final TextField directory_rawfile = new TextField();
+
 
         final TextField directory_newfile = new TextField();
 
-        Label lbl_rawfile = new Label("Rohdaten:");
-        lbl_rawfile.setTextAlignment(TextAlignment.LEFT);
+
         Label lbl_platform = new Label("Plattform:");
         lbl_platform.setTextAlignment(TextAlignment.LEFT);
         Label lbl_newfile = new Label("Fertige Datei:");
@@ -53,9 +49,20 @@ public class Main extends Application{
 
         // Drag and Drop
 
-        Label label_rawfile_drop = new Label("Datei hier einfügen!");
-        Label dropped = new Label("");
+        Label label_rawfile_drop = new Label("Rohdatei hierher ziehen!");
+        TextField dropped = new TextField("");
+        dropped.setEditable(false);
+
         VBox dragTarget = new VBox();
+        //dragTarget.setSpacing(10);
+        //dragTarget.setPadding(new Insets(15,20, 10,10));
+        dragTarget.setStyle("-fx-padding: 10;" +
+                "-fx-border-style: solid inside;" +
+                "-fx-border-width: 2;" +
+                "-fx-border-insets: 5;" +
+                "-fx-border-radius: 5;" +
+                "-fx-border-color: black;");
+
         dragTarget.getChildren().addAll(label_rawfile_drop,dropped);
         dragTarget.setOnDragOver(new EventHandler<DragEvent>() {
 
@@ -79,9 +86,22 @@ public class Main extends Application{
                 Dragboard db = event.getDragboard();
                 boolean success = false;
                 if (db.hasFiles()) {
-                    dropped.setText(db.getFiles().toString());
+                    //dropped.setText(db.getFiles().toString());
+
+                    File f = new File(db.getFiles().toString());
+                    f.getName();
+                    dropped.setText("[" + f.getName());
+
                     FILEPATH = db.getFiles().toString();
                     System.out.println("Filepath: " + FILEPATH);
+
+                    dragTarget.setStyle("-fx-padding: 10;" +
+                            "-fx-border-style: solid inside;" +
+                            "-fx-border-width: 2;" +
+                            "-fx-border-insets: 5;" +
+                            "-fx-border-radius: 5;" +
+                            "-fx-border-color: green;");
+
                     success = true;
                 }
                 /* let the source know whether the string was successfully
@@ -131,9 +151,6 @@ public class Main extends Application{
 
         // Add to GridPane
 
-        //grid.add(lbl_rawfile, 0, 0, 1, 1);
-        //grid.add(directory_rawfile, 1, 0, 1, 1);
-
         //Drag and Drop
         grid.add(dragTarget, 0, 0, 1, 1);
         //grid.add(directory_rawfile, 1, 0, 1, 1);
@@ -163,15 +180,36 @@ public class Main extends Application{
 
                 System.out.println("---------------START------------------");
 
-                if (platforms_box.getSelectionModel().getSelectedItem() != null) {
+                if (platforms_box.getSelectionModel().getSelectedItem() != null & FILEPATH != null) {
+
+                    if (FILEPATH != null) {
+
 
                     //String filepath = "abc"; // TODO: Get real filepath by Drag and Drop
                     ConvertMain.start(platforms_box.getSelectionModel().getSelectedItem().toString(), operation_box.getSelectionModel().getSelectedItem().toString(), FILEPATH);
 
+                    } else {
 
+                        System.out.println("Rohdatei muss ausgewählt werden!");
+
+                    }
                 } else {
 
-                    System.out.println("Plattform muss ausgewählt werden!");
+
+                    if (FILEPATH == null) {
+
+
+                        System.out.println("Rohdatei muss ausgewählt werden!");
+
+                    }
+
+                    if (platforms_box.getSelectionModel().getSelectedItem() == null) {
+
+
+                        System.out.println("Plattform muss ausgewählt werden!");
+
+                    }
+
 
                 }
 
