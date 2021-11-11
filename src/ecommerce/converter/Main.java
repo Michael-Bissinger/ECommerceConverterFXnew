@@ -185,6 +185,7 @@ public class Main extends Application{
 
         // HWS icon %TODO: Das HWS-Logo soll oben links stehen
         //Image image = new Image("/icons/HWS_logo.png");
+        //Image image = new Image("HWS_logo.png");
         //primaryStage.getIcons().add(image);
 
         //primaryStage.getIcons().add(new Image("/HWS_logo.png"));

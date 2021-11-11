@@ -100,8 +100,8 @@ public class DataRecorder {
 
         //CSVReader reader = new CSVReader(new FileReader(filepath_origin.getAbsolutePath()));
 
-        CSVWriter writer = new CSVWriter(new FileWriter(filepath_origin.getAbsolutePath()));
-        System.out.println(filepath_origin.getAbsolutePath());
+        //CSVWriter writer = new CSVWriter(new FileWriter(filepath_origin.getAbsolutePath()));
+        //System.out.println(filepath_origin.getAbsolutePath());
         //CSVReader reader = new CSVReader(new FileReader("C:/Users/Michael/Downloads/report_booking_gmu_a2760808c5c831e24673062dffc0e2516dd1a3f5600bdea140a51202eb02769a.csv"));
         //C:/Users/Michael/Downloads/report_booking_gmu_a2760808c5c831e24673062dffc0e2516dd1a3f5600bdea140a51202eb02769a.csv
 
