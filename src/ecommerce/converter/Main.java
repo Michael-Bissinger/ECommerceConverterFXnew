@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
@@ -49,7 +50,7 @@ public class Main extends Application{
 
         // Drag and Drop
 
-        Label label_rawfile_drop = new Label("Rohdatei hierher ziehen!");
+        Label label_rawfile_drop = new Label("Rohdatei hierher ziehen (nur eine!)");
         TextField dropped = new TextField("");
         dropped.setEditable(false);
 
@@ -146,35 +147,48 @@ public class Main extends Application{
         grid.setVgap(10);
         grid.setPadding(new Insets(25,25,25,25));
 
-        Button btn = new Button();
-        btn.setText("Starte Konvertierung!");
+        Button btn_start = new Button();
+        btn_start.setText("Starte Konvertierung!");
 
         // Add to GridPane
+        // Legende:
+        // i: Links nach rechts (column)
+        // i2: Oben, unten (row)
+        // i3: wie viele Felder nutzt es rechts (column) aus
+        // i4: wie viele Felder nutzt es nach unten (row) aus
+
+
 
         //Drag and Drop
         grid.add(dragTarget, 0, 0, 2, 2);
         //grid.add(directory_rawfile, 1, 0, 1, 1);
 
-        grid.add(lbl_platform, 0, 2, 1, 1);
-        grid.add(platforms_box, 1, 2, 1, 1);
+        grid.add(lbl_platform, 0, 2);
+        grid.add(platforms_box, 1, 2);
 
-        grid.add(lbl_operation, 0, 3, 1, 1);
-        grid.add(operation_box, 1, 3, 1, 1);
+        grid.add(lbl_operation, 0, 3);
+        grid.add(operation_box, 1, 3);
 
-        grid.add(lbl_newfile, 0, 4, 1, 1);
-        grid.add(directory_newfile, 1, 4, 1, 1);
+        grid.add(lbl_newfile, 0, 4);
+        grid.add(directory_newfile, 1, 4);
 
-        grid.add(btn, 1, 5, 1, 1);
+        grid.add(btn_start, 1, 5);
 
         // ****** Scene setup ********
-        Scene scene = new Scene(grid, 500, 500);
+        Scene scene = new Scene(grid, 280, 310);
+
+        // HWS icon %TODO: Das HWS-Logo soll oben links stehen
+        //Image image = new Image("/icons/HWS_logo.png");
+        //primaryStage.getIcons().add(image);
+
+        //primaryStage.getIcons().add(new Image("/HWS_logo.png"));
 
         primaryStage.setTitle("E-Commerce converter");
         primaryStage.setScene(scene);
         primaryStage.show();
 
         // Start program
-        btn.setOnAction(new EventHandler<ActionEvent>() {
+        btn_start.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
 
@@ -182,33 +196,17 @@ public class Main extends Application{
 
                 if (platforms_box.getSelectionModel().getSelectedItem() != null & FILEPATH != null) {
 
-                    if (FILEPATH != null) {
-
                     ConvertMain.start(platforms_box.getSelectionModel().getSelectedItem().toString(), operation_box.getSelectionModel().getSelectedItem().toString(), FILEPATH);
 
-                    } else {
-
-                        System.out.println("Rohdatei muss ausgewählt werden!");
-
-                    }
                 } else {
 
-
                     if (FILEPATH == null) {
-
-
                         System.out.println("Rohdatei muss ausgewählt werden!");
-
                     }
 
                     if (platforms_box.getSelectionModel().getSelectedItem() == null) {
-
-
                         System.out.println("Plattform muss ausgewählt werden!");
-
                     }
-
-
                 }
 
 
