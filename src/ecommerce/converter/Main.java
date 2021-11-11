@@ -22,6 +22,8 @@ import javafx.stage.Stage;
 import javafx.scene.layout.GridPane;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Main extends Application{
 
@@ -92,6 +94,14 @@ public class Main extends Application{
                     dropped.setText("[" + f.getName());
 
                     FILEPATH = db.getFiles().toString();
+                    String filepathdb = db.getFiles().toString();
+
+                    //Cut first and last letter
+                    FILEPATH = FILEPATH.substring(1);                           // Remove first letter
+                    FILEPATH = FILEPATH.substring(0, FILEPATH.length() - 1);    // Remove last letter
+                    //FILEPATH = FILEPATH.replace("\\", "\\\\");     // Make useable for Java
+                    FILEPATH = FILEPATH.replace("\\", "/");     // Make useable for Java
+
                     System.out.println("Filepath: " + FILEPATH);
 
 
@@ -119,14 +129,10 @@ public class Main extends Application{
         // Platform-Choice
         ObservableList<String> platformoptions =
                 FXCollections.observableArrayList(
-                        "Amazon",
-                        "Carrefour",
-                        "Conrad",
-                        "eBay",
-                        "Manomano",
                         "Real"
                 );
         final ComboBox platforms_box = new ComboBox(platformoptions);
+        platforms_box.getSelectionModel().selectFirst(); // TODO: After testing remove
 
         // "Gebühren" or "Full"-Choice
         ObservableList<String> operationoptions =
@@ -196,7 +202,17 @@ public class Main extends Application{
 
                 if (platforms_box.getSelectionModel().getSelectedItem() != null & FILEPATH != null) {
 
-                    ConvertMain.start(platforms_box.getSelectionModel().getSelectedItem().toString(), operation_box.getSelectionModel().getSelectedItem().toString(), FILEPATH);
+                    File rawfile = new File(FILEPATH);
+
+                    try {
+                        ConvertMain.start(platforms_box.getSelectionModel().getSelectedItem().toString(),
+                                operation_box.getSelectionModel().getSelectedItem().toString(),
+                                rawfile);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
                 } else {
 
@@ -214,7 +230,7 @@ public class Main extends Application{
                 //System.out.println(platforms_box.getSelectionModel().getSelectedItem());
                 //System.out.println("Konvertierung startet!");
 
-                System.out.println("----------------END-------------------");
+                System.out.println("----------------ENDE-------------------");
 
             }
         });
