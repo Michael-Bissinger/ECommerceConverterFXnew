@@ -12,7 +12,7 @@ public class ConvertMain {
         System.out.println("Operation: [" + operation + "]");
 
         DataRecorder.loadData(platform, filepath);
-        DataParser.parseData(filepath);
+        DataParser.parseData(filepath, platform);
 
 
 

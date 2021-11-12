@@ -44,8 +44,8 @@ public class Main extends Application{
 
         Label lbl_platform = new Label("Plattform:");
         lbl_platform.setTextAlignment(TextAlignment.LEFT);
-        Label lbl_newfile = new Label("Fertige Datei:");
-        lbl_newfile.setTextAlignment(TextAlignment.LEFT);
+        Label lbl_finalformat = new Label("Endformat:");
+        lbl_finalformat.setTextAlignment(TextAlignment.LEFT);
         Label lbl_operation = new Label("Operation:");
         lbl_operation.setTextAlignment(TextAlignment.LEFT);
 
@@ -142,6 +142,16 @@ public class Main extends Application{
         final ComboBox operation_box = new ComboBox(operationoptions);
         operation_box.getSelectionModel().selectFirst();
 
+        // Endformat: "DATEV-Format" or "ASCII-Mask" or"XML"
+        ObservableList<String> formatoptions =
+                FXCollections.observableArrayList(
+                        "Maske (ASCII)",
+                            "DATEV-Format (ASCII)",
+                            "XML"
+                );
+        final ComboBox format_box = new ComboBox(formatoptions);
+        //format_box.getSelectionModel().selectFirst();
+
 
 
         // Create and setup GridPane
@@ -175,8 +185,8 @@ public class Main extends Application{
         grid.add(lbl_operation, 0, 3);
         grid.add(operation_box, 1, 3);
 
-        grid.add(lbl_newfile, 0, 4);
-        grid.add(directory_newfile, 1, 4);
+        grid.add(lbl_finalformat, 0, 4);
+        grid.add(format_box, 1, 4);
 
         grid.add(btn_start, 1, 5);
 
@@ -201,7 +211,9 @@ public class Main extends Application{
 
                 System.out.println("---------------START------------------");
 
-                if (platforms_box.getSelectionModel().getSelectedItem() != null & FILEPATH != null) {
+                if (platforms_box.getSelectionModel().getSelectedItem() != null
+                        & FILEPATH != null
+                        & format_box.getSelectionModel().getSelectedItem() != null ) {
 
                     File rawfile = new File(FILEPATH);
 
@@ -223,6 +235,10 @@ public class Main extends Application{
 
                     if (platforms_box.getSelectionModel().getSelectedItem() == null) {
                         System.out.println("Plattform muss ausgewählt werden!");
+                    }
+
+                    if (format_box.getSelectionModel().getSelectedItem() == null) {
+                        System.out.println("Endformat muss ausgewählt werden!");
                     }
                 }
 
