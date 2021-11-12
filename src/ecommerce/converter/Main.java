@@ -1,5 +1,6 @@
 package ecommerce.converter;
 
+import com.opencsv.exceptions.CsvValidationException;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -225,6 +226,8 @@ public class Main extends Application{
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (CsvValidationException e) {
                         e.printStackTrace();
                     }
 

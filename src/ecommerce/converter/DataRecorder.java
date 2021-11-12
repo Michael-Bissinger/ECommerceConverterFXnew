@@ -2,14 +2,16 @@ package ecommerce.converter;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
+import com.opencsv.exceptions.CsvValidationException;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.Arrays;
 
 public class DataRecorder {
 
-    public static void loadData (String platform, File filepath_origin) throws IOException {
+    public static void loadData (String platform, File filepath_origin) throws IOException, CsvValidationException {
 
 
         //DataRecorder.copyFile(filepath_origin);
@@ -44,12 +46,6 @@ public class DataRecorder {
                 // Read data from csv file
                 getDataCSV(platform, filepath_origin);
 
-                // TODO: Get data from .csv-file
-
-                // TODO:
-
-
-                // Get data from csv
                 break;
 
             case "Rakuten":
@@ -94,19 +90,44 @@ public class DataRecorder {
     }
 
 
-    static void getDataCSV(String platform, File filepath_origin) throws IOException {
+    static void getDataCSV(String platform, File filepath_origin) throws IOException, CsvValidationException {
 
         //https://www.baeldung.com/opencsv
+        //https://www.youtube.com/watch?v=ZyjT2qYE4d4
 
-        //CSVReader reader = new CSVReader(new FileReader(filepath_origin.getAbsolutePath()));
-
-        //CSVWriter writer = new CSVWriter(new FileWriter(filepath_origin.getAbsolutePath()));
-        //System.out.println(filepath_origin.getAbsolutePath());
         //CSVReader reader = new CSVReader(new FileReader("C:/Users/Michael/Downloads/report_booking_gmu_a2760808c5c831e24673062dffc0e2516dd1a3f5600bdea140a51202eb02769a.csv"));
-        //C:/Users/Michael/Downloads/report_booking_gmu_a2760808c5c831e24673062dffc0e2516dd1a3f5600bdea140a51202eb02769a.csv
+        //CSVReader reader = new CSVReader(new FileReader("C:\\Users\\Michael\\Downloads\\report_booking_gmu_a2760808c5c831e24673062dffc0e2516dd1a3f5600bdea140a51202eb02769a.csv"));
+        //CSVReader reader = new CSVReader(new FileReader("C:\\Users\\Michael\\Desktop\\Michael\\Programmieren\\_Projekte\\File Renamer Helbling Media App\\resources\\Excel-sheets\\Test-sheet\\MediaApp_Keyboard Accompaniment.xlsx"));
+        //CSVReader reader = new CSVReader(new FileReader("C:\\Users\\Michael\\Desktop\\Michael\\Programmieren\\_Projekte\\File Renamer Helbling Media App\\resources\\Excel-sheets\\Test-sheet\\report_booking_gmu_a2760808c5c831e24673062dffc0e2516dd1a3f5600bdea140a51202eb02769a.csv"));
+        //CSVReader reader = new CSVReader(new FileReader("resources\\report_booking_gmu_a2760808c5c831e24673062dffc0e2516dd1a3f5600bdea140a51202eb02769a.csv"));
+        CSVReader reader = new CSVReader(new FileReader("report_booking_gmu_a2760808c5c831e24673062dffc0e2516dd1a3f5600bdea140a51202eb02769a.csv"));
 
 
-    //CSVWriter writer = new CSVWriter(new FileWriter(filepath_origin));
+
+        //CSVReader reader = new CSVReader(new FileReader(filepath_origin.getName()));
+
+//        try {
+//            //CSVReader reader = new CSVReader(new FileReader(filepath_origin));
+//            CSVReader reader = new CSVReader(new FileReader("Mask_ASCII_test.csv"));
+//
+//        String[] nextline;
+//        while ((nextline = reader.readNext()) != null) {
+//            if(nextline != null){
+//                System.out.println(Arrays.toString(nextline));
+//
+//            }
+//            reader.close();
+//            System.out.println("Einlesen der Daten durchgeführt!");
+//
+//
+//        }
+//        }
+//       catch (Exception e)
+//        {
+//            System.out.println("FEHLER: Fehler beim Einlesen!");
+//        }
+
+
 
         switch (platform) {
             case "Real":

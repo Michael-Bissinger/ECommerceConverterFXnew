@@ -5,5 +5,7 @@ module Converter {
 
     requires com.opencsv;
 
+    requires org.apache.commons.lang3;
+
     opens ecommerce.converter;
 }

@@ -44,8 +44,9 @@ public class DataParser {
         List<String[]> therows = new ArrayList<>();
         String[] header = new String[]{"Umsatz", "Soll-Haben", "Kontonummer", "Gegenkonto", "BU-Schlüssel", "Belegdatum", "Belegfeld 1", "Belegfeld 2", "Buchungstext", "Festschreibung"};
         therows.add(header);
-        String[] row1 = new String[]{"3,08", "H", "1469000", "70000130", "", "0101", "MUZ1S81", "Peter Test", "h.maluga@t-online.de", "0"};
-        
+
+        // Exampledata
+        String[] row1 = new String[]{"3,08", "H", "1469000", "70000130", "", "0101", "MUZ1S81", "Peter Test", "h.sdsd@t-online.de", "0"};
         therows.add(row1);
 
         writer.writeAll(therows);
