@@ -12,11 +12,44 @@ public class DataParser {
 
     public static String MANDANTENUMBER = "10754"; // Internal number in DATEV, with GmbH & Co KG change to "10755"
 
-    public static void parseData(File filepath_origin, String platform) throws IOException {
+    public static void parseData(File filepath_origin, String platform, String finalformat) throws IOException {
 
 
-        System.out.println("Data is converted!");
-        createDATEVformat(platform, filepath_origin);
+        System.out.println("Daten werden zu Format " + finalformat + " konvertiert!");
+
+        switch (finalformat) {
+            case "Maske (ASCII)":
+                createMaskASCII(platform, filepath_origin);
+                break;
+
+            case "DATEV-Format (ASCII)":
+                createDATEVformat(platform, filepath_origin);
+                break;
+
+            case "XML":
+
+            default:
+                System.out.println("FEHLER: Endformat kann nicht erstellt werden!");
+                break;
+        }
+
+
+
+
+    }
+
+    static void createMaskASCII(String platform, File filepath_origin) throws IOException {
+
+        CSVWriter writer = new CSVWriter(new FileWriter("Mask_ASCII_test.csv"),';','"', '\\',CSVWriter.DEFAULT_LINE_END);
+        List<String[]> therows = new ArrayList<>();
+        String[] header = new String[]{"Umsatz", "Soll-Haben", "Kontonummer", "Gegenkonto", "BU-Schlüssel", "Belegdatum", "Belegfeld 1", "Belegfeld 2", "Buchungstext", "Festschreibung"};
+        therows.add(header);
+        String[] row1 = new String[]{"3,08", "H", "1469000", "70000130", "", "0101", "MUZ1S81", "Peter Test", "h.maluga@t-online.de", "0"};
+        
+        therows.add(row1);
+
+        writer.writeAll(therows);
+        writer.close();
     }
 
 

@@ -150,7 +150,7 @@ public class Main extends Application{
                             "XML"
                 );
         final ComboBox format_box = new ComboBox(formatoptions);
-        //format_box.getSelectionModel().selectFirst();
+        format_box.getSelectionModel().selectFirst();
 
 
 
@@ -220,7 +220,8 @@ public class Main extends Application{
                     try {
                         ConvertMain.start(platforms_box.getSelectionModel().getSelectedItem().toString(),
                                 operation_box.getSelectionModel().getSelectedItem().toString(),
-                                rawfile);
+                                rawfile,
+                                format_box.getSelectionModel().getSelectedItem().toString());
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
