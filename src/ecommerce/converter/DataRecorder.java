@@ -61,8 +61,6 @@ public class DataRecorder {
 
 
 
-        System.out.println("Data is loaded!");
-
     }
 
     static void copyFile(String filepath_origin) {
@@ -100,32 +98,39 @@ public class DataRecorder {
         //CSVReader reader = new CSVReader(new FileReader("C:\\Users\\Michael\\Desktop\\Michael\\Programmieren\\_Projekte\\File Renamer Helbling Media App\\resources\\Excel-sheets\\Test-sheet\\MediaApp_Keyboard Accompaniment.xlsx"));
         //CSVReader reader = new CSVReader(new FileReader("C:\\Users\\Michael\\Desktop\\Michael\\Programmieren\\_Projekte\\File Renamer Helbling Media App\\resources\\Excel-sheets\\Test-sheet\\report_booking_gmu_a2760808c5c831e24673062dffc0e2516dd1a3f5600bdea140a51202eb02769a.csv"));
         //CSVReader reader = new CSVReader(new FileReader("resources\\report_booking_gmu_a2760808c5c831e24673062dffc0e2516dd1a3f5600bdea140a51202eb02769a.csv"));
-        CSVReader reader = new CSVReader(new FileReader("report_booking_gmu_a2760808c5c831e24673062dffc0e2516dd1a3f5600bdea140a51202eb02769a.csv"));
+        //CSVReader reader = new CSVReader(new FileReader("report_booking_gmu_a2760808c5c831e24673062dffc0e2516dd1a3f5600bdea140a51202eb02769a.csv"));
 
 
 
         //CSVReader reader = new CSVReader(new FileReader(filepath_origin.getName()));
 
-//        try {
-//            //CSVReader reader = new CSVReader(new FileReader(filepath_origin));
-//            CSVReader reader = new CSVReader(new FileReader("Mask_ASCII_test.csv"));
-//
-//        String[] nextline;
-//        while ((nextline = reader.readNext()) != null) {
-//            if(nextline != null){
-//                System.out.println(Arrays.toString(nextline));
-//
-//            }
-//            reader.close();
-//            System.out.println("Einlesen der Daten durchgeführt!");
-//
-//
-//        }
-//        }
-//       catch (Exception e)
-//        {
-//            System.out.println("FEHLER: Fehler beim Einlesen!");
-//        }
+
+        try {
+            //CSVReader reader = new CSVReader(new FileReader(filepath_origin));
+            CSVReader reader = new CSVReader(new FileReader("report_booking_gmu_a2760808c5c831e24673062dffc0e2516dd1a3f5600bdea140a51202eb02769a.csv"));
+
+
+        String[] nextline;
+
+        while ((nextline = reader.readNext()) != null) {
+
+
+            if(nextline != null){
+                System.out.println(Arrays.toString(nextline));
+
+           }
+
+
+        }
+
+            reader.close();
+            System.out.println("Einlesen der Daten durchgeführt!");
+
+        }
+       catch (Exception e)
+        {
+            System.out.println("FEHLER: Fehler beim Einlesen!");
+        }
 
 
 
