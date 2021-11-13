@@ -46,6 +46,7 @@ public class DataRecorder {
 
                 // Read data from csv file
                 getDataCSV(platform, filepath_origin);
+                getOtherData(platform, filepath_origin);
 
                 break;
 
@@ -89,6 +90,33 @@ public class DataRecorder {
     }
 
 
+    static void getOtherData(String platform, File filepath_origin) throws IOException, CsvValidationException {
+
+
+        //BufferedReader csvReader = new BufferedReader(new FileReader("C:\\Users\\michael.bissinger\\IdeaProjects\\IOTest\\testdatei.csv"));
+        System.out.println("Diesen Pfad nehemn: " + filepath_origin.getAbsolutePath());
+        //BufferedReader csvReader_bf = new BufferedReader(new FileReader(filepath_origin.getAbsolutePath()));
+        //geht       //BufferedReader csvReader_bf = new BufferedReader(new FileReader("C:\\Users\\michael.bissinger\\IdeaProjects\\IOTest\\testdatei.csv"));
+        //geht         //BufferedReader csvReader_bf = new BufferedReader(new FileReader("C:\\Users\\michael.bissinger\\Downloads\\report_booking_gmu_7d986ae27a0e5a822e5fae1e398e36264ca68a4d22e60367b7a6e25457de8b9b.csv"));
+
+        // ++++++++++++ GEHT ++++++++++++
+        BufferedReader csvReader_bf = new BufferedReader(new FileReader(filepath_origin));
+
+
+        String row;
+        while ((row = csvReader_bf.readLine()) != null) {
+
+            System.out.println("Buffered reader: " + csvReader_bf.readLine());
+            //String[] data = row.split(",");
+            // do something with the data
+        }
+        csvReader_bf.close();
+
+
+
+    }
+
+
     static void getDataCSV(String platform, File filepath_origin) throws IOException, CsvValidationException {
 
 
@@ -108,51 +136,36 @@ public class DataRecorder {
 
         //CSVReader reader = new CSVReader(new FileReader(filepath_origin.getName()));
 
-        //BufferedReader csvReader = new BufferedReader(new FileReader("C:\\Users\\michael.bissinger\\IdeaProjects\\IOTest\\testdatei.csv"));
-        System.out.println("Diesen Pfad nehemn: " + filepath_origin.getAbsolutePath());
-        //BufferedReader csvReader_bf = new BufferedReader(new FileReader(filepath_origin.getAbsolutePath()));
- //geht       //BufferedReader csvReader_bf = new BufferedReader(new FileReader("C:\\Users\\michael.bissinger\\IdeaProjects\\IOTest\\testdatei.csv"));
-        //geht         //BufferedReader csvReader_bf = new BufferedReader(new FileReader("C:\\Users\\michael.bissinger\\Downloads\\report_booking_gmu_7d986ae27a0e5a822e5fae1e398e36264ca68a4d22e60367b7a6e25457de8b9b.csv"));
-        BufferedReader csvReader_bf = new BufferedReader(new FileReader(filepath_origin));
+
+        // ++++++ CSV-Reader +++++++
 
 
-        String row;
-        while ((row = csvReader_bf.readLine()) != null) {
+        try {
+            //CSVReader reader = new CSVReader(new FileReader(filepath_origin));
+            //CSVReader reader = new CSVReader(new FileReader("report_booking_gmu_a2760808c5c831e24673062dffc0e2516dd1a3f5600bdea140a51202eb02769a.csv"));
+            CSVReader reader = new CSVReader(new FileReader(filepath_origin));
 
-            System.out.println(csvReader_bf.readLine());
-            //String[] data = row.split(",");
-            // do something with the data
+        String[] nextline;
+
+        while ((nextline = reader.readNext()) != null) {
+
+
+            if(nextline != null){
+                System.out.println("CSV-Reader: " +Arrays.toString(nextline));
+
+           }
+
+
         }
-        csvReader_bf.close();
 
+            reader.close();
+            System.out.println("Einlesen der Daten durchgeführt!");
 
-
-//        try {
-//            //CSVReader reader = new CSVReader(new FileReader(filepath_origin));
-//            CSVReader reader = new CSVReader(new FileReader("report_booking_gmu_a2760808c5c831e24673062dffc0e2516dd1a3f5600bdea140a51202eb02769a.csv"));
-//
-//
-//        String[] nextline;
-//
-//        while ((nextline = reader.readNext()) != null) {
-//
-//
-//            if(nextline != null){
-//                System.out.println(Arrays.toString(nextline));
-//
-//           }
-//
-//
-//        }
-//
-//            reader.close();
-//            System.out.println("Einlesen der Daten durchgeführt!");
-//
-//        }
-//       catch (Exception e)
-//        {
-//            System.out.println("FEHLER: Fehler beim Einlesen!");
-//        }
+        }
+       catch (Exception e)
+        {
+            System.out.println("FEHLER: Fehler beim Einlesen!");
+        }
 
 
         // ******************** USE ALTERNATIVE ****************
