@@ -103,7 +103,7 @@ public class Main extends Application{
                     //FILEPATH = FILEPATH.replace("\\", "\\\\");     // Make useable for Java
                     FILEPATH = FILEPATH.replace("\\", "/");     // Make useable for Java
 
-                    System.out.println("Filepath: " + FILEPATH);
+                    System.out.println("Dateipfad: " + FILEPATH);
 
 
                     // Set color on green after File is dragged/dropped

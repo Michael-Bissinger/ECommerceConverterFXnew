@@ -8,6 +8,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class DataRecorder {
 
@@ -90,6 +91,9 @@ public class DataRecorder {
 
     static void getDataCSV(String platform, File filepath_origin) throws IOException, CsvValidationException {
 
+
+
+        // *********** USE CSV-Reader Software **************
         //https://www.baeldung.com/opencsv
         //https://www.youtube.com/watch?v=ZyjT2qYE4d4
 
@@ -104,54 +108,101 @@ public class DataRecorder {
 
         //CSVReader reader = new CSVReader(new FileReader(filepath_origin.getName()));
 
-
-        try {
-            //CSVReader reader = new CSVReader(new FileReader(filepath_origin));
-            CSVReader reader = new CSVReader(new FileReader("report_booking_gmu_a2760808c5c831e24673062dffc0e2516dd1a3f5600bdea140a51202eb02769a.csv"));
-
-
-        String[] nextline;
-
-        while ((nextline = reader.readNext()) != null) {
+        //BufferedReader csvReader = new BufferedReader(new FileReader("C:\\Users\\michael.bissinger\\IdeaProjects\\IOTest\\testdatei.csv"));
+        System.out.println("Diesen Pfad nehemn: " + filepath_origin.getAbsolutePath());
+        //BufferedReader csvReader_bf = new BufferedReader(new FileReader(filepath_origin.getAbsolutePath()));
+ //geht       //BufferedReader csvReader_bf = new BufferedReader(new FileReader("C:\\Users\\michael.bissinger\\IdeaProjects\\IOTest\\testdatei.csv"));
+        //geht         //BufferedReader csvReader_bf = new BufferedReader(new FileReader("C:\\Users\\michael.bissinger\\Downloads\\report_booking_gmu_7d986ae27a0e5a822e5fae1e398e36264ca68a4d22e60367b7a6e25457de8b9b.csv"));
+        BufferedReader csvReader_bf = new BufferedReader(new FileReader(filepath_origin));
 
 
-            if(nextline != null){
-                System.out.println(Arrays.toString(nextline));
+        String row;
+        while ((row = csvReader_bf.readLine()) != null) {
 
-           }
-
-
+            System.out.println(csvReader_bf.readLine());
+            //String[] data = row.split(",");
+            // do something with the data
         }
-
-            reader.close();
-            System.out.println("Einlesen der Daten durchgeführt!");
-
-        }
-       catch (Exception e)
-        {
-            System.out.println("FEHLER: Fehler beim Einlesen!");
-        }
+        csvReader_bf.close();
 
 
 
-        switch (platform) {
-            case "Real":
+//        try {
+//            //CSVReader reader = new CSVReader(new FileReader(filepath_origin));
+//            CSVReader reader = new CSVReader(new FileReader("report_booking_gmu_a2760808c5c831e24673062dffc0e2516dd1a3f5600bdea140a51202eb02769a.csv"));
+//
+//
+//        String[] nextline;
+//
+//        while ((nextline = reader.readNext()) != null) {
+//
+//
+//            if(nextline != null){
+//                System.out.println(Arrays.toString(nextline));
+//
+//           }
+//
+//
+//        }
+//
+//            reader.close();
+//            System.out.println("Einlesen der Daten durchgeführt!");
+//
+//        }
+//       catch (Exception e)
+//        {
+//            System.out.println("FEHLER: Fehler beim Einlesen!");
+//        }
+
+
+        // ******************** USE ALTERNATIVE ****************
+        //https://www.youtube.com/watch?v=-Aud0cDh-J8
+
+        String line = "";
 
 
 
+        //Scanner scan = new Scanner("C:\\Users\\Michael\\Desktop\\Musik\\report_booking_gmu_a2760808c5c831e24673062dffc0e2516dd1a3f5600bdea140a51202eb02769a - Kopie.csv");
+//        Scanner scan = new Scanner("C:\\Users\\michael.bissinger\\Downloads\\report_booking_gmu_a2760808c5c831e24673062dffc0e2516dd1a3f5600bdea140a51202eb02769a.csv");
+//
+//
+//        String linex;
+//
+//        while(scan.hasNextLine()) {
+//            linex = scan.nextLine();
+//            System.out.println(linex);
+//        }
+//
+//        scan.close();
+//
 
-
-                break;
-
-
-
-            default:
-                System.out.println("Plattform kann nicht gelesen werden");
-                break;
-        }
-
-
-
-    }
+//        try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Michael\\Desktop\\Musik\\report_booking_gmu_a2760808c5c831e24673062dffc0e2516dd1a3f5600bdea140a51202eb02769a - Kopie.csv"))) {
+//
+//            //try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Michael\\Downloads\\report_booking_gmu_a2760808c5c831e24673062dffc0e2516dd1a3f5600bdea140a51202eb02769a.csv"))) {
+//
+//            System.out.println("File gefunden!");
+//            if ((line = br.readLine()) == null) {
+//                System.out.println("Ist null");
+//
+//
+//
+//            }
+//
+//            while ((line = br.readLine()) != null) {
+//                System.out.println(line);
+//
+//
+//
+//            }
+//
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//            System.out.println("File nicht da");
+//        }
+//
+//
+//
+//
+   }
 
 }
