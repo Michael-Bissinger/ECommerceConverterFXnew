@@ -211,42 +211,55 @@ public class DataRecorder {
     int rows = 0;
 
         try {
-            //CSVReader reader = new CSVReader(new FileReader(filepath_origin));
-            //CSVReader reader = new CSVReader(new FileReader("report_booking_gmu_a2760808c5c831e24673062dffc0e2516dd1a3f5600bdea140a51202eb02769a.csv"));
             CSVReader reader = new CSVReader(new FileReader(filepath_origin));
-
             String[] nextline;
-
-
 
         while ((nextline = reader.readNext()) != null) {
 
-
             if(nextline != null){
-                System.out.println("CSV-Reader: " +Arrays.toString(nextline));
+                //System.out.println("CSV-Reader: " +Arrays.toString(nextline));
                 rows++;
-                System.out.println(rows + " Reihen gezählt");
-
+                //System.out.println(rows + " Reihen gezählt");
             }
-
-
         }
 
         reader.close();
-        System.out.println("Anzahl Reihen: " + rows);
 
     }
        catch (Exception e)
     {
-        System.out.println("FEHLER: Fehler beim Einlesen!");
+        System.out.println("FEHLER: Fehler beim Einlesen der Zeoöem!");
     }
-
+        System.out.println("-------------------");
         System.out.println(" Rohdatei enthält " + rows + " Zeilen.");
+        System.out.println("-------------------");
     return rows;
     }
 
     static int getCSVColumns(File filepath_origin) {
         int columns = 1;
+        int rows = 1;
+
+        try {
+            CSVReader reader = new CSVReader(new FileReader(filepath_origin));
+            String[] nextline;
+
+            System.out.println("Anzahl Comluns: " + reader.readNext().length);
+            //final long count = Arrays.stream(reader.readNext()).count();
+            //final long linesRead = reader.getLinesRead();
+            System.out.println(reader.readNext());
+
+            String[] columnitems = reader.readNext();
+            System.out.println("Anzahl Comluns: " + columnitems.length);
+
+
+        }
+        catch (Exception e)
+        {
+            System.out.println("FEHLER: Fehler beim Einlesen!");
+        }
+
+
 
         return columns;
     }
