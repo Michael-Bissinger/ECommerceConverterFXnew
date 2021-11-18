@@ -15,6 +15,7 @@ public class ConvertMain {
         System.out.println("Endformat: [" + finalformat + "]");
 
         DataRecorder.loadData(platform, filepath);
+        DataExtractor.extractData(operation);
         DataParser.parseData(filepath, platform, finalformat);
 
 
