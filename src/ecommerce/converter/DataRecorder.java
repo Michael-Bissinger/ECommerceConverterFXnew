@@ -134,12 +134,27 @@ public class DataRecorder {
 
             if(nextline != null){
                 System.out.println("CSV-Reader: " + Arrays.toString(nextline));
-                Daten[current_line] [0] = Arrays.toString(nextline);
+                //String content_current_line = Arrays.toString(nextline);
+                    //System.out.println("Content: " + content_current_line);
 
-                System.out.println("Das wurde in Position " + current_line + " gespeichert: " + Daten[current_line][0]);
+                //https://www.java67.com/2017/09/how-to-convert-comma-separated-string-to-ArrayList-in-java-example.html
+                String[] elements = Arrays.toString(nextline).split(";");
+                //System.out.println("String Einzelelement:" + elements[1]);
+                System.out.println("Anzahl Reihen: " + elements.length);
+                for(int row_data = 0; row_data < elements.length; row_data++)
+                {
+                    System.out.println(" Speichere Array-Itemnummer :" + elements[row_data]);
+                    //Daten[current_line] [row_data] = Arrays.toString(nextline);
+                    Daten[current_line] [row_data] = elements[row_data];
+                }
+
+                //Daten[current_line] [0] = Arrays.toString(nextline);
+
+
 
 
            }
+            System.out.println("Das wurde in Position " + current_line + " gespeichert: " + Daten[current_line][0]);
             current_line++;
 
 
@@ -221,9 +236,55 @@ public class DataRecorder {
         int columns = 1;
         int rows = 1;
 
+
+        String[] nextline;
+
+
+
+
+        //    List<String[]> lines = reader.readAll();
+
+
         try {
             CSVReader reader2 = new CSVReader(new FileReader(filepath_origin));
-            String[] nextline;
+            String[] nextline_rows;
+
+
+        while ((nextline_rows = reader2.readNext()) != null) {
+
+
+            //if(nextline_rows != null){
+
+                //https://www.java67.com/2017/09/how-to-convert-comma-separated-string-to-ArrayList-in-java-example.html
+                String[] elements_rows = Arrays.toString(nextline_rows).split(";");
+                //System.out.println("String Einzelelement:" + elements[1]);
+                //System.out.println("Anzahl Reihen: " + elements_rows.length);
+                rows = elements_rows.length;
+
+
+
+
+            //}
+           // System.out.println("Das wurde in Position " + current_line + " gespeichert: " + Daten[current_line][0]);
+
+
+
+        }
+
+        reader2.close();
+        System.out.println("Einlesen der Daten durchgeführt!");
+
+    }
+       catch (Exception e)
+    {
+        System.out.println("FEHLER: Fehler beim Einlesen in getCSVRows!");
+    }
+
+
+
+//        try {
+//            CSVReader reader2 = new CSVReader(new FileReader(filepath_origin));
+//            String[] nextline;
 
 //            //https://stackoverflow.com/questions/18055889/extract-data-from-csv-file-and-put-to-2d-array-refactoring/18056210
 //            List<String[]> lines = reader.readAll();
@@ -264,14 +325,19 @@ public class DataRecorder {
 //            System.out.println("Anzahl Comluns: " + columnitems.length);
 
 
-        }
-        catch (Exception e)
-        {
-            System.out.println("FEHLER: Fehler beim Einlesen in getCSVColumns!");
-        }
+ //       }
+ //       catch (Exception e)
+ //       {
+ //           System.out.println("FEHLER: Fehler beim Einlesen in getCSVColumns!");
+ //       }
 
 
-        rows = 49;
+        //rows = 49;
+
+        System.out.println("-------------------");
+        System.out.println("Rohdatei enthält " + rows + " Reihen.");
+        System.out.println("-------------------");
+
         return rows;
     }
 
