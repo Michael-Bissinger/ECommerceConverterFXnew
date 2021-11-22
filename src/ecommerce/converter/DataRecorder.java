@@ -1,14 +1,12 @@
 package ecommerce.converter;
 
-import com.opencsv.CSVReader;
-import com.opencsv.CSVWriter;
+import com.opencsv.*;
 import com.opencsv.exceptions.CsvValidationException;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
-import java.util.Scanner;
+import java.util.List;
 
 public class DataRecorder {
 
@@ -103,18 +101,6 @@ public class DataRecorder {
         //https://www.baeldung.com/opencsv
         //https://www.youtube.com/watch?v=ZyjT2qYE4d4
 
-        //CSVReader reader = new CSVReader(new FileReader("C:/Users/Michael/Downloads/report_booking_gmu_a2760808c5c831e24673062dffc0e2516dd1a3f5600bdea140a51202eb02769a.csv"));
-        //CSVReader reader = new CSVReader(new FileReader("C:\\Users\\Michael\\Downloads\\report_booking_gmu_a2760808c5c831e24673062dffc0e2516dd1a3f5600bdea140a51202eb02769a.csv"));
-        //CSVReader reader = new CSVReader(new FileReader("C:\\Users\\Michael\\Desktop\\Michael\\Programmieren\\_Projekte\\File Renamer Helbling Media App\\resources\\Excel-sheets\\Test-sheet\\MediaApp_Keyboard Accompaniment.xlsx"));
-        //CSVReader reader = new CSVReader(new FileReader("C:\\Users\\Michael\\Desktop\\Michael\\Programmieren\\_Projekte\\File Renamer Helbling Media App\\resources\\Excel-sheets\\Test-sheet\\report_booking_gmu_a2760808c5c831e24673062dffc0e2516dd1a3f5600bdea140a51202eb02769a.csv"));
-        //CSVReader reader = new CSVReader(new FileReader("resources\\report_booking_gmu_a2760808c5c831e24673062dffc0e2516dd1a3f5600bdea140a51202eb02769a.csv"));
-        //CSVReader reader = new CSVReader(new FileReader("report_booking_gmu_a2760808c5c831e24673062dffc0e2516dd1a3f5600bdea140a51202eb02769a.csv"));
-
-
-
-        //CSVReader reader = new CSVReader(new FileReader(filepath_origin.getName()));
-
-
         // ++++++ CSV-Reader +++++++
 
 
@@ -135,14 +121,26 @@ public class DataRecorder {
         // Ergebnis
         String [] [] Daten = new String [columns_number] [row_number];
 
-        while ((nextline = reader.readNext()) != null) {
 
+
+    //    List<String[]> lines = reader.readAll();
+
+
+
+
+        Integer current_line = 0;
+        while ((nextline = reader.readNext()) != null) {
+            System.out.println("Aktuell bei Reihe: " + current_line);
 
             if(nextline != null){
-                System.out.println("CSV-Reader: " +Arrays.toString(nextline));
+                System.out.println("CSV-Reader: " + Arrays.toString(nextline));
+                Daten[current_line] [0] = Arrays.toString(nextline);
+
+                System.out.println("Das wurde in Position " + current_line + " gespeichert: " + Daten[current_line][0]);
 
 
            }
+            current_line++;
 
 
         }
@@ -153,18 +151,142 @@ public class DataRecorder {
         }
        catch (Exception e)
         {
-            System.out.println("FEHLER: Fehler beim Einlesen!");
+            System.out.println("FEHLER: Fehler beim Einlesen in getDataCSV!");
         }
 
 
-        // ******************** USE ALTERNATIVE ****************
-        //https://www.youtube.com/watch?v=-Aud0cDh-J8
+        //https://zetcode.com/java/opencsv/
 
-        String line = "";
+//        //var fileName = "src/main/resources/numbers.csv";
+//        var fileName = filepath_origin;
+//        Path myPath = Paths.get(String.valueOf(fileName));
+//
+//        CSVParser parser = new CSVParserBuilder().withSeparator('|').build();
+//
+//        try (var br = Files.newBufferedReader(myPath,  StandardCharsets.UTF_8);
+//             var reader = new CSVReaderBuilder(br).withCSVParser(parser)
+//                     .build()) {
+//
+//            //List<String[]> rows = reader.readAll();
+//            List<String[]> rows = reader.readNext();
+//
+//
+//
+//            for (String[] row : rows) {
+//
+//                for (String e : row) {
+//                    System.out.println("Reihe:" + e);
+//                    System.out.format("%s ", e);
+//                }
+//
+//                System.out.println();
+//           }
+//        } catch (CsvException e) {
+//            e.printStackTrace();
+//        }
+
+
+    }
+
+    static int getCSVColumns(File filepath_origin) {
+    int columns = 0;
+
+        try {
+            CSVReader reader = new CSVReader(new FileReader(filepath_origin));
+            String[] nextline;
+
+        while ((nextline = reader.readNext()) != null) {
+
+            if(nextline != null){
+                //System.out.println("CSV-Reader: " +Arrays.toString(nextline));
+                columns++;
+                //System.out.println(rows + " Reihen gezählt");
+            }
+        }
+
+        reader.close();
+
+    }
+       catch (Exception e)
+    {
+        System.out.println("FEHLER: Fehler beim Einlesen der Zeoöem!");
+    }
+        System.out.println("-------------------");
+        System.out.println("Rohdatei enthält " + columns + " Zeilen.");
+        System.out.println("-------------------");
+    return columns;
+    }
+
+    static int getCSVRows(File filepath_origin) {
+        int columns = 1;
+        int rows = 1;
+
+        try {
+            CSVReader reader2 = new CSVReader(new FileReader(filepath_origin));
+            String[] nextline;
+
+//            //https://stackoverflow.com/questions/18055889/extract-data-from-csv-file-and-put-to-2d-array-refactoring/18056210
+//            List<String[]> lines = reader.readAll();
+//            lines.toArray(new String[lines.size()][]);
+//            //lines.size();
+//            System.out.println("!!!!!!!!!!!!!!!ANZAHL: "+lines.size());
+
+
+            // ******* //
+//            String[] lines = reader.readNext();
+//            System.out.println("!!!!!LINES: " + lines.toString());
+
+            //String[] lines2 = reader.readNext();
+  //          List<String[]> lines = reader2.readAll();
+            //lines.toArray(new String[lines.size()][]);
+            //System.out.println("!!!!!LINES: " + lines.get(0).toString());
+
+
+            //List<String> elephantList = Arrays.asList(str.split(","));
+            //List<String> elephantList = Arrays.asList(str.split(","));
+
+            //String listString = String.join(", ", (CharSequence) lines);
+            //System.out.println("!!!! LIST STRING: " + listString);
+
+
+    //        String listString = String.join(", ", (CharSequence) lines);
+    //        System.out.println(listString);
+
+
+            // ******* //
+
+//            System.out.println("Anzahl Comluns: " + reader2.readNext().length);
+            //final long count = Arrays.stream(reader.readNext()).count();
+            //final long linesRead = reader.getLinesRead();
+//            System.out.println(reader2.readNext());
+
+//            String[] columnitems = reader.readNext();
+//            System.out.println("Anzahl Comluns: " + columnitems.length);
+
+
+        }
+        catch (Exception e)
+        {
+            System.out.println("FEHLER: Fehler beim Einlesen in getCSVColumns!");
+        }
+
+
+        rows = 49;
+        return rows;
+    }
+
+
+    }
+
+
+// ******************** USE ALTERNATIVE ****************
+//https://www.youtube.com/watch?v=-Aud0cDh-J8
+
+//String line = "";
 
 
 
-        //Scanner scan = new Scanner("C:\\Users\\Michael\\Desktop\\Musik\\report_booking_gmu_a2760808c5c831e24673062dffc0e2516dd1a3f5600bdea140a51202eb02769a - Kopie.csv");
+//Scanner scan = new Scanner("C:\\Users\\Michael\\Desktop\\Musik\\report_booking_gmu_a2760808c5c831e24673062dffc0e2516dd1a3f5600bdea140a51202eb02769a - Kopie.csv");
 //        Scanner scan = new Scanner("C:\\Users\\michael.bissinger\\Downloads\\report_booking_gmu_a2760808c5c831e24673062dffc0e2516dd1a3f5600bdea140a51202eb02769a.csv");
 //
 //
@@ -205,64 +327,3 @@ public class DataRecorder {
 //
 //
 //
-   }
-
-    static int getCSVRows(File filepath_origin) {
-    int rows = 0;
-
-        try {
-            CSVReader reader = new CSVReader(new FileReader(filepath_origin));
-            String[] nextline;
-
-        while ((nextline = reader.readNext()) != null) {
-
-            if(nextline != null){
-                //System.out.println("CSV-Reader: " +Arrays.toString(nextline));
-                rows++;
-                //System.out.println(rows + " Reihen gezählt");
-            }
-        }
-
-        reader.close();
-
-    }
-       catch (Exception e)
-    {
-        System.out.println("FEHLER: Fehler beim Einlesen der Zeoöem!");
-    }
-        System.out.println("-------------------");
-        System.out.println(" Rohdatei enthält " + rows + " Zeilen.");
-        System.out.println("-------------------");
-    return rows;
-    }
-
-    static int getCSVColumns(File filepath_origin) {
-        int columns = 1;
-        int rows = 1;
-
-        try {
-            CSVReader reader = new CSVReader(new FileReader(filepath_origin));
-            String[] nextline;
-
-            System.out.println("Anzahl Comluns: " + reader.readNext().length);
-            //final long count = Arrays.stream(reader.readNext()).count();
-            //final long linesRead = reader.getLinesRead();
-            System.out.println(reader.readNext());
-
-            String[] columnitems = reader.readNext();
-            System.out.println("Anzahl Comluns: " + columnitems.length);
-
-
-        }
-        catch (Exception e)
-        {
-            System.out.println("FEHLER: Fehler beim Einlesen!");
-        }
-
-
-
-        return columns;
-    }
-
-
-    }
