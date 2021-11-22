@@ -16,10 +16,6 @@ public class DataRecorder {
         int row_number = 0;
         int columns_number = 0;
 
-
-
-
-
         switch (platform) {
             case "Alltricks":
 
@@ -53,11 +49,6 @@ public class DataRecorder {
                 // count columns and rows
                 row_number = getCSVRows(filepath_origin);
                 columns_number = getCSVColumns(filepath_origin);
-
-
-                //getDataCSV(platform, filepath_origin);
-
-
                 break;
 
             case "Rakuten":
@@ -104,13 +95,8 @@ public class DataRecorder {
             case "Otto":
 
             case "Real":
-
-
                 // Get data from csv file
                 Daten = getDataCSV(platform, filepath_origin, row_number, columns_number);
-
-                //getDataCSV(platform, filepath_origin);
-
 
                 break;
 
@@ -124,14 +110,6 @@ public class DataRecorder {
                 System.out.println("Plattform ist nicht verfügbar");
                 break;
         }
-
-
-
-
-
-
-
-
 
 
         return Daten;
@@ -173,11 +151,6 @@ public class DataRecorder {
         //https://www.baeldung.com/opencsv
         //https://www.youtube.com/watch?v=ZyjT2qYE4d4
 
-
-        // count columns and rows
-        //int row_number = getCSVRows(filepath_origin);
-        //int columns_number = getCSVColumns(filepath_origin);
-
         // Ergebnis
         String [] [] CSV_Daten = new String [columns_number] [row_number];
 
@@ -185,7 +158,6 @@ public class DataRecorder {
             CSVReader reader = new CSVReader(new FileReader(filepath_origin));
 
         String[] nextline;
-
 
 
         Integer current_line = 0;
@@ -216,16 +188,13 @@ public class DataRecorder {
                     }
                     System.out.println("Speichere Array-Itemnummer: " + current_line + "/" + row_data + " gespeichert: " + CSV_Daten[current_line][row_data]);
 
-
                 }
 
-                //Daten[current_line] [0] = Arrays.toString(nextline);
 
            }
             //System.out.println("Das wurde in Position " + current_line + " gespeichert: " + Daten[current_line][0]);
             current_line++;
             System.out.println("+++++++++++++++++++++++");
-
 
         }
 
@@ -239,38 +208,6 @@ public class DataRecorder {
         }
 
         return CSV_Daten;
-
-
-        //https://zetcode.com/java/opencsv/
-
-//        //var fileName = "src/main/resources/numbers.csv";
-//        var fileName = filepath_origin;
-//        Path myPath = Paths.get(String.valueOf(fileName));
-//
-//        CSVParser parser = new CSVParserBuilder().withSeparator('|').build();
-//
-//        try (var br = Files.newBufferedReader(myPath,  StandardCharsets.UTF_8);
-//             var reader = new CSVReaderBuilder(br).withCSVParser(parser)
-//                     .build()) {
-//
-//            //List<String[]> rows = reader.readAll();
-//            List<String[]> rows = reader.readNext();
-//
-//
-//
-//            for (String[] row : rows) {
-//
-//                for (String e : row) {
-//                    System.out.println("Reihe:" + e);
-//                    System.out.format("%s ", e);
-//                }
-//
-//                System.out.println();
-//           }
-//        } catch (CsvException e) {
-//            e.printStackTrace();
-//        }
-
 
     }
 
