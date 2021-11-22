@@ -95,24 +95,14 @@ public class DataRecorder {
 
     static void getDataCSV(String platform, File filepath_origin) throws IOException, CsvValidationException {
 
-
-
         // *********** USE CSV-Reader Software **************
         //https://www.baeldung.com/opencsv
         //https://www.youtube.com/watch?v=ZyjT2qYE4d4
 
-        // ++++++ CSV-Reader +++++++
-
-
         try {
-            //CSVReader reader = new CSVReader(new FileReader(filepath_origin));
-            //CSVReader reader = new CSVReader(new FileReader("report_booking_gmu_a2760808c5c831e24673062dffc0e2516dd1a3f5600bdea140a51202eb02769a.csv"));
             CSVReader reader = new CSVReader(new FileReader(filepath_origin));
 
         String[] nextline;
-
-        // Ergebnis
-        // String [] [] Daten = new String [] [];
 
         // count columns and rows
         int row_number = getCSVRows(filepath_origin);
@@ -121,41 +111,43 @@ public class DataRecorder {
         // Ergebnis
         String [] [] Daten = new String [columns_number] [row_number];
 
-
-
-    //    List<String[]> lines = reader.readAll();
-
-
-
-
         Integer current_line = 0;
         while ((nextline = reader.readNext()) != null) {
             System.out.println("Aktuell bei Reihe: " + current_line);
 
             if(nextline != null){
                 System.out.println("CSV-Reader: " + Arrays.toString(nextline));
-                //String content_current_line = Arrays.toString(nextline);
-                    //System.out.println("Content: " + content_current_line);
 
                 //https://www.java67.com/2017/09/how-to-convert-comma-separated-string-to-ArrayList-in-java-example.html
                 String[] elements = Arrays.toString(nextline).split(";");
-                //System.out.println("String Einzelelement:" + elements[1]);
                 System.out.println("Anzahl Reihen: " + elements.length);
+
                 for(int row_data = 0; row_data < elements.length; row_data++)
                 {
-                    System.out.println(" Speichere Array-Itemnummer :" + elements[row_data]);
-                    //Daten[current_line] [row_data] = Arrays.toString(nextline);
-                    Daten[current_line] [row_data] = elements[row_data];
+
+                    //System.out.println("Speichere Array-Itemnummer :" + elements[row_data]);
+                    if (row_data == 0) {
+                        //System.out.println("Erste Zeile");
+                        Daten[current_line] [row_data] = elements[row_data].substring(1); // Delete "[" at first one
+                    } else if ((row_data+1 == elements.length)) {
+                        System.out.println("Ende entdeckt!");
+                        Daten[current_line] [row_data] = elements[row_data].substring(0, elements[row_data].length() - 1); // Delete "]" at last one
+                    }
+                    else {
+                        //Daten[current_line] [row_data] = Arrays.toString(nextline);
+                        Daten[current_line] [row_data] = elements[row_data];
+                    }
+                    System.out.println("Speichere Array-Itemnummer: " + current_line + "/" + row_data + " gespeichert: " + Daten[current_line][row_data]);
+
+
                 }
 
                 //Daten[current_line] [0] = Arrays.toString(nextline);
 
-
-
-
            }
-            System.out.println("Das wurde in Position " + current_line + " gespeichert: " + Daten[current_line][0]);
+            //System.out.println("Das wurde in Position " + current_line + " gespeichert: " + Daten[current_line][0]);
             current_line++;
+            System.out.println("+++++++++++++++++++++++");
 
 
         }
