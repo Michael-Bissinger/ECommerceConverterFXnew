@@ -10,15 +10,23 @@ import java.util.List;
 
 public class DataRecorder {
 
-    public static void loadData (String platform, File filepath_origin) throws IOException, CsvValidationException {
+    public static String [] [] loadData (String platform, File filepath_origin) throws IOException, CsvValidationException {
 
 
-        //DataRecorder.copyFile(filepath_origin);
+        int row_number = 0;
+        int columns_number = 0;
+
+
+
+
 
         switch (platform) {
             case "Alltricks":
 
             case "Amazon":
+
+                getOtherData(platform, filepath_origin);
+                break;
 
             case "Carrefour":
                 break;
@@ -42,9 +50,67 @@ public class DataRecorder {
 
             case "Real":
 
-                // Read data from csv file
-                getDataCSV(platform, filepath_origin);
+                // count columns and rows
+                row_number = getCSVRows(filepath_origin);
+                columns_number = getCSVColumns(filepath_origin);
+
+
+                //getDataCSV(platform, filepath_origin);
+
+
+                break;
+
+            case "Rakuten":
+
+            case "Saturn":
+
+            case "Völkner":
+
+            default:
+                System.out.println("Plattform ist nicht verfügbar");
+                break;
+        }
+
+
+        String [] [] Daten = new String [columns_number] [row_number];
+
+
+        switch (platform) {
+            case "Alltricks":
+
+            case "Amazon":
+
                 getOtherData(platform, filepath_origin);
+                break;
+
+            case "Carrefour":
+                break;
+            case "Conrad":
+                break;
+            case "Crowdfox":
+
+            case "eBay":
+                break;
+            case "Manomano":
+
+            case "MediaMarkt":
+
+            case "Mercateo":
+
+            case "Metro":
+
+            case "Mivo":
+
+            case "Otto":
+
+            case "Real":
+
+
+                // Get data from csv file
+                Daten = getDataCSV(platform, filepath_origin, row_number, columns_number);
+
+                //getDataCSV(platform, filepath_origin);
+
 
                 break;
 
@@ -61,6 +127,14 @@ public class DataRecorder {
 
 
 
+
+
+
+
+
+
+
+        return Daten;
     }
 
 
@@ -93,23 +167,26 @@ public class DataRecorder {
     }
 
 
-    static void getDataCSV(String platform, File filepath_origin) throws IOException, CsvValidationException {
+    static String [] [] getDataCSV(String platform, File filepath_origin, int row_number, int columns_number) throws IOException, CsvValidationException {
 
         // *********** USE CSV-Reader Software **************
         //https://www.baeldung.com/opencsv
         //https://www.youtube.com/watch?v=ZyjT2qYE4d4
+
+
+        // count columns and rows
+        //int row_number = getCSVRows(filepath_origin);
+        //int columns_number = getCSVColumns(filepath_origin);
+
+        // Ergebnis
+        String [] [] CSV_Daten = new String [columns_number] [row_number];
 
         try {
             CSVReader reader = new CSVReader(new FileReader(filepath_origin));
 
         String[] nextline;
 
-        // count columns and rows
-        int row_number = getCSVRows(filepath_origin);
-        int columns_number = getCSVColumns(filepath_origin);
 
-        // Ergebnis
-        String [] [] Daten = new String [columns_number] [row_number];
 
         Integer current_line = 0;
         while ((nextline = reader.readNext()) != null) {
@@ -128,16 +205,16 @@ public class DataRecorder {
                     //System.out.println("Speichere Array-Itemnummer :" + elements[row_data]);
                     if (row_data == 0) {
                         //System.out.println("Erste Zeile");
-                        Daten[current_line] [row_data] = elements[row_data].substring(1); // Delete "[" at first one
+                        CSV_Daten[current_line] [row_data] = elements[row_data].substring(1); // Delete "[" at first one
                     } else if ((row_data+1 == elements.length)) {
                         System.out.println("Ende entdeckt!");
-                        Daten[current_line] [row_data] = elements[row_data].substring(0, elements[row_data].length() - 1); // Delete "]" at last one
+                        CSV_Daten[current_line] [row_data] = elements[row_data].substring(0, elements[row_data].length() - 1); // Delete "]" at last one
                     }
                     else {
                         //Daten[current_line] [row_data] = Arrays.toString(nextline);
-                        Daten[current_line] [row_data] = elements[row_data];
+                        CSV_Daten[current_line] [row_data] = elements[row_data];
                     }
-                    System.out.println("Speichere Array-Itemnummer: " + current_line + "/" + row_data + " gespeichert: " + Daten[current_line][row_data]);
+                    System.out.println("Speichere Array-Itemnummer: " + current_line + "/" + row_data + " gespeichert: " + CSV_Daten[current_line][row_data]);
 
 
                 }
@@ -160,6 +237,8 @@ public class DataRecorder {
         {
             System.out.println("FEHLER: Fehler beim Einlesen in getDataCSV!");
         }
+
+        return CSV_Daten;
 
 
         //https://zetcode.com/java/opencsv/
@@ -219,22 +298,18 @@ public class DataRecorder {
         System.out.println("FEHLER: Fehler beim Einlesen der Zeoöem!");
     }
         System.out.println("-------------------");
-        System.out.println("Rohdatei enthält " + columns + " Zeilen.");
+        System.out.println("Rohdatei enthält " + columns + " Spalten.");
         System.out.println("-------------------");
     return columns;
     }
 
     static int getCSVRows(File filepath_origin) {
-        int columns = 1;
+
         int rows = 1;
 
 
         String[] nextline;
 
-
-
-
-        //    List<String[]> lines = reader.readAll();
 
 
         try {

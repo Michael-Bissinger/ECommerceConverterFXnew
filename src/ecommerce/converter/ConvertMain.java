@@ -14,7 +14,12 @@ public class ConvertMain {
         System.out.println("Operation: [" + operation + "]");
         System.out.println("Endformat: [" + finalformat + "]");
 
-        DataRecorder.loadData(platform, filepath);
+
+        String [] [] Daten = DataRecorder.loadData(platform, filepath);
+        System.out.println("+++++++++++");
+        System.out.println("Daten aus CSV importiert");
+        System.out.println("+++++++++++");
+
         DataExtractor.extractData(operation);
         DataParser.parseData(filepath, platform, finalformat);
 
