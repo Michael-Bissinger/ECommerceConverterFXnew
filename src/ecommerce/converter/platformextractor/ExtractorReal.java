@@ -1,7 +1,5 @@
 package ecommerce.converter.platformextractor;
 
-import ecommerce.converter.DataRecorder;
-
 import java.util.Arrays;
 
 public class ExtractorReal {
@@ -18,6 +16,10 @@ public class ExtractorReal {
             "buyer.email",
             "billing.first_name",
             "billing.last_name"}; // Relevante Items zur Berechnung
+
+    private static String[] GEBUEHRENARTEN = {
+            "Bezahlung Zusatzleistungen",
+            "Freigabe Verkaufserlös"}; // Mögliche Gebührenarten bei "Real"
 
     public static void extractRealData(String operation, String[][] daten_original, int rows, int columns) {
 
@@ -62,21 +64,35 @@ public class ExtractorReal {
 
             String[] zeile_aktuell = new String[columns];
 
-            for(int j=0; j<daten_original[i].length; j++) {
+            for(int j=0; j<columns; j++) {
                 //System.out.println("Values at arr["+i+"]["+j+"] is "+daten_original[i][j]);
 
                 zeile_aktuell[j] = daten_original[i][j];
 
-                System.out.println(j +" mal iteriert");
+                System.out.println("Über Zeile " + j +" iteriert");
 
-
-                System.out.println("Column: " +columns);
-                System.out.println("Rows: " +rows);
 
 
 
             }
             System.out.println("Alle gesammelten Ergebnisse lauten: " + Arrays.toString(zeile_aktuell));
+
+            String art_gebuehr = chooseFeeType(zeile_aktuell, positionen);
+
+            switch (art_gebuehr) {
+                case "Bezahlung Zusatzleistungen":
+
+                    break;
+                case "Freigabe Verkaufserlös":
+
+                    break;
+
+                default:
+                    System.out.println("Gebührenart nicht gefunden!");
+                    break;
+            }
+
+
             // Bestimmen welche Art von Gebühr es ist
             // An entsprechender Position von "booking text" erkennbar
             // 3 Möglichkeiten: Bezahlung Zusatzleistungen / Freigabe Verkaufserlös / Auszahlung
@@ -94,6 +110,56 @@ public class ExtractorReal {
         return daten_final;
 
     }
+
+    private static String chooseFeeType(String[] datenzeile, String[][] positionen) {
+
+        String gebuehrtyp = new String();
+        String bookingtext = new String();
+
+
+        String carName = "booking_text";// insert code here
+        for (int i=0;i<positionen.length;i++) {
+            if (positionen[i][0].equals(carName)) {
+
+                System.out.println("Array-Position von: " + carName + ": " + i);
+
+                bookingtext = datenzeile[i];
+
+                break;
+            }
+        }
+
+
+        System.out.println("bookingtext: " +bookingtext);
+
+
+        // Check fee
+
+        //https://stackoverflow.com/questions/5091057/how-to-find-a-whole-word-in-a-string-in-java
+
+
+        //"Bezahlung Zusatzleistungen",
+        //        "Freigabe Verkaufserlös"
+
+        for (int i=0;i<GEBUEHRENARTEN.length;i++) {
+
+            System.out.println("Suche nach " + GEBUEHRENARTEN[i]);
+
+            //https://stackoverflow.com/questions/5091057/how-to-find-a-whole-word-in-a-string-in-java
+            if (bookingtext.contains(GEBUEHRENARTEN[i])) {
+                //System.out.println("TREFFFFFFFFFFFFFER!");
+                gebuehrtyp = GEBUEHRENARTEN[i];
+            } else {
+                //System.out.println("Kein Treffer");
+            }
+
+        }
+
+        System.out.println("Gebürtyp final ist: " + gebuehrtyp);
+
+        return gebuehrtyp;
+    }
+
 
     private static String[][] findRelevantPositions(String[][] daten_original, int columns) {
 
@@ -128,6 +194,9 @@ public class ExtractorReal {
         return items_position;
 
     }
+
+
+
 
 
 }
