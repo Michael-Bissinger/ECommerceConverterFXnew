@@ -21,6 +21,10 @@ public class ExtractorReal {
             "Bezahlung Zusatzleistungen",
             "Freigabe Verkaufserlös"}; // Mögliche Gebührenarten bei "Real"
 
+
+
+
+
     public static void extractRealData(String operation, String[][] daten_original, int rows, int columns) {
 
         //String [] [] daten_fertig = new String [columns_number] [row_number];
@@ -60,7 +64,7 @@ public class ExtractorReal {
 
         // Zeile einlesen
         //https://stackoverflow.com/questions/25798958/iterate-through-2-dimensional-array
-        for(int i=0; i<daten_original.length; i++) {
+        for(int i=1; i<rows; i++) { // Bei "i = 1" beginnen, damit oberste Zeile nicht mitgenommen wird
 
             String[] zeile_aktuell = new String[columns];
 
@@ -77,7 +81,10 @@ public class ExtractorReal {
             }
             System.out.println("Alle gesammelten Ergebnisse lauten: " + Arrays.toString(zeile_aktuell));
 
+            // Bestimmen welche Art von Gebühr es ist
             String art_gebuehr = chooseFeeType(zeile_aktuell, positionen);
+
+            // Zeile zur Berechnung von Gebühr an entsprechende Methode übergeben (jede Gebührenart hat Methode)
 
             switch (art_gebuehr) {
                 case "Bezahlung Zusatzleistungen":
@@ -92,18 +99,8 @@ public class ExtractorReal {
                     break;
             }
 
-
-            // Bestimmen welche Art von Gebühr es ist
-            // An entsprechender Position von "booking text" erkennbar
-            // 3 Möglichkeiten: Bezahlung Zusatzleistungen / Freigabe Verkaufserlös / Auszahlung
         }
 
-
-        // Bestimmen welche Art von Gebühr es ist
-                // An entsprechender Position von "booking text" erkennbar
-                // 3 Möglichkeiten: Bezahlung Zusatzleistungen / Freigabe Verkaufserlös / Auszahlung
-
-        // Zeile zur Berechnung von Gebühr an entsprechende Methode übergeben (jede Gebührenart hat Methode)
 
 
 
@@ -143,7 +140,7 @@ public class ExtractorReal {
 
         for (int i=0;i<GEBUEHRENARTEN.length;i++) {
 
-            System.out.println("Suche nach " + GEBUEHRENARTEN[i]);
+            //System.out.println("Suche nach " + GEBUEHRENARTEN[i]);
 
             //https://stackoverflow.com/questions/5091057/how-to-find-a-whole-word-in-a-string-in-java
             if (bookingtext.contains(GEBUEHRENARTEN[i])) {
@@ -155,7 +152,7 @@ public class ExtractorReal {
 
         }
 
-        System.out.println("Gebürtyp final ist: " + gebuehrtyp);
+        System.out.println("Gebührtyp final ist: " + gebuehrtyp);
 
         return gebuehrtyp;
     }
