@@ -42,7 +42,7 @@ public class DataParser {
 
         System.out.println("Pfad: " + filepath_origin.getParent());
 
-        //CSVWriter writer = new CSVWriter(new FileWriter("Mask_ASCII_test.csv"),';','"', '\\',CSVWriter.DEFAULT_LINE_END);
+
         CSVWriter writer = new CSVWriter(new FileWriter(filepath_origin.getParent() + "\\" + "Mask_ASCII_test.csv"),';','"', '\\',CSVWriter.DEFAULT_LINE_END);
         List<String[]> therows = new ArrayList<>();
         String[] header = new String[]{"Umsatz", "Soll-Haben", "Kontonummer", "Gegenkonto", "BU-Schlüssel", "Belegdatum", "Belegfeld 1", "Belegfeld 2", "Buchungstext", "Festschreibung"};

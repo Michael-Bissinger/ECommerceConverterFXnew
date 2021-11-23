@@ -14,8 +14,12 @@ public class ConvertMain {
         System.out.println("Operation: [" + operation + "]");
         System.out.println("Endformat: [" + finalformat + "]");
 
+        int rows = DimensionCalculator.getRows(platform, filepath);
+        int columns = DimensionCalculator.getColumns(platform, filepath);
 
-        String [] [] daten = DataRecorder.loadData(platform, filepath);
+
+
+        String [] [] daten = DataRecorder.loadData(platform, filepath, rows, columns);
         DataExtractor.extractData(platform, operation, daten);
         DataParser.parseData(filepath, platform, finalformat);
 
