@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class DataExtractor {
 
-    public static void extractData(String platform, String operation, String[][] daten) {
+    public static void extractData(String platform, String operation, String[][] daten, int rows, int columns) {
 
         switch (platform) {
             case "Alltricks":
@@ -38,7 +38,7 @@ public class DataExtractor {
 
             case "Real":
 
-                ExtractorReal.extractRealData(operation, daten);
+                ExtractorReal.extractRealData(operation, daten, rows, columns);
 
                 break;
 
