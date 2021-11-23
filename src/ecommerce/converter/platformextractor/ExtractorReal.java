@@ -2,6 +2,8 @@ package ecommerce.converter.platformextractor;
 
 import ecommerce.converter.DataRecorder;
 
+import java.util.Arrays;
+
 public class ExtractorReal {
 
     private static Integer KONTO_DEBITOR = 1469000; // Debitoren-Konto von "Real"
@@ -20,15 +22,15 @@ public class ExtractorReal {
     public static void extractRealData(String operation, String[][] daten_original, int rows, int columns) {
 
         //String [] [] daten_fertig = new String [columns_number] [row_number];
-        String[][] daten_final = new String[columns][rows];
+        String[][] daten_final = new String[rows][columns];
 
 
-        String[][] positionen = findRelevantPositions(daten_original, rows, columns);
+        String[][] positionen = findRelevantPositions(daten_original, columns);
 
         switch (operation) {
             case "Nur Gebühren":
 
-                daten_final = extractFees(daten_original, rows, columns);
+                daten_final = extractFees(daten_original, rows, columns, positionen);
 
 
                 break;
@@ -49,17 +51,51 @@ public class ExtractorReal {
 
     }
 
-    private static String[][] extractFees(String[][] daten_original, int rows, int columns) {
+    private static String[][] extractFees(String[][] daten_original, int rows, int columns, String[][] positionen) {
 
 
         String[][] daten_final = new String[rows][columns];
+
+        // Zeile einlesen
+        //https://stackoverflow.com/questions/25798958/iterate-through-2-dimensional-array
+        for(int i=0; i<daten_original.length; i++) {
+
+            String[] zeile_aktuell = new String[columns];
+
+            for(int j=0; j<daten_original[i].length; j++) {
+                //System.out.println("Values at arr["+i+"]["+j+"] is "+daten_original[i][j]);
+
+                zeile_aktuell[j] = daten_original[i][j];
+
+                System.out.println(j +" mal iteriert");
+
+
+                System.out.println("Column: " +columns);
+                System.out.println("Rows: " +rows);
+
+
+
+            }
+            System.out.println("Alle gesammelten Ergebnisse lauten: " + Arrays.toString(zeile_aktuell));
+            // Bestimmen welche Art von Gebühr es ist
+            // An entsprechender Position von "booking text" erkennbar
+            // 3 Möglichkeiten: Bezahlung Zusatzleistungen / Freigabe Verkaufserlös / Auszahlung
+        }
+
+
+        // Bestimmen welche Art von Gebühr es ist
+                // An entsprechender Position von "booking text" erkennbar
+                // 3 Möglichkeiten: Bezahlung Zusatzleistungen / Freigabe Verkaufserlös / Auszahlung
+
+        // Zeile zur Berechnung von Gebühr an entsprechende Methode übergeben (jede Gebührenart hat Methode)
+
 
 
         return daten_final;
 
     }
 
-    private static String[][] findRelevantPositions(String[][] daten_original, int rows, int columns) {
+    private static String[][] findRelevantPositions(String[][] daten_original, int columns) {
 
         // Positionen finden (Columns durchsuchen nach relevanten Items)
         System.out.println("++++++++ SUCHE POSITIONEN ITEMS ++++++++++");
@@ -77,7 +113,7 @@ public class ExtractorReal {
                 if (daten_original[0][i].equals(carName)) {
                     index = i;
                     //System.out.println("Item " + RELEVANTE_ITEMS[anzahl_relevante_items] + " gefunden an Position " + i);
-                    items_position[anzahl_relevante_items][0] = RELEVANTE_ITEMS[anzahl_relevante_items].toString();
+                    items_position[anzahl_relevante_items][0] = RELEVANTE_ITEMS[anzahl_relevante_items];
                     items_position[anzahl_relevante_items][1] = Integer.toString(i);
                     System.out.println("Position gefunden und gespeichert: " + items_position[anzahl_relevante_items][0] +" / " + items_position[anzahl_relevante_items][1]);
                     break;

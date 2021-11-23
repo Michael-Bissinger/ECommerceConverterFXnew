@@ -12,7 +12,7 @@ public class DataRecorder {
 
     public static String [] [] loadData(String platform, File filepath_origin, int row_number, int columns_number) throws IOException, CsvValidationException {
 
-        String [] [] daten = new String [columns_number] [row_number];
+        String [] [] daten = new String [row_number] [columns_number];
 
 
         switch (platform) {
@@ -104,7 +104,7 @@ public class DataRecorder {
         //https://www.youtube.com/watch?v=ZyjT2qYE4d4
 
         // Ergebnis
-        String [] [] CSV_Daten = new String [columns_number] [row_number];
+        String [] [] CSV_Daten = new String [row_number] [columns_number];
 
         try {
             CSVReader reader = new CSVReader(new FileReader(filepath_origin));

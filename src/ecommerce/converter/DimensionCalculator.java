@@ -11,60 +11,6 @@ import java.util.Arrays;
 
 public class DimensionCalculator {
 
-    public static int getRows (String platform, File filepath_origin) throws IOException, CsvValidationException {
-
-        int rows = 0;
-
-        switch (platform) {
-            case "Alltricks":
-
-            case "Amazon":
-
-                break;
-
-            case "Carrefour":
-                break;
-            case "Conrad":
-                break;
-            case "Crowdfox":
-
-            case "eBay":
-                break;
-            case "Manomano":
-
-            case "MediaMarkt":
-
-            case "Mercateo":
-
-            case "Metro":
-
-            case "Mivo":
-
-            case "Otto":
-
-            case "Real":
-
-                rows = DimensionCalculator.getCSVRows(filepath_origin);
-
-                break;
-
-            case "Rakuten":
-
-            case "Saturn":
-
-            case "Völkner":
-
-            default:
-                System.out.println("Plattform ist nicht verfügbar");
-                break;
-        }
-
-
-
-        return rows;
-    }
-
-
     public static int getColumns (String platform, File filepath_origin) throws IOException, CsvValidationException {
 
         int columns = 0;
@@ -114,13 +60,67 @@ public class DimensionCalculator {
         }
 
 
+
         return columns;
     }
 
 
+    public static int getRows (String platform, File filepath_origin) throws IOException, CsvValidationException {
 
-    static int getCSVColumns(File filepath_origin) {
-        int columns = 0;
+        int rows = 0;
+
+        switch (platform) {
+            case "Alltricks":
+
+            case "Amazon":
+
+                break;
+
+            case "Carrefour":
+                break;
+            case "Conrad":
+                break;
+            case "Crowdfox":
+
+            case "eBay":
+                break;
+            case "Manomano":
+
+            case "MediaMarkt":
+
+            case "Mercateo":
+
+            case "Metro":
+
+            case "Mivo":
+
+            case "Otto":
+
+            case "Real":
+
+                rows = DimensionCalculator.getCSVRows(filepath_origin);
+
+                break;
+
+            case "Rakuten":
+
+            case "Saturn":
+
+            case "Völkner":
+
+            default:
+                System.out.println("Plattform ist nicht verfügbar");
+                break;
+        }
+
+
+        return rows;
+    }
+
+
+
+    static int getCSVRows(File filepath_origin) {
+        int rows = 0;
 
         try {
             CSVReader reader = new CSVReader(new FileReader(filepath_origin));
@@ -130,7 +130,7 @@ public class DimensionCalculator {
 
                 if(nextline != null){
                     //System.out.println("CSV-Reader: " +Arrays.toString(nextline));
-                    columns++;
+                    rows++;
                     //System.out.println(rows + " Reihen gezählt");
                 }
             }
@@ -143,35 +143,35 @@ public class DimensionCalculator {
             System.out.println("FEHLER: Fehler beim Einlesen der Zeoöem!");
         }
         System.out.println("-------------------");
-        System.out.println("Rohdatei enthält " + columns + " Spalten.");
+        System.out.println("Rohdatei enthält " + rows + " Reihen (rows).");
         System.out.println("-------------------");
-        return columns;
+        return rows;
     }
 
-    static int getCSVRows(File filepath_origin) {
+    static int getCSVColumns(File filepath_origin) {
 
-        int rows = 1;
+        int columns = 1;
 
 
-        String[] nextline;
+
 
 
 
         try {
             CSVReader reader2 = new CSVReader(new FileReader(filepath_origin));
-            String[] nextline_rows;
+            String[] nextline_columns;
 
 
-            while ((nextline_rows = reader2.readNext()) != null) {
+            while ((nextline_columns = reader2.readNext()) != null) {
 
 
                 //if(nextline_rows != null){
 
                 //https://www.java67.com/2017/09/how-to-convert-comma-separated-string-to-ArrayList-in-java-example.html
-                String[] elements_rows = Arrays.toString(nextline_rows).split(";");
+                String[] elements_rows = Arrays.toString(nextline_columns).split(";");
                 //System.out.println("String Einzelelement:" + elements[1]);
                 //System.out.println("Anzahl Reihen: " + elements_rows.length);
-                rows = elements_rows.length;
+                columns = elements_rows.length;
 
 
 
@@ -247,10 +247,10 @@ public class DimensionCalculator {
         //rows = 49;
 
         System.out.println("-------------------");
-        System.out.println("Rohdatei enthält " + rows + " Reihen.");
+        System.out.println("Rohdatei enthält " + columns + " Spalten (columns).");
         System.out.println("-------------------");
 
-        return rows;
+        return columns;
     }
 
 
