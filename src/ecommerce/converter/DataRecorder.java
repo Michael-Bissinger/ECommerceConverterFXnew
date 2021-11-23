@@ -63,7 +63,7 @@ public class DataRecorder {
         }
 
 
-        String [] [] Daten = new String [columns_number] [row_number];
+        String [] [] daten = new String [columns_number] [row_number];
 
 
         switch (platform) {
@@ -96,7 +96,7 @@ public class DataRecorder {
 
             case "Real":
                 // Get data from csv file
-                Daten = getDataCSV(platform, filepath_origin, row_number, columns_number);
+                daten = getDataCSV(platform, filepath_origin, row_number, columns_number);
 
                 break;
 
@@ -111,8 +111,11 @@ public class DataRecorder {
                 break;
         }
 
+        System.out.println("+++++++++++");
+        System.out.println("Rohdaten importiert");
+        System.out.println("+++++++++++");
 
-        return Daten;
+        return daten;
     }
 
 

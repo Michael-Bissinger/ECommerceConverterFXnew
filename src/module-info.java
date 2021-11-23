@@ -8,4 +8,5 @@ module Converter {
     requires org.apache.commons.lang3;
 
     opens ecommerce.converter;
+    opens ecommerce.converter.platformextractor;
 }

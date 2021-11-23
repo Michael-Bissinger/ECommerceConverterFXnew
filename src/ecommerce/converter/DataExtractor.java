@@ -1,11 +1,60 @@
 package ecommerce.converter;
 
+import ecommerce.converter.platformextractor.ExtractorReal;
+
 import java.io.File;
 import java.io.IOException;
 
 public class DataExtractor {
 
-    public static void extractData(String operation) {
+    public static void extractData(String platform, String operation, String[][] daten) {
+
+        switch (platform) {
+            case "Alltricks":
+
+            case "Amazon":
+
+                break;
+
+            case "Carrefour":
+                break;
+            case "Conrad":
+                break;
+            case "Crowdfox":
+
+            case "eBay":
+                break;
+            case "Manomano":
+
+            case "MediaMarkt":
+
+            case "Mercateo":
+
+            case "Metro":
+
+            case "Mivo":
+
+            case "Otto":
+
+            case "Real":
+
+                ExtractorReal.extractRealData(operation, daten);
+
+                break;
+
+            case "Rakuten":
+
+            case "Saturn":
+
+            case "Völkner":
+
+            default:
+                System.out.println("Plattform ist nicht verfügbar");
+                break;
+        }
+
+
+
 
 
     }
