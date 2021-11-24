@@ -3,11 +3,12 @@ package ecommerce.converter;
 import ecommerce.converter.platformextractor.ExtractorReal;
 
 import java.io.File;
-import java.io.IOException;
 
 public class DataExtractor {
 
-    public static void extractData(String platform, String operation, String[][] daten, int rows, int columns) {
+    public static String[][] extractData(String platform, String operation, String[][] daten, int rows, int columns) {
+
+        String [] [] daten_final = new String[rows-1][7];
 
         switch (platform) {
             case "Alltricks":
@@ -38,7 +39,7 @@ public class DataExtractor {
 
             case "Real":
 
-                ExtractorReal.extractRealData(operation, daten, rows, columns);
+                daten_final = ExtractorReal.extractRealData(operation, daten, rows, columns);
 
                 break;
 
@@ -54,9 +55,7 @@ public class DataExtractor {
         }
 
 
-
-
-
+        return daten_final;
     }
 
 

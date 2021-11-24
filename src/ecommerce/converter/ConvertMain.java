@@ -20,10 +20,10 @@ public class ConvertMain {
 
 
 
-        String [] [] daten = DataRecorder.loadData(platform, filepath, rows, columns);
-        DataExtractor.extractData(platform, operation, daten, rows, columns);
+        String [] [] daten_roh = DataRecorder.loadData(platform, filepath, rows, columns);
+        String [] [] daten_extrahiert = DataExtractor.extractData(platform, operation, daten_roh, rows, columns);
 
-        DataParser.parseData(platform, daten); // TODO: Noch "daten" durch die Daten aus DataExtractor ersetzen
+        DataParser.parseData(platform, daten_extrahiert);
 
 
         DataWriter.writeData(filepath, platform, finalformat);

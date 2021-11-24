@@ -27,7 +27,7 @@ public class ExtractorReal {
 
 
 
-    public static void extractRealData(String operation, String[][] daten_original, int rows, int columns) {
+    public static String[][] extractRealData(String operation, String[][] daten_original, int rows, int columns) {
 
         //String [] [] daten_fertig = new String [columns_number] [row_number];
         //String[][] daten_final = new String[rows][columns];
@@ -39,26 +39,23 @@ public class ExtractorReal {
         String[][] positionen = ItemPositionCoordinator.storeRelevantPositions(daten_original, columns, RELEVANTE_ITEMS);
 
 
-        // Datum schreiben
 
-
-
-
+        // ****************** DATUM ******************
         //bookingdate-position
         Integer position_datum = ItemPositionCoordinator.findRelevantPosition(positionen, RELEVANTE_ITEMS[0], RELEVANTE_ITEMS);
 
-        System.out.println("Position von Datum ist: " + position_datum);
+        //System.out.println("Position von Datum ist: " + position_datum);
+        System.out.println("++++++++ DATUM ++++++++");
 
-        // Schreibe Datum aus daten_original in 4. Reihe von daten_final
+        // Schreibe Datum aus daten_original in 5. Reihe (also Position 4) von daten_final
+        System.out.print("Daten final abgespeichert (" + RELEVANTE_ITEMS[0] + ") Position: ");
         for(int pointer_reihe=1; pointer_reihe<rows; pointer_reihe++) { // Int bei 1 starten, damit die oberste Zeile nicht mitgenommen wird
 
             daten_final[pointer_reihe-1][4] = daten_original[pointer_reihe][position_datum];
-            System.out.println("Daten final abgespeichert (" + RELEVANTE_ITEMS[0] + ") Position: " + pointer_reihe + ": " + daten_final[pointer_reihe-1][4]);
+            System.out.print(pointer_reihe + ": " + daten_final[pointer_reihe-1][4]);
 
-            //for(int j=0; j<columns; j++) {
-            //}
         }
-
+        System.out.println("Fertig mit Datum!");
 
 
         // Betragfeld schreiben
@@ -84,7 +81,41 @@ public class ExtractorReal {
         }
 
 
+
+        // ****************** DebitorenKonto ******************
+        System.out.println("++++++++ DEBITORENKONTO ++++++++");
+        // Schreibe Debitorenkonto  in 3. Reihe (also Position 2) von daten_final
+        System.out.print("Daten final abgespeichert (" + "Debitorenkonto" + ") Position: ");
+        for(int pointer_reihe=1; pointer_reihe<rows; pointer_reihe++) { // Int bei 1 starten, damit die oberste Zeile nicht mitgenommen wird
+
+            daten_final[pointer_reihe-1][2] = KONTO_DEBITOR.toString();
+            System.out.print(pointer_reihe + ": " + daten_final[pointer_reihe-1][2] + " - ");
+
+        }
+        System.out.println("Fertig mit Debitoren!");
+
+
+        // ****************** Kreditorenkonto ******************
+        System.out.println("++++++++ KREDITORENKONTO ++++++++");
+        // Schreibe Kreditorenkonto in 4. Reihe (also Position 3) von daten_final
+        System.out.print("Daten final abgespeichert (" + "Debitorenkonto" + ") Position: ");
+        for(int pointer_reihe=1; pointer_reihe<rows; pointer_reihe++) { // Int bei 1 starten, damit die oberste Zeile nicht mitgenommen wird
+
+            daten_final[pointer_reihe-1][3] = KONTO_KREDITOR.toString();
+            System.out.print(pointer_reihe + ": " + daten_final[pointer_reihe-1][3] + " - ");
+
+        }
+        System.out.println("Fertig mit Kreditoren!");
+
+
+
+        return daten_final;
+
     }
+
+
+
+
 
 
 
@@ -95,7 +126,7 @@ public class ExtractorReal {
         String[][] daten_final = new String[rows][columns];
 
         // Zeile einlesen
-        //https://stackoverflow.com/questions/25798958/iterate-through-2-dimensional-array
+        // https://stackoverflow.com/questions/25798958/iterate-through-2-dimensional-array
         for(int i=1; i<rows; i++) { // Bei "i = 1" beginnen, damit oberste Zeile nicht mitgenommen wird
 
             String[] zeile_aktuell = new String[columns];
