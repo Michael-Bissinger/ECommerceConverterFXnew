@@ -1,6 +1,6 @@
-package ecommerce.converter.extracttools;
+package ecommerce.converter.parsertools;
 
-public class ExtractToolDate {
+public class ParserDate {
 
 
 
