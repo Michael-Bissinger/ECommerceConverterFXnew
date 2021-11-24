@@ -28,13 +28,34 @@ public class ExtractorReal {
     public static void extractRealData(String operation, String[][] daten_original, int rows, int columns) {
 
         //String [] [] daten_fertig = new String [columns_number] [row_number];
-        String[][] daten_final = new String[rows][columns];
+        //String[][] daten_final = new String[rows][columns];
+
+        // Reihen: Umsatz, S/H, Debit-K, Kreditoren-K, Datum, Buchungstext 1, Buchungstext 2
+        String[][] daten_final = new String[rows-1][7];
 
 
-        String[][] positionen = findRelevantPositions(daten_original, columns);
+        String[][] positionen = storeRelevantPositions(daten_original, columns);
 
 
         // Datum schreiben
+
+
+
+
+        //bookingdate-position
+        Integer position_datum = findRelevantPosition(positionen, RELEVANTE_ITEMS[0]);
+
+        System.out.println("Position von Datum ist: " + position_datum);
+
+        // Schreibe Datum aus daten_original in 4. Reihe von daten_final
+        for(int pointer_reihe=1; pointer_reihe<rows; pointer_reihe++) { // Int bei 1 starten, damit die oberste Zeile nicht mitgenommen wird
+
+            daten_final[pointer_reihe-1][4] = daten_original[pointer_reihe][position_datum];
+            System.out.println("Daten final abgespeichert (" + RELEVANTE_ITEMS[0] + ") Position: " + pointer_reihe + ": " + daten_final[pointer_reihe-1][4]);
+
+            //for(int j=0; j<columns; j++) {
+            //}
+        }
 
 
 
@@ -62,6 +83,9 @@ public class ExtractorReal {
 
 
     }
+
+
+
 
     private static String[][] extractFees(String[][] daten_original, int rows, int columns, String[][] positionen) {
 
@@ -165,7 +189,7 @@ public class ExtractorReal {
     }
 
 
-    private static String[][] findRelevantPositions(String[][] daten_original, int columns) {
+    private static String[][] storeRelevantPositions(String[][] daten_original, int columns) {
 
         // Positionen finden (Columns durchsuchen nach relevanten Items)
         System.out.println("++++++++ SUCHE POSITIONEN ITEMS ++++++++++");
@@ -197,6 +221,31 @@ public class ExtractorReal {
 
         return items_position;
 
+    }
+
+    private static Integer findRelevantPosition(String[][] positionen, String relevantesItem) {
+
+        int position = 0;
+
+        System.out.println("Relevante posi gesucht");
+
+        for (int positionszeiger=0; positionszeiger<RELEVANTE_ITEMS.length; positionszeiger++) {
+            //System.out.println("Durchlauf " + positionszeiger);
+            if (positionen[positionszeiger][0] == relevantesItem) {
+
+                System.out.println("Relevantes Item " + relevantesItem + " an Position " + positionszeiger + " gefunden.");
+                position = positionszeiger;
+                break;
+
+            }
+
+
+
+        }
+
+
+
+        return position;
     }
 
 
