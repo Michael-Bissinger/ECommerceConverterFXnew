@@ -1,5 +1,7 @@
 package ecommerce.converter.platformextractor;
 
+import ecommerce.converter.extractortools.ItemPositionCoordinator;
+
 import java.util.Arrays;
 
 public class ExtractorReal {
@@ -34,7 +36,7 @@ public class ExtractorReal {
         String[][] daten_final = new String[rows-1][7];
 
 
-        String[][] positionen = storeRelevantPositions(daten_original, columns);
+        String[][] positionen = ItemPositionCoordinator.storeRelevantPositions(daten_original, columns, RELEVANTE_ITEMS);
 
 
         // Datum schreiben
@@ -43,7 +45,7 @@ public class ExtractorReal {
 
 
         //bookingdate-position
-        Integer position_datum = findRelevantPosition(positionen, RELEVANTE_ITEMS[0]);
+        Integer position_datum = ItemPositionCoordinator.findRelevantPosition(positionen, RELEVANTE_ITEMS[0], RELEVANTE_ITEMS);
 
         System.out.println("Position von Datum ist: " + position_datum);
 
@@ -187,69 +189,6 @@ public class ExtractorReal {
 
         return gebuehrtyp;
     }
-
-
-    private static String[][] storeRelevantPositions(String[][] daten_original, int columns) {
-
-        // Positionen finden (Columns durchsuchen nach relevanten Items)
-        System.out.println("++++++++ SUCHE POSITIONEN ITEMS ++++++++++");
-
-        String[][] items_position = new String[RELEVANTE_ITEMS.length][2]; // Positionen der Daten so lange wie Anzahl relevante Daten (Reihen) und 2 Spalten
-
-        for (int anzahl_relevante_items=0; anzahl_relevante_items<RELEVANTE_ITEMS.length; anzahl_relevante_items++) {
-
-            //https://stackoverflow.com/questions/23160832/how-to-find-index-of-string-array-in-java-from-a-given-value
-            //String carName = "billing.last_name";// insert code here
-            String carName = RELEVANTE_ITEMS[anzahl_relevante_items];// insert code here
-            int index = 0;
-            for (int i = 0; i < columns; i++) {
-                //System.out.println("Runde " + i);
-                if (daten_original[0][i].equals(carName)) {
-                    index = i;
-                    //System.out.println("Item " + RELEVANTE_ITEMS[anzahl_relevante_items] + " gefunden an Position " + i);
-                    items_position[anzahl_relevante_items][0] = RELEVANTE_ITEMS[anzahl_relevante_items];
-                    items_position[anzahl_relevante_items][1] = Integer.toString(i);
-                    System.out.println("Position gefunden und gespeichert: " + items_position[anzahl_relevante_items][0] +" / " + items_position[anzahl_relevante_items][1]);
-                    break;
-
-                }
-            }
-        }
-
-        System.out.println("++++++++ ENDE POSITIONEN ITEMS ++++++++++");
-
-
-        return items_position;
-
-    }
-
-    private static Integer findRelevantPosition(String[][] positionen, String relevantesItem) {
-
-        int position = 0;
-
-        System.out.println("Relevante posi gesucht");
-
-        for (int positionszeiger=0; positionszeiger<RELEVANTE_ITEMS.length; positionszeiger++) {
-            //System.out.println("Durchlauf " + positionszeiger);
-            if (positionen[positionszeiger][0] == relevantesItem) {
-
-                System.out.println("Relevantes Item " + relevantesItem + " an Position " + positionszeiger + " gefunden.");
-                position = positionszeiger;
-                break;
-
-            }
-
-
-
-        }
-
-
-
-        return position;
-    }
-
-
-
 
 
 }
