@@ -12,14 +12,14 @@ public class DataWriter {
 
     public static String MANDANTENUMBER = "10754"; // Internal number in DATEV, with GmbH & Co KG change to "10755"
 
-    public static void writeData(File filepath_origin, String platform, String finalformat) throws IOException {
+    public static void writeData(File filepath_origin, String platform, String finalformat, String[][] daten_final) throws IOException {
 
 
         System.out.println("Daten werden zu Format " + finalformat + " konvertiert!");
 
         switch (finalformat) {
             case "Maske (ASCII)":
-                createMaskASCII(platform, filepath_origin);
+                createMaskASCII(platform, filepath_origin, daten_final);
                 break;
 
             case "DATEV-Format (ASCII)":
@@ -38,7 +38,7 @@ public class DataWriter {
 
     }
 
-    static void createMaskASCII(String platform, File filepath_origin) throws IOException {
+    static void createMaskASCII(String platform, File filepath_origin, String[][] daten_final) throws IOException {
 
         System.out.println("Pfad: " + filepath_origin.getParent());
 

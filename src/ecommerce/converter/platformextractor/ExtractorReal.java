@@ -35,51 +35,14 @@ public class ExtractorReal {
         // Reihen: Umsatz, S/H, Debit-K, Kreditoren-K, Datum, Buchungstext 1, Buchungstext 2
         String[][] daten_final = new String[rows-1][7];
 
-
+        // Positionen relevanter Items herausfinden
         String[][] positionen = ItemPositionCoordinator.storeRelevantPositions(daten_original, columns, RELEVANTE_ITEMS);
 
 
 
         // ****************** DATUM ******************
-        //bookingdate-position
-        Integer position_datum = ItemPositionCoordinator.findRelevantPosition(positionen, RELEVANTE_ITEMS[0], RELEVANTE_ITEMS);
-
-        //System.out.println("Position von Datum ist: " + position_datum);
-        System.out.println("++++++++ DATUM ++++++++");
-
-        // Schreibe Datum aus daten_original in 5. Reihe (also Position 4) von daten_final
-        System.out.print("Daten final abgespeichert (" + RELEVANTE_ITEMS[0] + ") Position: ");
-        for(int pointer_reihe=1; pointer_reihe<rows; pointer_reihe++) { // Int bei 1 starten, damit die oberste Zeile nicht mitgenommen wird
-
-            daten_final[pointer_reihe-1][4] = daten_original[pointer_reihe][position_datum];
-            System.out.print(pointer_reihe + ": " + daten_final[pointer_reihe-1][4]);
-
-        }
-        System.out.println("Fertig mit Datum!");
-
-
-        // Betragfeld schreiben
-        switch (operation) {
-            case "Nur Gebühren":
-
-                daten_final = extractFees(daten_original, rows, columns, positionen);
-
-
-                break;
-            case "Nur Transaktionen":
-
-                break;
-
-            case "Transaktionen und Gebühren":
-
-                break;
-
-
-            default:
-                System.out.println("Operation ist nicht verfügbar");
-                break;
-        }
-
+        String [][] datum_daten = getDate(daten_final, positionen, daten_original, rows);
+        daten_final = datum_daten;
 
 
         // ****************** DebitorenKonto ******************
@@ -107,6 +70,29 @@ public class ExtractorReal {
         }
         System.out.println("Fertig mit Kreditoren!");
 
+        // ****************** Gebührencheck ******************
+        switch (operation) {
+            case "Nur Gebühren":
+
+                daten_final = extractFees(daten_original, rows, columns, positionen);
+
+
+                break;
+            case "Nur Transaktionen":
+
+                break;
+
+            case "Transaktionen und Gebühren":
+
+                break;
+
+
+            default:
+                System.out.println("Operation ist nicht verfügbar");
+                break;
+        }
+
+
 
 
         return daten_final;
@@ -115,6 +101,28 @@ public class ExtractorReal {
 
 
 
+    private static String[][] getDate(String[][] daten_final, String[][] positionen, String[][] daten_original, int rows) {
+
+        // ****************** DATUM ******************
+        //bookingdate-position
+        Integer position_datum = ItemPositionCoordinator.findRelevantPosition(positionen, RELEVANTE_ITEMS[0], RELEVANTE_ITEMS);
+
+        //System.out.println("Position von Datum ist: " + position_datum);
+        System.out.println("++++++++ DATUM ++++++++");
+
+        // Schreibe Datum aus daten_original in 5. Reihe (also Position 4) von daten_final
+        System.out.print("Daten final abgespeichert (" + RELEVANTE_ITEMS[0] + ") Position: ");
+        for(int pointer_reihe=1; pointer_reihe<rows; pointer_reihe++) { // Int bei 1 starten, damit die oberste Zeile nicht mitgenommen wird
+
+            daten_final[pointer_reihe-1][4] = daten_original[pointer_reihe][position_datum];
+            System.out.print(pointer_reihe + ": " + daten_final[pointer_reihe-1][4]);
+
+        }
+        System.out.println("Fertig mit Datum!");
+
+        return daten_final;
+
+    }
 
 
 

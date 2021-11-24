@@ -7,11 +7,11 @@ import java.io.IOException;
 
 public class ConvertMain {
 
-    public static void start (String platform, String operation, File filepath, String finalformat) throws IOException, CsvValidationException {
+    public static void start (String platform, String operation, File filepath, String format_final) throws IOException, CsvValidationException {
         System.out.println("Dateipfad: [" + filepath.getAbsolutePath() + "]");
         System.out.println("Plattform: [" + platform + "]");
         System.out.println("Operation: [" + operation + "]");
-        System.out.println("Endformat: [" + finalformat + "]");
+        System.out.println("Endformat: [" + format_final + "]");
 
         int rows = DimensionCalculator.getRows(platform, filepath);
         int columns = DimensionCalculator.getColumns(platform, filepath);
@@ -26,7 +26,7 @@ public class ConvertMain {
         DataParser.parseData(platform, daten_extrahiert);
 
 
-        DataWriter.writeData(filepath, platform, finalformat);
+        DataWriter.writeData(filepath, platform, format_final, daten_extrahiert); //TODO: Noch Daten aus DataParser nehmen statt daten_extrahiert
 
 
 

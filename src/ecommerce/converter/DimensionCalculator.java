@@ -59,8 +59,6 @@ public class DimensionCalculator {
                 break;
         }
 
-
-
         return columns;
     }
 
@@ -113,13 +111,12 @@ public class DimensionCalculator {
                 break;
         }
 
-
         return rows;
     }
 
 
 
-    static int getCSVRows(File filepath_origin) {
+    private static int getCSVRows(File filepath_origin) {
         int rows = 0;
 
         try {
@@ -140,7 +137,7 @@ public class DimensionCalculator {
         }
         catch (Exception e)
         {
-            System.out.println("FEHLER: Fehler beim Einlesen der Zeoöem!");
+            System.out.println("FEHLER: Fehler beim Einlesen der Zeilen!");
         }
         System.out.println("-------------------");
         System.out.println("Rohdatei enthält " + rows + " Reihen (rows).");
@@ -148,14 +145,9 @@ public class DimensionCalculator {
         return rows;
     }
 
-    static int getCSVColumns(File filepath_origin) {
+    private static int getCSVColumns(File filepath_origin) {
 
         int columns = 1;
-
-
-
-
-
 
         try {
             CSVReader reader2 = new CSVReader(new FileReader(filepath_origin));
