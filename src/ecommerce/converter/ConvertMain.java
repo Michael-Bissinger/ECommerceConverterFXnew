@@ -1,10 +1,8 @@
 package ecommerce.converter;
 
 import com.opencsv.exceptions.CsvValidationException;
-import ecommerce.converter.platformextractor.ExtractorReal;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class ConvertMain {
@@ -24,7 +22,11 @@ public class ConvertMain {
 
         String [] [] daten = DataRecorder.loadData(platform, filepath, rows, columns);
         DataExtractor.extractData(platform, operation, daten, rows, columns);
-        DataParser.parseData(filepath, platform, finalformat);
+
+        DataParser.parseData(platform, daten); // TODO: Noch "daten" durch die Daten aus DataExtractor ersetzen
+
+
+        DataWriter.writeData(filepath, platform, finalformat);
 
 
 

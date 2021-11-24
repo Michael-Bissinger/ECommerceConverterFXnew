@@ -33,6 +33,12 @@ public class ExtractorReal {
 
         String[][] positionen = findRelevantPositions(daten_original, columns);
 
+
+        // Datum schreiben
+
+
+
+        // Betragfeld schreiben
         switch (operation) {
             case "Nur Gebühren":
 
@@ -68,18 +74,19 @@ public class ExtractorReal {
 
             String[] zeile_aktuell = new String[columns];
 
+
             for(int j=0; j<columns; j++) {
                 //System.out.println("Values at arr["+i+"]["+j+"] is "+daten_original[i][j]);
 
                 zeile_aktuell[j] = daten_original[i][j];
 
-                System.out.println("Über Zeile " + j +" iteriert");
+                //System.out.println("Über Zeile " + j +" iteriert");
 
 
 
 
             }
-            System.out.println("Alle gesammelten Ergebnisse lauten: " + Arrays.toString(zeile_aktuell));
+            System.out.println("-> Alle gesammelten Ergebnisse lauten: " + Arrays.toString(zeile_aktuell));
 
             // Bestimmen welche Art von Gebühr es ist
             String art_gebuehr = chooseFeeType(zeile_aktuell, positionen);
