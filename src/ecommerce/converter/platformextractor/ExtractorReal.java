@@ -32,8 +32,8 @@ public class ExtractorReal {
         //String [] [] daten_fertig = new String [columns_number] [row_number];
         //String[][] daten_final = new String[rows][columns];
 
-        // Reihen: Umsatz, S/H, Debit-K, Kreditoren-K, Datum, Buchungstext 1, Buchungstext 2
-        // Reihen: "Umsatz" (0), "Soll-Haben" (1), "Kontonummer" (2), "Gegenkonto" (3), "BU-Schlüssel" (4), "Belegdatum" (5), "Belegfeld 1" (6), "Belegfeld 2" (7), "Buchungstext" (8), "Festschreibung" (9)};
+        // Alt: Reihen: Umsatz, S/H, Debit-K, Kreditoren-K, Datum, Buchungstext 1, Buchungstext 2
+        // Neu: Reihen: "Umsatz" (0), "Soll-Haben" (1), "Kontonummer" (2), "Gegenkonto" (3), "BU-Schlüssel" (4), "Belegdatum" (5), "Belegfeld 1" (6), "Belegfeld 2" (7), "Buchungstext" (8), "Festschreibung" (9)};
         String[][] daten_final = new String[rows-1][9];
 
         // Positionen relevanter Items herausfinden
@@ -43,6 +43,11 @@ public class ExtractorReal {
 
         // ****************** DATUM ******************
         daten_final = getDate(daten_final, positionen, daten_original, rows);
+        //daten_final = datum_daten;
+
+
+        // ****************** BELEGFELD 1 ******************
+        daten_final = getBelegfeld1(daten_final, positionen, daten_original, rows);
         //daten_final = datum_daten;
 
 
@@ -71,12 +76,14 @@ public class ExtractorReal {
         }
         System.out.println("Fertig mit Kreditoren!");
 
+
+
         // ****************** Gebührencheck ******************
         switch (operation) {
             case "Nur Gebühren":
 
 
-
+                daten_final = getSH(daten_final, daten_original, rows, operation);
                 daten_final = extractFees(daten_original, rows, columns, positionen);
 
 
@@ -102,6 +109,53 @@ public class ExtractorReal {
 
     }
 
+
+    private static String[][] getBelegfeld1(String[][] daten_final, String[][] positionen, String[][] daten_original, int rows) {
+
+        // ****************** BELEGFELD 1 ******************
+        //bookingdate-position
+        Integer position_belegfeld1 = ItemPositionCoordinator.findRelevantPosition(positionen, RELEVANTE_ITEMS[2], RELEVANTE_ITEMS);
+
+        System.out.println("Position von Belegfeld 1 ist: " + position_belegfeld1);
+        System.out.println("++++++++ BELEGFELD 1 ++++++++");
+
+        // Schreibe Datum aus daten_original in 7. Reihe (also Position 6) von daten_final
+        System.out.print("Daten final abgespeichert (" + RELEVANTE_ITEMS[2] + ") Position: ");
+        for(int pointer_reihe=1; pointer_reihe<rows; pointer_reihe++) { // Int bei 1 starten, damit die oberste Zeile nicht mitgenommen wird
+
+            daten_final[pointer_reihe-1][6] = daten_original[pointer_reihe][position_belegfeld1];
+            System.out.print(pointer_reihe + ": " + daten_final[pointer_reihe-1][6]);
+
+        }
+        System.out.println("Fertig mit Belegfeld 1!");
+
+        return daten_final;
+
+    }
+
+
+
+    private static String[][] getSH(String[][] daten_final, String[][] daten_original, int rows, String operation) {
+
+
+        if (operation == "Nur Gebühren") {
+
+        System.out.println("++++++++ S/H ++++++++");
+
+        // Schreibe Haben (H) in 2. Reihe (also Position 1) von daten_final
+        System.out.print("Daten final abgespeichert (" + RELEVANTE_ITEMS[0] + ") Position: ");
+        for(int pointer_reihe=1; pointer_reihe<rows; pointer_reihe++) { // Int bei 1 starten, damit die oberste Zeile nicht mitgenommen wird
+
+            daten_final[pointer_reihe-1][1] = "H";
+            System.out.print(pointer_reihe + ": " + daten_final[pointer_reihe-1][1]);
+
+        }
+        }
+
+        System.out.println("Fertig mit S/H!");
+
+        return daten_final;
+    }
 
 
     private static String[][] getDate(String[][] daten_final, String[][] positionen, String[][] daten_original, int rows) {

@@ -39,7 +39,7 @@ public class ItemPositionCoordinator {
 
     public static Integer findRelevantPosition(String[][] positionen, String relevantesItem, String[] relevanteItems) {
 
-        int position = 0;
+        int position_originaldatei = 0;
 
         System.out.println("Relevante posi gesucht");
 
@@ -47,8 +47,13 @@ public class ItemPositionCoordinator {
             //System.out.println("Durchlauf " + positionszeiger);
             if (positionen[positionszeiger][0] == relevantesItem) {
 
-                System.out.println("Relevantes Item " + relevantesItem + " an Position " + positionszeiger + " gefunden.");
-                position = positionszeiger;
+                System.out.println("Relevantes Item " + relevantesItem + " in Positionsliste bei Durchlauf " + positionszeiger + " gefunden.");
+                //position_originaldatei = positionszeiger;
+                //position = positionen[positionszeiger][1];
+                position_originaldatei = Integer.parseInt(positionen[positionszeiger][1]);
+                //positionen[positionszeiger][1].
+                System.out.println("Relevantes Item " + relevantesItem + " hat in Originaldatei die Position " + positionen[positionszeiger][1] + ".");
+                System.out.println("Relevantes Item " + relevantesItem + " hat in Originaldatei die Position " + position_originaldatei + ".");
                 break;
 
             }
@@ -59,7 +64,7 @@ public class ItemPositionCoordinator {
 
 
 
-        return position;
+        return position_originaldatei;
     }
 
 
