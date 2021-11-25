@@ -1,5 +1,6 @@
 package ecommerce.converter.platformextractor;
 
+import ecommerce.converter.extractortools.BroadcastCoordinator;
 import ecommerce.converter.extractortools.ItemPositionCoordinator;
 
 import java.util.Arrays;
@@ -42,12 +43,14 @@ public class ExtractorReal {
 
 
         // ****************** DATUM ******************
-        daten_final = getDate(daten_final, positionen, daten_original, rows);
-        //daten_final = datum_daten;
+        //daten_final = getDate(daten_final, positionen, daten_original, rows);
+        daten_final = BroadcastCoordinator.transferData(daten_final, positionen, daten_original, rows, RELEVANTE_ITEMS, RELEVANTE_ITEMS[0], 5);
 
 
         // ****************** BELEGFELD 1 ******************
-        daten_final = getBelegfeld1(daten_final, positionen, daten_original, rows);
+        //daten_final = getBelegfeld1(daten_final, positionen, daten_original, rows);
+        daten_final = BroadcastCoordinator.transferData(daten_final, positionen, daten_original, rows, RELEVANTE_ITEMS, RELEVANTE_ITEMS[2], 6);
+
         //daten_final = datum_daten;
 
 
@@ -110,6 +113,8 @@ public class ExtractorReal {
     }
 
 
+
+
     private static String[][] getBelegfeld1(String[][] daten_final, String[][] positionen, String[][] daten_original, int rows) {
 
         // ****************** BELEGFELD 1 ******************
@@ -128,6 +133,32 @@ public class ExtractorReal {
 
         }
         System.out.println("Fertig mit Belegfeld 1!");
+
+        return daten_final;
+
+    }
+
+
+
+
+    private static String[][] getDate(String[][] daten_final, String[][] positionen, String[][] daten_original, int rows) {
+
+        // ****************** DATUM ******************
+        //bookingdate-position
+        Integer position_datum = ItemPositionCoordinator.findRelevantPosition(positionen, RELEVANTE_ITEMS[0], RELEVANTE_ITEMS);
+
+        //System.out.println("Position von Datum ist: " + position_datum);
+        System.out.println("++++++++ DATUM ++++++++");
+
+        // Schreibe Datum aus daten_original in 6. Reihe (also Position 5) von daten_final
+        System.out.print("Daten final abgespeichert (" + RELEVANTE_ITEMS[0] + ") Position: ");
+        for(int pointer_reihe=1; pointer_reihe<rows; pointer_reihe++) { // Int bei 1 starten, damit die oberste Zeile nicht mitgenommen wird
+
+            daten_final[pointer_reihe-1][5] = daten_original[pointer_reihe][position_datum];
+            System.out.print(pointer_reihe + ": " + daten_final[pointer_reihe-1][5]);
+
+        }
+        System.out.println("Fertig mit Datum!");
 
         return daten_final;
 
@@ -158,28 +189,7 @@ public class ExtractorReal {
     }
 
 
-    private static String[][] getDate(String[][] daten_final, String[][] positionen, String[][] daten_original, int rows) {
 
-        // ****************** DATUM ******************
-        //bookingdate-position
-        Integer position_datum = ItemPositionCoordinator.findRelevantPosition(positionen, RELEVANTE_ITEMS[0], RELEVANTE_ITEMS);
-
-        //System.out.println("Position von Datum ist: " + position_datum);
-        System.out.println("++++++++ DATUM ++++++++");
-
-        // Schreibe Datum aus daten_original in 6. Reihe (also Position 5) von daten_final
-        System.out.print("Daten final abgespeichert (" + RELEVANTE_ITEMS[0] + ") Position: ");
-        for(int pointer_reihe=1; pointer_reihe<rows; pointer_reihe++) { // Int bei 1 starten, damit die oberste Zeile nicht mitgenommen wird
-
-            daten_final[pointer_reihe-1][5] = daten_original[pointer_reihe][position_datum];
-            System.out.print(pointer_reihe + ": " + daten_final[pointer_reihe-1][5]);
-
-        }
-        System.out.println("Fertig mit Datum!");
-
-        return daten_final;
-
-    }
 
 
 
