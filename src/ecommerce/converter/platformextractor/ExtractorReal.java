@@ -41,18 +41,15 @@ public class ExtractorReal {
         String[][] positionen = ItemPositionCoordinator.storeRelevantPositions(daten_original, columns, RELEVANTE_ITEMS);
 
 
-
         // ****************** DATUM ******************
-        //daten_final = getDate(daten_final, positionen, daten_original, rows);
         daten_final = BroadcastCoordinator.transferData(daten_final, positionen, daten_original, rows, RELEVANTE_ITEMS, RELEVANTE_ITEMS[0], 5);
 
 
         // ****************** BELEGFELD 1 ******************
-        //daten_final = getBelegfeld1(daten_final, positionen, daten_original, rows);
         daten_final = BroadcastCoordinator.transferData(daten_final, positionen, daten_original, rows, RELEVANTE_ITEMS, RELEVANTE_ITEMS[2], 6);
 
-        //daten_final = datum_daten;
-
+        // ****************** BELEGFELD 2 ******************
+        System.out.println("Belegfeld 2 wird bei Real nicht beschrieben.");
 
         // ****************** DebitorenKonto ******************
         System.out.println("++++++++ DEBITORENKONTO ++++++++");
@@ -79,6 +76,10 @@ public class ExtractorReal {
         }
         System.out.println("Fertig mit Kreditoren!");
 
+
+        // ****************** BUCHUNGSTEXT ******************
+
+        daten_final = getBuchungstext(daten_final, positionen, daten_original, rows, RELEVANTE_ITEMS[5], RELEVANTE_ITEMS[6], RELEVANTE_ITEMS[7], RELEVANTE_ITEMS, 8);
 
 
         // ****************** Gebührencheck ******************
@@ -113,6 +114,37 @@ public class ExtractorReal {
     }
 
 
+
+    private static String[][] getBuchungstext(String[][] daten_final, String[][] positionen, String[][] daten_original, int rows, String relevantesItem1, String relevantesItem2, String relevantesItem3, String[] relevanteItems, int position_final) {
+
+        System.out.println("Get buchungstext aktiv");
+
+        // Positionen in Originaldatei finden
+        Integer position_relevantesItem1 = ItemPositionCoordinator.findRelevantPosition(positionen, relevantesItem1, relevanteItems);
+        Integer position_relevantesItem2 = ItemPositionCoordinator.findRelevantPosition(positionen, relevantesItem2, relevanteItems);
+        Integer position_relevantesItem3 = ItemPositionCoordinator.findRelevantPosition(positionen, relevantesItem3, relevanteItems);
+
+        System.out.println("++++++++ " + relevantesItem1 + " / " + relevantesItem2 + " / " + relevantesItem3 + " ++++++++");
+
+        System.out.print("Daten (Buchungstext) final abgespeichert (" + relevantesItem1 + " / " + relevantesItem2 + " / " + relevantesItem3 + ") Position: ");
+
+        for(int pointer_reihe=1; pointer_reihe<rows; pointer_reihe++) { // Int bei 1 starten, damit die oberste Zeile nicht mitgenommen wird
+
+            String buchungstext_zeile = new String();
+            buchungstext_zeile = daten_original[pointer_reihe][position_relevantesItem2] + " " + daten_original[pointer_reihe][position_relevantesItem3] + " " + daten_original[pointer_reihe][position_relevantesItem1];
+
+
+            daten_final[pointer_reihe-1][position_final] = buchungstext_zeile;
+            System.out.print(pointer_reihe + ": " + daten_final[pointer_reihe-1][position_final]);
+
+        }
+
+
+
+        return daten_final;
+
+
+    }
 
 
     private static String[][] getBelegfeld1(String[][] daten_final, String[][] positionen, String[][] daten_original, int rows) {
