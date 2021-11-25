@@ -41,17 +41,9 @@ public class ExtractorReal {
         String[][] positionen = ItemPositionCoordinator.storeRelevantPositions(daten_original, columns, RELEVANTE_ITEMS);
 
 
-        // ****************** DATUM ******************
-        daten_final = BroadcastCoordinator.transferData(daten_final, positionen, daten_original, rows, RELEVANTE_ITEMS, RELEVANTE_ITEMS[0], 5);
 
 
-        // ****************** BELEGFELD 1 ******************
-        daten_final = BroadcastCoordinator.transferData(daten_final, positionen, daten_original, rows, RELEVANTE_ITEMS, RELEVANTE_ITEMS[2], 6);
-
-        // ****************** BELEGFELD 2 ******************
-        System.out.println("Belegfeld 2 wird bei Real nicht beschrieben.");
-
-        // ****************** DebitorenKonto ******************
+        // ****************** DEBITORENKONTO ******************
         System.out.println("++++++++ DEBITORENKONTO ++++++++");
         // Schreibe Debitorenkonto  in 3. Reihe (also Position 2) von daten_final
         System.out.print("Daten final abgespeichert (" + "Debitorenkonto" + ") Position: ");
@@ -61,10 +53,10 @@ public class ExtractorReal {
             System.out.print(pointer_reihe + ": " + daten_final[pointer_reihe-1][2] + " - ");
 
         }
-        System.out.println("Fertig mit Debitoren!");
+        System.out.println("Fertig mit Debitoren-Konto!");
 
 
-        // ****************** Kreditorenkonto ******************
+        // ****************** KREDITORENKONTO ******************
         System.out.println("++++++++ KREDITORENKONTO ++++++++");
         // Schreibe Kreditorenkonto in 4. Reihe (also Position 3) von daten_final
         System.out.print("Daten final abgespeichert (" + "Debitorenkonto" + ") Position: ");
@@ -74,11 +66,26 @@ public class ExtractorReal {
             System.out.print(pointer_reihe + ": " + daten_final[pointer_reihe-1][3] + " - ");
 
         }
-        System.out.println("Fertig mit Kreditoren!");
+        System.out.println("Fertig mit Kreditoren-Konto!");
+
+
+        // ****************** BU-SCHLÜSSEL ******************
+        System.out.println("BU-Schlüssel wird bei Real nicht beschrieben.");
+
+
+        // ****************** DATUM ******************
+        daten_final = BroadcastCoordinator.transferData(daten_final, positionen, daten_original, rows, RELEVANTE_ITEMS, RELEVANTE_ITEMS[0], 5);
+
+
+        // ****************** BELEGFELD 1 ******************
+        daten_final = BroadcastCoordinator.transferData(daten_final, positionen, daten_original, rows, RELEVANTE_ITEMS, RELEVANTE_ITEMS[2], 6);
+
+
+        // ****************** BELEGFELD 2 ******************
+        System.out.println("Belegfeld 2 wird bei Real nicht beschrieben.");
 
 
         // ****************** BUCHUNGSTEXT ******************
-
         daten_final = getBuchungstext(daten_final, positionen, daten_original, rows, RELEVANTE_ITEMS[5], RELEVANTE_ITEMS[6], RELEVANTE_ITEMS[7], RELEVANTE_ITEMS, 8);
 
 
@@ -88,7 +95,7 @@ public class ExtractorReal {
 
 
                 daten_final = getSH(daten_final, daten_original, rows, operation);
-                daten_final = extractFees(daten_original, rows, columns, positionen);
+                daten_final = extractFees(daten_final, daten_original, rows, columns, positionen);
 
 
                 break;
@@ -227,10 +234,10 @@ public class ExtractorReal {
 
 
 
-    private static String[][] extractFees(String[][] daten_original, int rows, int columns, String[][] positionen) {
+    private static String[][] extractFees(String[][] daten_final, String[][] daten_original, int rows, int columns, String[][] positionen) {
 
 
-        String[][] daten_final = new String[rows][columns];
+        //String[][] daten_final = new String[rows][columns];
 
         // Zeile einlesen
         // https://stackoverflow.com/questions/25798958/iterate-through-2-dimensional-array

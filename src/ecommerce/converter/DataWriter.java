@@ -49,6 +49,9 @@ public class DataWriter {
         therows.add(header);
 
         // Exampledata
+
+
+
         String[] row1 = new String[]{"3,08", "H", "1469000", "70000130", "", "0101", "MUZ1S81", "Peter Test", "h.sdsd@t-online.de", "0"};
         therows.add(row1);
 
