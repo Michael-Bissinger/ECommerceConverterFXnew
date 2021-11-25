@@ -39,7 +39,7 @@ public class ConvertMain {
 
         DataParser.parseData(platform, daten_extrahiert);
 
-        DataWriter.writeData(filepath, platform, format_final, daten_extrahiert); //TODO: Noch Daten aus DataParser nehmen statt daten_extrahiert
+        DataWriter.writeData(filepath, platform, format_final, daten_extrahiert, rows, columns); //TODO: Noch Daten aus DataParser nehmen statt daten_extrahiert
 
 
 

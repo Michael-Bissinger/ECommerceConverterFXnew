@@ -12,14 +12,14 @@ public class DataWriter {
 
     public static String MANDANTENUMBER = "10754"; // Internal number in DATEV, with GmbH & Co KG change to "10755"
 
-    public static void writeData(File filepath_origin, String platform, String finalformat, String[][] daten_final) throws IOException {
+    public static void writeData(File filepath_origin, String platform, String finalformat, String[][] daten_final, int rows, int columns) throws IOException {
 
 
         System.out.println("Daten werden zu Format " + finalformat + " konvertiert!");
 
         switch (finalformat) {
             case "Maske (ASCII)":
-                createMaskASCII(platform, filepath_origin, daten_final);
+                createMaskASCII(platform, filepath_origin, daten_final, rows, columns);
                 break;
 
             case "DATEV-Format (ASCII)":
@@ -38,7 +38,7 @@ public class DataWriter {
 
     }
 
-    static void createMaskASCII(String platform, File filepath_origin, String[][] daten_final) throws IOException {
+    static void createMaskASCII(String platform, File filepath_origin, String[][] daten_final, int rows, int columns) throws IOException {
 
         System.out.println("Pfad: " + filepath_origin.getParent());
 
@@ -48,12 +48,44 @@ public class DataWriter {
         String[] header = new String[]{"Umsatz", "Soll-Haben", "Kontonummer", "Gegenkonto", "BU-Schlüssel", "Belegdatum", "Belegfeld 1", "Belegfeld 2", "Buchungstext", "Festschreibung"};
         therows.add(header);
 
+
+        System.out.println("Ausgabe für array");
+        System.out.println(daten_final[15][2]);
+        System.out.println(daten_final.length);
+
+
+
+        for(int column_pointer=0; column_pointer<daten_final.length; column_pointer++) {
+            String[] row_aktuell = new String[daten_final.length];
+
+            System.out.println("Spalte " + column_pointer + ":");
+        for(int row_pointer=0; row_pointer<9; row_pointer++) {
+
+
+            System.out.println("Schreibe: " + daten_final[column_pointer][row_pointer]);
+
+            if (daten_final[column_pointer][row_pointer] == null) {
+                row_aktuell[row_pointer] = "";
+
+
+                } else
+             {
+                 row_aktuell[row_pointer] = daten_final[column_pointer][row_pointer];
+
+            }
+
+
+            }
+
+            therows.add(row_aktuell);
+
+
+        }
+
+
         // Exampledata
-
-
-
-        String[] row1 = new String[]{"3,08", "H", "1469000", "70000130", "", "0101", "MUZ1S81", "Peter Test", "h.sdsd@t-online.de", "0"};
-        therows.add(row1);
+        //String[] row1 = new String[]{"3,08", "H", "1469000", "70000130", "", "0101", "MUZ1S81", "Peter Test", "h.sdsd@t-online.de", "0"};
+        //therows.add(row1);
 
         writer.writeAll(therows);
         writer.close();
