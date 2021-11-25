@@ -34,26 +34,16 @@ public class DataWriter {
         }
 
 
-
-
     }
 
     static void createMaskASCII(String platform, File filepath_origin, String[][] daten_final, int rows, int columns) throws IOException {
 
         System.out.println("Pfad: " + filepath_origin.getParent());
 
-
         CSVWriter writer = new CSVWriter(new FileWriter(filepath_origin.getParent() + "\\" + "Mask_ASCII_test.csv"),';','"', '\\',CSVWriter.DEFAULT_LINE_END);
         List<String[]> therows = new ArrayList<>();
         String[] header = new String[]{"Umsatz", "Soll-Haben", "Kontonummer", "Gegenkonto", "BU-Schlüssel", "Belegdatum", "Belegfeld 1", "Belegfeld 2", "Buchungstext", "Festschreibung"};
         therows.add(header);
-
-
-        System.out.println("Ausgabe für array");
-        System.out.println(daten_final[15][2]);
-        System.out.println(daten_final.length);
-
-
 
         for(int column_pointer=0; column_pointer<daten_final.length; column_pointer++) {
             String[] row_aktuell = new String[daten_final.length];
@@ -61,24 +51,19 @@ public class DataWriter {
             System.out.println("Spalte " + column_pointer + ":");
         for(int row_pointer=0; row_pointer<9; row_pointer++) {
 
-
             System.out.println("Schreibe: " + daten_final[column_pointer][row_pointer]);
 
             if (daten_final[column_pointer][row_pointer] == null) {
                 row_aktuell[row_pointer] = "";
 
-
                 } else
              {
                  row_aktuell[row_pointer] = daten_final[column_pointer][row_pointer];
-
             }
-
 
             }
 
             therows.add(row_aktuell);
-
 
         }
 
