@@ -33,7 +33,8 @@ public class ExtractorReal {
         //String[][] daten_final = new String[rows][columns];
 
         // Reihen: Umsatz, S/H, Debit-K, Kreditoren-K, Datum, Buchungstext 1, Buchungstext 2
-        String[][] daten_final = new String[rows-1][7];
+        // Reihen: "Umsatz" (0), "Soll-Haben" (1), "Kontonummer" (2), "Gegenkonto" (3), "BU-Schlüssel" (4), "Belegdatum" (5), "Belegfeld 1" (6), "Belegfeld 2" (7), "Buchungstext" (8), "Festschreibung" (9)};
+        String[][] daten_final = new String[rows-1][9];
 
         // Positionen relevanter Items herausfinden
         String[][] positionen = ItemPositionCoordinator.storeRelevantPositions(daten_original, columns, RELEVANTE_ITEMS);
@@ -41,8 +42,8 @@ public class ExtractorReal {
 
 
         // ****************** DATUM ******************
-        String [][] datum_daten = getDate(daten_final, positionen, daten_original, rows);
-        daten_final = datum_daten;
+        daten_final = getDate(daten_final, positionen, daten_original, rows);
+        //daten_final = datum_daten;
 
 
         // ****************** DebitorenKonto ******************
@@ -73,6 +74,8 @@ public class ExtractorReal {
         // ****************** Gebührencheck ******************
         switch (operation) {
             case "Nur Gebühren":
+
+
 
                 daten_final = extractFees(daten_original, rows, columns, positionen);
 
@@ -110,12 +113,12 @@ public class ExtractorReal {
         //System.out.println("Position von Datum ist: " + position_datum);
         System.out.println("++++++++ DATUM ++++++++");
 
-        // Schreibe Datum aus daten_original in 5. Reihe (also Position 4) von daten_final
+        // Schreibe Datum aus daten_original in 6. Reihe (also Position 5) von daten_final
         System.out.print("Daten final abgespeichert (" + RELEVANTE_ITEMS[0] + ") Position: ");
         for(int pointer_reihe=1; pointer_reihe<rows; pointer_reihe++) { // Int bei 1 starten, damit die oberste Zeile nicht mitgenommen wird
 
-            daten_final[pointer_reihe-1][4] = daten_original[pointer_reihe][position_datum];
-            System.out.print(pointer_reihe + ": " + daten_final[pointer_reihe-1][4]);
+            daten_final[pointer_reihe-1][5] = daten_original[pointer_reihe][position_datum];
+            System.out.print(pointer_reihe + ": " + daten_final[pointer_reihe-1][5]);
 
         }
         System.out.println("Fertig mit Datum!");
