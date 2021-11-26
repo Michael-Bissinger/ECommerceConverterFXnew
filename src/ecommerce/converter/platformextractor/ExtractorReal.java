@@ -1,5 +1,6 @@
 package ecommerce.converter.platformextractor;
 
+import ecommerce.converter.extractortools.AccountWriter;
 import ecommerce.converter.extractortools.BroadcastCoordinator;
 import ecommerce.converter.extractortools.ItemPositionCoordinator;
 
@@ -42,31 +43,39 @@ public class ExtractorReal {
 
 
 
-
         // ****************** DEBITORENKONTO ******************
-        System.out.println("++++++++ DEBITORENKONTO ++++++++");
-        // Schreibe Debitorenkonto  in 3. Reihe (also Position 2) von daten_final
-        System.out.print("Daten final abgespeichert (" + "Debitorenkonto" + ") Position: ");
-        for(int pointer_reihe=1; pointer_reihe<rows; pointer_reihe++) { // Int bei 1 starten, damit die oberste Zeile nicht mitgenommen wird
 
-            daten_final[pointer_reihe-1][2] = KONTO_DEBITOR.toString();
-            System.out.print(pointer_reihe + ": " + daten_final[pointer_reihe-1][2] + " - ");
-
-        }
+        daten_final = AccountWriter.writeAccount(daten_final, rows, KONTO_DEBITOR, 3); // Schreibe Debitorenkonto  in 3. Reihe (also Position 2) von daten_final
         System.out.println("Fertig mit Debitoren-Konto!");
 
 
+        // ****************** DEBITORENKONTO ******************
+//        System.out.println("++++++++ DEBITORENKONTO ++++++++");
+        // Schreibe Debitorenkonto  in 3. Reihe (also Position 2) von daten_final
+//        System.out.print("Daten final abgespeichert (" + "Debitorenkonto" + ") Position: ");
+//        for(int pointer_reihe=1; pointer_reihe<rows; pointer_reihe++) { // Int bei 1 starten, damit die oberste Zeile nicht mitgenommen wird
+//
+//            daten_final[pointer_reihe-1][2] = KONTO_DEBITOR.toString();
+//            System.out.print(pointer_reihe + ": " + daten_final[pointer_reihe-1][2] + " - ");
+//
+//        }
+//        System.out.println("Fertig mit Debitoren-Konto!");
+
+
         // ****************** KREDITORENKONTO ******************
-        System.out.println("++++++++ KREDITORENKONTO ++++++++");
-        // Schreibe Kreditorenkonto in 4. Reihe (also Position 3) von daten_final
-        System.out.print("Daten final abgespeichert (" + "Debitorenkonto" + ") Position: ");
-        for(int pointer_reihe=1; pointer_reihe<rows; pointer_reihe++) { // Int bei 1 starten, damit die oberste Zeile nicht mitgenommen wird
-
-            daten_final[pointer_reihe-1][3] = KONTO_KREDITOR.toString();
-            System.out.print(pointer_reihe + ": " + daten_final[pointer_reihe-1][3] + " - ");
-
-        }
+        daten_final = AccountWriter.writeAccount(daten_final, rows, KONTO_KREDITOR, 4); // Schreibe Kreditorenkonto  in 4. Reihe (also Position 3) von daten_final
         System.out.println("Fertig mit Kreditoren-Konto!");
+
+//        System.out.println("++++++++ KREDITORENKONTO ++++++++");
+        // Schreibe Kreditorenkonto in 4. Reihe (also Position 3) von daten_final
+//        System.out.print("Daten final abgespeichert (" + "Debitorenkonto" + ") Position: ");
+//        for(int pointer_reihe=1; pointer_reihe<rows; pointer_reihe++) { // Int bei 1 starten, damit die oberste Zeile nicht mitgenommen wird
+//
+//            daten_final[pointer_reihe-1][3] = KONTO_KREDITOR.toString();
+//            System.out.print(pointer_reihe + ": " + daten_final[pointer_reihe-1][3] + " - ");
+//
+//        }
+//        System.out.println("Fertig mit Kreditoren-Konto!");
 
 
         // ****************** BU-SCHLÜSSEL ******************
