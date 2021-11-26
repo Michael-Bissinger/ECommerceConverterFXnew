@@ -12,7 +12,7 @@ public class DataRecorder {
 
     public static String [] [] loadData(String platform, File filepath_origin, int row_number, int columns_number) throws IOException, CsvValidationException {
 
-        String [] [] daten = new String [row_number] [columns_number];
+        String [] [] rohdaten = new String [row_number] [columns_number];
 
 
         switch (platform) {
@@ -45,7 +45,7 @@ public class DataRecorder {
 
             case "Real":
                 // Get data from csv file
-                daten = getDataCSV(platform, filepath_origin, row_number, columns_number);
+                rohdaten = getDataCSV(platform, filepath_origin, row_number, columns_number);
 
                 break;
 
@@ -64,7 +64,7 @@ public class DataRecorder {
         System.out.println("Rohdaten importiert");
         System.out.println("+++++++++++");
 
-        return daten;
+        return rohdaten;
     }
 
 
