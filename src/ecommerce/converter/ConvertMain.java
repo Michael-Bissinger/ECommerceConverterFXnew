@@ -38,9 +38,9 @@ public class ConvertMain {
 
         String [] [] daten_extrahiert = DataExtractor.extractData(platform, operation, daten_roh, rows, columns);
 
-        DataParser.parseData(platform, daten_extrahiert);
+        String [] [] daten_geparsed = DataParser.parseData(platform, daten_extrahiert);
 
-        DataWriter.writeData(filepath, platform, format_final, daten_extrahiert, rows, columns); //TODO: Noch Daten aus DataParser nehmen statt daten_extrahiert
+        DataWriter.writeData(filepath, platform, format_final, daten_geparsed);
 
 
 
