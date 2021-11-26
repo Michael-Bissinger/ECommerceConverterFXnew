@@ -25,6 +25,7 @@ import javafx.scene.layout.GridPane;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.ParseException;
 
 public class Main extends Application{
 
@@ -228,6 +229,8 @@ public class Main extends Application{
                     } catch (IOException e) {
                         e.printStackTrace();
                     } catch (CsvValidationException e) {
+                        e.printStackTrace();
+                    } catch (ParseException e) {
                         e.printStackTrace();
                     }
 

@@ -4,6 +4,7 @@ import com.opencsv.exceptions.CsvValidationException;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 
 public class ConvertMain {
 
@@ -20,7 +21,7 @@ public class ConvertMain {
             "Buchungstext",
             "Festschreibung"}; // Datenmodell
 
-    public static void start (String platform, String operation, File filepath, String format_final) throws IOException, CsvValidationException {
+    public static void start (String platform, String operation, File filepath, String format_final) throws IOException, CsvValidationException, ParseException {
         System.out.println("Dateipfad: [" + filepath.getAbsolutePath() + "]");
         System.out.println("Plattform: [" + platform + "]");
         System.out.println("Operation: [" + operation + "]");
