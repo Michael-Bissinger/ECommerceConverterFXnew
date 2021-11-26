@@ -16,8 +16,14 @@ public class BroadcastCoordinator {
 
         for(int pointer_reihe=1; pointer_reihe<rows; pointer_reihe++) { // Int bei 1 starten, damit die oberste Zeile nicht mitgenommen wird
 
-            daten_final[pointer_reihe-1][position_final] = daten_original[pointer_reihe][position_relevantesItem];
-            System.out.print(pointer_reihe + ": " + daten_final[pointer_reihe-1][position_final]);
+            String buchungstext_zeile = new String();
+            buchungstext_zeile = daten_original[pointer_reihe][position_relevantesItem];
+
+            //https://stackoverflow.com/questions/4975978/remove-specific-characters-from-string-in-java
+            buchungstext_zeile = buchungstext_zeile.replace("\"", ""); // Sollte noch " drin sein, dann rausmachen
+
+            daten_final[pointer_reihe-1][position_final] = buchungstext_zeile;
+            System.out.print(pointer_reihe + ": " + daten_final[pointer_reihe-1][position_final] + " I ");
 
         }
 
