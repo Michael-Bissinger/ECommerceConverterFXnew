@@ -49,7 +49,7 @@ public class DataWriter {
             String[] row_aktuell = new String[daten_final.length];
 
             System.out.println("Spalte " + column_pointer + ":");
-        for(int row_pointer=0; row_pointer<9; row_pointer++) {
+        for(int row_pointer=0; row_pointer<10; row_pointer++) {
 
             System.out.println("Schreibe: " + daten_final[column_pointer][row_pointer]);
 

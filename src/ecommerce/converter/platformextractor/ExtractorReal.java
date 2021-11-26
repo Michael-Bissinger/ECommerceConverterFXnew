@@ -35,7 +35,7 @@ public class ExtractorReal {
 
         // Alt: Reihen: Umsatz, S/H, Debit-K, Kreditoren-K, Datum, Buchungstext 1, Buchungstext 2
         // Neu: Reihen: "Umsatz" (0), "Soll-Haben" (1), "Kontonummer" (2), "Gegenkonto" (3), "BU-Schlüssel" (4), "Belegdatum" (5), "Belegfeld 1" (6), "Belegfeld 2" (7), "Buchungstext" (8), "Festschreibung" (9)};
-        String[][] daten_final = new String[rows-1][9];
+        String[][] daten_final = new String[rows-1][10];
 
         // Positionen relevanter Items herausfinden
         String[][] positionen = ItemPositionCoordinator.storeRelevantPositions(daten_original, columns, RELEVANTE_ITEMS);

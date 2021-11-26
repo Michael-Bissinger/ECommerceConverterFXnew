@@ -27,7 +27,7 @@ public class ParserDate {
             date_new = new SimpleDateFormat("ddMM").format(date_aktuell);
 
 
-            daten[row_pointer][5] = date_new;
+            daten[row_pointer][5] = date_new; // Datum ist an 5. Position, also hier einfügen
 
             System.out.println("I Datum (neu), Position " + row_pointer + " ist: " + daten[row_pointer][5]);
 
