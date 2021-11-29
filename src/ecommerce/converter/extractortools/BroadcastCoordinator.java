@@ -71,18 +71,24 @@ public class BroadcastCoordinator {
 
         https://stackoverflow.com/questions/5455794/removing-whitespace-from-strings-in-java
         value_String = value_String.replaceAll("\\s+",""); // delete white-spaces
-        value_String = value_String.replaceAll(",","."); // replace , with .
-        System.out.println("Aktueller Wert: " + value_String);
-        double value_Double = Double.parseDouble(value_String);
 
-        if (signswap == true) {
+        System.out.println("Aktueller Wert: " + value_String);
+
+
+        if (signswap == true) { // Wenn Vorzeichen geändert werden soll
+            value_String = value_String.replaceAll(",","."); // replace , with .
+            double value_Double = Double.parseDouble(value_String);
             value_Double = Math.abs(value_Double);
+
+            value_String = String.valueOf(value_Double);
+            value_String = value_String.replaceAll("\\.",","); // replace . with ,
+
             System.out.println("Neuer Value: " + value_Double);
         }
         //value_String = String.valueOf(value_Double);
 
 
-        return String.valueOf(value_Double);
+        return value_String;
     }
 
 

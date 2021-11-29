@@ -281,8 +281,11 @@ public class ExtractorReal {
 
                 if (daten_original[pointer_reihe][position_relevantesItem].contains(gebuehrenarten[1])) { // "Freigabe Verkaufserlös"
 
+                    String value_String = daten_original[pointer_reihe][position_fee_gross];
 
-                    daten_final[pointer_reihe-1][0] = daten_original[pointer_reihe][position_fee_gross];
+                    daten_final[pointer_reihe-1][0] = BroadcastCoordinator.trimNumber(value_String, false);
+                    //daten_final[pointer_reihe-1][0] = daten_original[pointer_reihe][position_fee_gross];
+                    //daten_final[pointer_reihe-1][0] = daten_original[pointer_reihe][position_fee_gross];
 
                 }
 
