@@ -66,5 +66,26 @@ public class BroadcastCoordinator {
 
     }
 
+    public static String trimNumber(String value_String, boolean signswap) {
+
+
+        https://stackoverflow.com/questions/5455794/removing-whitespace-from-strings-in-java
+        value_String = value_String.replaceAll("\\s+",""); // delete white-spaces
+        value_String = value_String.replaceAll(",","."); // replace , with .
+        System.out.println("Aktueller Wert: " + value_String);
+        double value_Double = Double.parseDouble(value_String);
+
+        if (signswap == true) {
+            value_Double = Math.abs(value_Double);
+            System.out.println("Neuer Value: " + value_Double);
+        }
+        //value_String = String.valueOf(value_Double);
+
+
+        return String.valueOf(value_Double);
+    }
+
+
+
 
 }

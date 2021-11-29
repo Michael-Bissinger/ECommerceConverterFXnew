@@ -228,14 +228,65 @@ public class ExtractorReal {
         int position_relevantesItem = ItemPositionCoordinator.findRelevantPosition(positionen, relevantesItem, relevanteItems);
         System.out.println("Position von bookingtext:" + position_relevantesItem);
 
+        int position_amount = ItemPositionCoordinator.findRelevantPosition(positionen, relevanteItems[3], relevanteItems);
+        System.out.println("Position von amount:" + position_amount);
+
+        int position_fee_gross = ItemPositionCoordinator.findRelevantPosition(positionen, relevanteItems[4], relevanteItems);
+        System.out.println("Position von fee_gross:" + position_fee_gross);
+
+
+
+
+
         System.out.println("Länge String: " + gebuehrenarten.length);
         for(int k=0; k<gebuehrenarten.length; k++) { // So lange iterieren wie man Gebührenarten hat
 
-            System.out.println("--- Checke Gebührenart Nr. " + k + ": " + gebuehrenarten[k] + " ---");
+            System.out.println("--- Checke Gebührenart Nr. " + (k+1) + "/" + (gebuehrenarten.length) + ": " + gebuehrenarten[k] + " ---");
 
-            for(int i=1; i<rows; i++) { // Bei "i = 1" beginnen, damit oberste Zeile nicht mitgenommen wird
+            for(int pointer_reihe=1; pointer_reihe<rows; pointer_reihe++) { // Bei "i = 1" beginnen, damit oberste Zeile nicht mitgenommen wird
 
-                //System.out.println("Aktuell: " + daten_final[][]);
+                System.out.println("Aktuell: " + daten_original[pointer_reihe][position_relevantesItem]);
+
+                if (daten_original[pointer_reihe][position_relevantesItem].contains(gebuehrenarten[k])) {
+
+                    //System.out.println("Treffer");
+
+
+                }
+
+                if (daten_original[pointer_reihe][position_relevantesItem].contains(gebuehrenarten[0])) { // "Bezahlung Zusatzleistungen"
+
+                    //daten_final[pointer_reihe-1][0] = "test";
+
+                    //String value = daten_original[pointer_reihe][position_amount];
+
+                    String value_String = daten_original[pointer_reihe][position_amount];
+
+
+
+                    //String str = "This is a test!";
+                    //String str2 = str.replaceAll("\\s+",""); // delete empty spaces
+                    //System.out.println("Teststring: " + str2);
+
+                    //daten_final[pointer_reihe-1][0] = daten_original[pointer_reihe][position_amount];
+
+                    daten_final[pointer_reihe-1][0] = BroadcastCoordinator.trimNumber(value_String, true);
+
+
+                    //System.out.println("Treffer");
+
+
+                }
+
+
+                if (daten_original[pointer_reihe][position_relevantesItem].contains(gebuehrenarten[1])) { // "Freigabe Verkaufserlös"
+
+
+                    daten_final[pointer_reihe-1][0] = daten_original[pointer_reihe][position_fee_gross];
+
+                }
+
+
 
                 //if (daten_final[][] ==) {
                 //
