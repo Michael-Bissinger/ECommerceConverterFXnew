@@ -3,6 +3,7 @@ package ecommerce.converter.platformextractor;
 import ecommerce.converter.extractortools.AccountWriter;
 import ecommerce.converter.extractortools.BroadcastCoordinator;
 import ecommerce.converter.extractortools.ItemPositionCoordinator;
+import ecommerce.converter.extractortools.SHCoordinator;
 
 import java.util.Arrays;
 
@@ -75,9 +76,11 @@ public class ExtractorReal {
         // ****************** Gebührencheck ******************
         switch (operation) {
             case "Nur Gebühren":
+                //RELEVANTE_ITEMS[0]
 
+                //daten_final = getSH(daten_final, rows, operation);
+                daten_final = SHCoordinator.getSH(daten_final, rows, operation, RELEVANTE_ITEMS[0]);
 
-                daten_final = getSH(daten_final, daten_original, rows, operation);
                 daten_final = extractFees(daten_final, daten_original, rows, columns, positionen);
 
 
@@ -188,7 +191,7 @@ public class ExtractorReal {
 
 
 
-    private static String[][] getSH(String[][] daten_final, String[][] daten_original, int rows, String operation) {
+    private static String[][] getSH(String[][] daten_final, int rows, String operation) {
 
 
         if (operation == "Nur Gebühren") {
