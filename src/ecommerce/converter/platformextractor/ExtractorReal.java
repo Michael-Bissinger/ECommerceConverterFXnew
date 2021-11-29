@@ -81,7 +81,10 @@ public class ExtractorReal {
                 //daten_final = getSH(daten_final, rows, operation);
                 daten_final = SHCoordinator.getSH(daten_final, rows, operation, RELEVANTE_ITEMS[0]);
 
-                daten_final = extractFees(daten_final, daten_original, rows, columns, positionen);
+
+                //String[] = {"Volvo", "BMW", "Ford", "Mazda"};
+
+                daten_final = extractFees(daten_final, daten_original, rows, columns, positionen, GEBUEHRENARTEN, RELEVANTE_ITEMS[1], RELEVANTE_ITEMS);
 
 
                 break;
@@ -220,7 +223,28 @@ public class ExtractorReal {
 
 
 
-    private static String[][] extractFees(String[][] daten_final, String[][] daten_original, int rows, int columns, String[][] positionen) {
+    private static String[][] extractFees(String[][] daten_final, String[][] daten_original, int rows, int columns, String[][] positionen, String[] gebuehrenarten, String relevantesItem, String[] relevanteItems) {
+
+        int position_relevantesItem = ItemPositionCoordinator.findRelevantPosition(positionen, relevantesItem, relevanteItems);
+        System.out.println("Position von bookingtext:" + position_relevantesItem);
+
+        System.out.println("Länge String: " + gebuehrenarten.length);
+        for(int k=0; k<gebuehrenarten.length; k++) { // So lange iterieren wie man Gebührenarten hat
+
+            System.out.println("--- Checke Gebührenart Nr. " + k + ": " + gebuehrenarten[k] + " ---");
+
+            for(int i=1; i<rows; i++) { // Bei "i = 1" beginnen, damit oberste Zeile nicht mitgenommen wird
+
+                //System.out.println("Aktuell: " + daten_final[][]);
+
+                //if (daten_final[][] ==) {
+                //
+                //}
+
+            }
+
+
+        }
 
 
         //String[][] daten_final = new String[rows][columns];
