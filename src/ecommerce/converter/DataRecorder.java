@@ -117,7 +117,7 @@ public class DataRecorder {
         Integer current_line = 0;
         while ((nextline = reader.readNext()) != null) {
             System.out.println("Aktuell bei Reihe: " + current_line);
-            LogCoordinator.writeLog(("ROHDATEN: Einlesen von Reihe: " + current_line));
+            //LogCoordinator.writeLog(("ROHDATEN: Einlesen von Reihe: " + current_line));
 
             if(nextline != null){
                 System.out.println("CSV-Reader: " + Arrays.toString(nextline));

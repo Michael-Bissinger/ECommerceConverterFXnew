@@ -51,7 +51,7 @@ public class DataWriter {
             String[] row_aktuell = new String[daten_final.length];
 
             System.out.println("Spalte " + column_pointer + ":");
-            LogCoordinator.writeLog("FINALDATEN: Teste Spalte: " + column_pointer);
+            //LogCoordinator.writeLog("FINALDATEN: Teste Spalte: " + column_pointer);
 
         for(int row_pointer=0; row_pointer<10; row_pointer++) {
 
@@ -69,12 +69,19 @@ public class DataWriter {
 
 
             //System.out.println("Anzeige: " + row_aktuell[0]);
-            //if (row_aktuell[0] != null) {
-            //    System.out.println("Da ist eine 0");
-            //}
+            if (row_aktuell[0] != "") {
+
+                therows.add(row_aktuell);
+
+            } else {
+                System.out.println("Kein Buchungswert bei Spalte: " + column_pointer);
+                System.out.println("Buchung wird daher NICHT aufgenommen!");
+                LogCoordinator.writeLog("FINALDATEN: Buchung in Spalte: " + column_pointer + " wird nicht aufgenommen!");
+
+            }
 
 
-            therows.add(row_aktuell);
+
 
         }
 
