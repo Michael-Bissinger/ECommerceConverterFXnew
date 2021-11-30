@@ -2,6 +2,7 @@ package ecommerce.converter.generaltools;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.logging.FileHandler;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
@@ -9,8 +10,17 @@ import java.util.logging.SimpleFormatter;
 
 public class LogCoordinator {
 
+    //File LOGFILE = System.getProperty("user.dir")+"out/production/Design/logger/Log.log";
+    //public static final Path LOGFILE_PATH = Path.of(System.getProperty("user.dir")+"out/production/Design/logger/Log.log");
+    public static final String LOGFILE_PATH = Path.of(System.getProperty("user.dir")+"/out/production/Design/logger/Log.log").toString();
+    //public static final String LOGFILE_PATH = Path.of(System.getProperty("user.dir")+"/ressources/logger/Log.log").toString();
+
+    //public static File LOGFILE = Path.of(System.getProperty("user.dir")+"out/production/Design/logger/Logfile.log");
+
     public static void writeLog(String message, File filepath_origin) {
 
+
+        //String LOGFILE_PATH = Path.of(System.getProperty("user.dir")+"out/production/Design/logger/Log.log").toString();
 
         //https://stackoverflow.com/questions/15758685/how-to-write-logs-in-text-file-when-using-java-util-logging-logger
 
@@ -19,11 +29,14 @@ public class LogCoordinator {
 
         System.out.println("Aktuelel: " + System.getProperty("user.dir"));
 
+
         try {
 
             // This block configure the logger with handler and formatter
             //fh = new FileHandler("C:/temp/test/MyLogFile.log");
-            fh = new FileHandler(filepath_origin.getParent() + "\\" + "Log.log");
+            //fh = new FileHandler(filepath_origin.getParent() + "\\" + "Log.log");
+            fh = new FileHandler(LOGFILE_PATH);
+
 
             logger.addHandler(fh);
             SimpleFormatter formatter = new SimpleFormatter();
