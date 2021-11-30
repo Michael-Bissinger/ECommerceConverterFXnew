@@ -1,6 +1,7 @@
 package ecommerce.converter;
 
 import com.opencsv.exceptions.CsvValidationException;
+import ecommerce.converter.generaltools.LogCoordinator;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,6 +32,8 @@ public class ConvertMain {
         int columns = DimensionCalculator.getColumns(platform, filepath);
 
 
+        LogCoordinator.writeLog("Hallo", filepath);
+        LogCoordinator.writeLog("Hallo", filepath);
 
 
 

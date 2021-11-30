@@ -7,6 +7,8 @@ module Converter {
 
     requires org.apache.commons.lang3;
 
+    requires java.logging;
+
     opens ecommerce.converter;
     opens ecommerce.converter.platformextractor;
 }
