@@ -8,14 +8,19 @@ import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
+import java.awt.Desktop;
+
 public class LogCoordinator {
 
     //File LOGFILE = System.getProperty("user.dir")+"out/production/Design/logger/Log.log";
     //public static final Path LOGFILE_PATH = Path.of(System.getProperty("user.dir")+"out/production/Design/logger/Log.log");
-    public static final String LOGFILE_PATH = Path.of(System.getProperty("user.dir")+"/out/production/Design/logger/Log.log").toString();
+    public static final String LOGFILE_PATH = Path.of(System.getProperty("user.dir") + "/out/production/Design/logger/Log.log").toString();
     //public static final String LOGFILE_PATH = Path.of(System.getProperty("user.dir")+"/ressources/logger/Log.log").toString();
 
     //public static File LOGFILE = Path.of(System.getProperty("user.dir")+"out/production/Design/logger/Logfile.log");
+
+    public static final File LOGFILE = new File(LOGFILE_PATH);
+
 
     public static void writeLog(String message) {
 
@@ -28,7 +33,6 @@ public class LogCoordinator {
         logger.setUseParentHandlers(false);
 
         FileHandler fh;
-
 
 
         //System.out.println("Aktuelel: " + System.getProperty("user.dir"));
@@ -56,7 +60,36 @@ public class LogCoordinator {
         }
 
 
-
     }
 
+
+    public static void openLog() {
+
+        //https://www.javatpoint.com/how-to-open-a-file-in-java
+
+        try {
+
+            System.out.println("Öffne Log-File");
+
+            //public static final File = new File(LOGFILE_PATH)
+
+            if (!Desktop.isDesktopSupported())//check if Desktop is supported by Platform or not
+            {
+                System.out.println("not supported");
+                return;
+            }
+            Desktop desktop = Desktop.getDesktop();
+            if (LOGFILE.exists())         //checks file exists or not
+                desktop.open(LOGFILE);              //opens the specified file
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
 }
+
+
+
+
+

@@ -1,6 +1,7 @@
 package ecommerce.converter;
 
 import com.opencsv.exceptions.CsvValidationException;
+import ecommerce.converter.generaltools.LogCoordinator;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -169,6 +170,9 @@ public class Main extends Application{
         Button btn_start = new Button();
         btn_start.setText("Starte Konvertierung!");
 
+        Button btn_log = new Button();
+        btn_log.setText("Log");
+
         // Add to GridPane
         // Legende:
         // i: Links nach rechts (column)
@@ -192,6 +196,7 @@ public class Main extends Application{
         grid.add(format_box, 1, 4);
 
         grid.add(btn_start, 1, 5);
+        grid.add(btn_log, 0, 7);
 
         // ****** Scene setup ********
         Scene scene = new Scene(grid, 280, 310);
@@ -256,6 +261,15 @@ public class Main extends Application{
                 //System.out.println("Konvertierung startet!");
 
                 System.out.println("----------------ENDE-------------------");
+
+            }
+        });
+
+        btn_log.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+
+                LogCoordinator.openLog();
 
             }
         });
