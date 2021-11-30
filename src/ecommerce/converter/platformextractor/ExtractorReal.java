@@ -247,56 +247,29 @@ public class ExtractorReal {
 
                 System.out.println("Aktuell: " + daten_original[pointer_reihe][position_relevantesItem]);
 
-                if (daten_original[pointer_reihe][position_relevantesItem].contains(gebuehrenarten[k])) {
-
-                    //System.out.println("Treffer");
-
-
-                }
+                //if (daten_original[pointer_reihe][position_relevantesItem].contains(gebuehrenarten[k])) {
+                //
+                //}
 
                 if (daten_original[pointer_reihe][position_relevantesItem].contains(gebuehrenarten[0])) { // "Bezahlung Zusatzleistungen"
 
-                    //daten_final[pointer_reihe-1][0] = "test";
-
-                    //String value = daten_original[pointer_reihe][position_amount];
-
                     String value_String = daten_original[pointer_reihe][position_amount];
-
-
-
-                    //String str = "This is a test!";
-                    //String str2 = str.replaceAll("\\s+",""); // delete empty spaces
-                    //System.out.println("Teststring: " + str2);
-
-                    //daten_final[pointer_reihe-1][0] = daten_original[pointer_reihe][position_amount];
-
                     daten_final[pointer_reihe-1][0] = BroadcastCoordinator.trimNumber(value_String, true);
 
-
                     //System.out.println("Treffer");
-
-
                 }
 
 
                 if (daten_original[pointer_reihe][position_relevantesItem].contains(gebuehrenarten[1])) { // "Freigabe Verkaufserlös"
 
                     String value_String = daten_original[pointer_reihe][position_fee_gross];
-
                     daten_final[pointer_reihe-1][0] = BroadcastCoordinator.trimNumber(value_String, false);
                     //daten_final[pointer_reihe-1][0] = daten_original[pointer_reihe][position_fee_gross];
                     //daten_final[pointer_reihe-1][0] = daten_original[pointer_reihe][position_fee_gross];
 
                 }
 
-
-
-                //if (daten_final[][] ==) {
-                //
-                //}
-
             }
-
 
         }
 
@@ -305,43 +278,43 @@ public class ExtractorReal {
 
         // Zeile einlesen
         // https://stackoverflow.com/questions/25798958/iterate-through-2-dimensional-array
-        for(int i=1; i<rows; i++) { // Bei "i = 1" beginnen, damit oberste Zeile nicht mitgenommen wird
-
-            String[] zeile_aktuell = new String[columns];
-
-
-            for(int j=0; j<columns; j++) {
-                //System.out.println("Values at arr["+i+"]["+j+"] is "+daten_original[i][j]);
-
-                zeile_aktuell[j] = daten_original[i][j];
-
-                //System.out.println("Über Zeile " + j +" iteriert");
-
-
-
-
-            }
-            System.out.println("-> Alle gesammelten Ergebnisse lauten: " + Arrays.toString(zeile_aktuell));
-
-            // Bestimmen welche Art von Gebühr es ist
-            String art_gebuehr = chooseFeeType(zeile_aktuell, positionen);
-
-            // Zeile zur Berechnung von Gebühr an entsprechende Methode übergeben (jede Gebührenart hat Methode)
-
-            switch (art_gebuehr) {
-                case "Bezahlung Zusatzleistungen":
-
-                    break;
-                case "Freigabe Verkaufserlös":
-
-                    break;
-
-                default:
-                    System.out.println("Gebührenart nicht gefunden!");
-                    break;
-            }
-
-        }
+//        for(int i=1; i<rows; i++) { // Bei "i = 1" beginnen, damit oberste Zeile nicht mitgenommen wird
+//
+//            String[] zeile_aktuell = new String[columns];
+//
+//
+//            for(int j=0; j<columns; j++) {
+//                //System.out.println("Values at arr["+i+"]["+j+"] is "+daten_original[i][j]);
+//
+//                zeile_aktuell[j] = daten_original[i][j];
+//
+//                //System.out.println("Über Zeile " + j +" iteriert");
+//
+//
+//
+//
+//            }
+//            System.out.println("-> Alle gesammelten Ergebnisse lauten: " + Arrays.toString(zeile_aktuell));
+//
+//            // Bestimmen welche Art von Gebühr es ist
+//            String art_gebuehr = chooseFeeType(zeile_aktuell, positionen);
+//
+//            // Zeile zur Berechnung von Gebühr an entsprechende Methode übergeben (jede Gebührenart hat Methode)
+//
+//            switch (art_gebuehr) {
+//                case "Bezahlung Zusatzleistungen":
+//
+//                    break;
+//                case "Freigabe Verkaufserlös":
+//
+//                    break;
+//
+//                default:
+//                    System.out.println("Gebührenart nicht gefunden!");
+//                    break;
+//            }
+//
+//        }
 
 
 
