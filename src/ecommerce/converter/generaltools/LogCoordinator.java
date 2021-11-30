@@ -17,7 +17,7 @@ public class LogCoordinator {
 
     //public static File LOGFILE = Path.of(System.getProperty("user.dir")+"out/production/Design/logger/Logfile.log");
 
-    public static void writeLog(String message, File filepath_origin) {
+    public static void writeLog(String message) {
 
 
         //String LOGFILE_PATH = Path.of(System.getProperty("user.dir")+"out/production/Design/logger/Log.log").toString();
@@ -25,9 +25,13 @@ public class LogCoordinator {
         //https://stackoverflow.com/questions/15758685/how-to-write-logs-in-text-file-when-using-java-util-logging-logger
 
         Logger logger = Logger.getLogger("MyLog");
+        logger.setUseParentHandlers(false);
+
         FileHandler fh;
 
-        System.out.println("Aktuelel: " + System.getProperty("user.dir"));
+
+
+        //System.out.println("Aktuelel: " + System.getProperty("user.dir"));
 
 
         try {
@@ -43,15 +47,13 @@ public class LogCoordinator {
             fh.setFormatter(formatter);
 
             // the following statement is used to log any messages
-            logger.info("My first log");
+            logger.info(message);
 
         } catch (SecurityException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        logger.info("Hi How r u?");
 
 
 

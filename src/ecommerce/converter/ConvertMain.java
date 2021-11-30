@@ -32,8 +32,8 @@ public class ConvertMain {
         int columns = DimensionCalculator.getColumns(platform, filepath);
 
 
-        LogCoordinator.writeLog("Hallo", filepath);
-        LogCoordinator.writeLog("Hallo", filepath);
+        LogCoordinator.writeLog("Hallo1");
+        LogCoordinator.writeLog("Hallo2");
 
 
 
