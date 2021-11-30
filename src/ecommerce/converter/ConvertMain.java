@@ -32,11 +32,6 @@ public class ConvertMain {
         int columns = DimensionCalculator.getColumns(platform, filepath);
 
 
-        LogCoordinator.writeLog("Hallo1");
-        LogCoordinator.writeLog("Hallo2");
-
-
-
         String [] [] daten_roh = DataRecorder.loadData(platform, filepath, rows, columns);
 
         String [] [] daten_extrahiert = DataExtractor.extractData(platform, operation, daten_roh, rows, columns);

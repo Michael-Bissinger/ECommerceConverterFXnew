@@ -10,6 +10,8 @@ import java.util.logging.SimpleFormatter;
 
 import java.awt.Desktop;
 
+import org.apache.commons.io.FileUtils;
+
 public class LogCoordinator {
 
     //File LOGFILE = System.getProperty("user.dir")+"out/production/Design/logger/Log.log";
@@ -87,7 +89,29 @@ public class LogCoordinator {
 
 
     }
-}
+
+    public static void deleteLog() {
+
+        //https://stackoverflow.com/questions/13195797/delete-all-files-in-directory-but-not-directory-one-liner-solution
+
+        File deletefile = LOGFILE;
+
+        // https://www.baeldung.com/java-delete-directory
+        // https://stackoverflow.com/questions/13195797/delete-all-files-in-directory-but-not-directory-one-liner-solution
+        try {
+            FileUtils.cleanDirectory(deletefile.getParentFile());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+
+    }
+
+
+
 
 
 

@@ -6,6 +6,7 @@ module Converter {
     requires com.opencsv;
 
     requires org.apache.commons.lang3;
+    requires  org.apache.commons.io;
 
     requires java.logging;
     requires java.desktop;

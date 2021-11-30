@@ -217,6 +217,8 @@ public class Main extends Application{
             @Override
             public void handle(ActionEvent event) {
 
+                LogCoordinator.deleteLog();
+
                 System.out.println("---------------START------------------");
 
                 if (platforms_box.getSelectionModel().getSelectedItem() != null

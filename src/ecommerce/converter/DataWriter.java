@@ -1,6 +1,7 @@
 package ecommerce.converter;
 
 import com.opencsv.CSVWriter;
+import ecommerce.converter.generaltools.LogCoordinator;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -37,6 +38,7 @@ public class DataWriter {
     }
 
     static void createMaskASCII(String platform, File filepath_origin, String[][] daten_final) throws IOException {
+        LogCoordinator.writeLog("FINALDATEN: Kreiere ASCII-Maske!");
 
         System.out.println("Pfad: " + filepath_origin.getParent());
 
@@ -49,6 +51,8 @@ public class DataWriter {
             String[] row_aktuell = new String[daten_final.length];
 
             System.out.println("Spalte " + column_pointer + ":");
+            LogCoordinator.writeLog("FINALDATEN: Teste Spalte: " + column_pointer);
+
         for(int row_pointer=0; row_pointer<10; row_pointer++) {
 
             System.out.println("Schreibe: " + daten_final[column_pointer][row_pointer]);
@@ -62,6 +66,13 @@ public class DataWriter {
             }
 
             }
+
+
+            //System.out.println("Anzeige: " + row_aktuell[0]);
+            //if (row_aktuell[0] != null) {
+            //    System.out.println("Da ist eine 0");
+            //}
+
 
             therows.add(row_aktuell);
 

@@ -2,6 +2,7 @@ package ecommerce.converter;
 
 import com.opencsv.*;
 import com.opencsv.exceptions.CsvValidationException;
+import ecommerce.converter.generaltools.LogCoordinator;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.*;
@@ -112,9 +113,11 @@ public class DataRecorder {
         String[] nextline;
 
 
+        LogCoordinator.writeLog("ROHDATEN: Einlesen Beginn!");
         Integer current_line = 0;
         while ((nextline = reader.readNext()) != null) {
             System.out.println("Aktuell bei Reihe: " + current_line);
+            LogCoordinator.writeLog(("ROHDATEN: Einlesen von Reihe: " + current_line));
 
             if(nextline != null){
                 System.out.println("CSV-Reader: " + Arrays.toString(nextline));
@@ -157,8 +160,10 @@ public class DataRecorder {
        catch (Exception e)
         {
             System.out.println("FEHLER: Fehler beim Einlesen in getDataCSV!");
+            LogCoordinator.writeLog("ROHDATEN: FEHLER bei Einlesen!");
         }
 
+        LogCoordinator.writeLog("ROHDATEN: Einlesen abgeschlossen!");
         return CSV_Daten;
 
     }
