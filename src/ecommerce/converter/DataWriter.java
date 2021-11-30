@@ -76,7 +76,7 @@ public class DataWriter {
             } else {
                 System.out.println("Kein Buchungswert bei Spalte: " + column_pointer);
                 System.out.println("Buchung wird daher NICHT aufgenommen!");
-                LogCoordinator.writeLog("FINALDATEN: Buchung in Spalte: " + column_pointer + " wird nicht aufgenommen!");
+                LogCoordinator.writeLog("FINALDATEN: Buchung aus Spalte " + (column_pointer+2) + " wird nicht aufgenommen!");
 
             }
 
@@ -90,7 +90,12 @@ public class DataWriter {
         //String[] row1 = new String[]{"3,08", "H", "1469000", "70000130", "", "0101", "MUZ1S81", "Peter Test", "h.sdsd@t-online.de", "0"};
         //therows.add(row1);
 
+
+
         writer.writeAll(therows);
+
+        LogCoordinator.writeLog("FINALDATEN: Kreation ASCII-Maske abgeschlossen!");
+
         writer.close();
     }
 
