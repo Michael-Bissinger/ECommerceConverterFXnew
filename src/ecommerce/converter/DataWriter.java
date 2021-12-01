@@ -77,6 +77,8 @@ public class DataWriter {
                 System.out.println("Kein Buchungswert bei Spalte: " + column_pointer);
                 System.out.println("Buchung wird daher NICHT aufgenommen!");
                 LogCoordinator.writeLog("FINALDATEN: Buchung aus Spalte " + (column_pointer+2) + " wird nicht aufgenommen!");
+                // Es soll Originalspalte ausgegeben werden.
+                // (column_pointer+2) wird genutzt, weil die jetztige Datei keinen Header mehr hat (+1) und bei 0 begonnen wird (+1)
 
             }
 
