@@ -1,9 +1,6 @@
 package ecommerce.converter.platformextractor;
 
-import ecommerce.converter.extractortools.AccountWriter;
-import ecommerce.converter.extractortools.BroadcastCoordinator;
-import ecommerce.converter.extractortools.ItemPositionCoordinator;
-import ecommerce.converter.extractortools.SHCoordinator;
+import ecommerce.converter.extractortools.*;
 
 import java.util.Arrays;
 
@@ -70,7 +67,12 @@ public class ExtractorReal {
 
 
         // ****************** BUCHUNGSTEXT ******************
-        daten_final = getBuchungstext(daten_final, positionen, daten_original, rows, RELEVANTE_ITEMS[5], RELEVANTE_ITEMS[6], RELEVANTE_ITEMS[7], RELEVANTE_ITEMS, 8);
+
+        String[] relevanteItemsBuchungstext = {RELEVANTE_ITEMS[5], RELEVANTE_ITEMS[6], RELEVANTE_ITEMS[7]};
+
+        daten_final = BuchungstextWriter.getBuchungstext(daten_final, positionen, daten_original, rows, relevanteItemsBuchungstext, RELEVANTE_ITEMS, 8);
+
+        //daten_final = getBuchungstext(daten_final, positionen, daten_original, rows, RELEVANTE_ITEMS[5], RELEVANTE_ITEMS[6], RELEVANTE_ITEMS[7], RELEVANTE_ITEMS, 8);
 
 
         // ****************** Gebührencheck ******************
