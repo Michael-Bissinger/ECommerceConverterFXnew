@@ -1,5 +1,6 @@
 package ecommerce.converter;
 
+import ecommerce.converter.platformextractor.ExtractorConrad;
 import ecommerce.converter.platformextractor.ExtractorReal;
 
 import java.io.File;
@@ -20,6 +21,8 @@ public class DataExtractor {
             case "Carrefour":
                 break;
             case "Conrad":
+                daten_final = ExtractorConrad.extractConradData(operation, daten, rows, columns);
+
                 break;
             case "Crowdfox":
 

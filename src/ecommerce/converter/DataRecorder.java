@@ -27,7 +27,10 @@ public class DataRecorder {
             case "Carrefour":
                 break;
             case "Conrad":
+                rohdaten = getDataCSV(platform, filepath_origin, row_number, columns_number);
+
                 break;
+
             case "Crowdfox":
 
             case "eBay":
@@ -45,7 +48,6 @@ public class DataRecorder {
             case "Otto":
 
             case "Real":
-                // Get data from csv file
                 rohdaten = getDataCSV(platform, filepath_origin, row_number, columns_number);
 
                 break;

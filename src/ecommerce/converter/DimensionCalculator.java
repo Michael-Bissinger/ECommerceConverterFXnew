@@ -25,6 +25,9 @@ public class DimensionCalculator {
             case "Carrefour":
                 break;
             case "Conrad":
+
+                columns = DimensionCalculator.getCSVColumns(filepath_origin);
+
                 break;
             case "Crowdfox":
 
@@ -77,6 +80,9 @@ public class DimensionCalculator {
             case "Carrefour":
                 break;
             case "Conrad":
+
+                rows = DimensionCalculator.getCSVRows(filepath_origin);
+
                 break;
             case "Crowdfox":
 

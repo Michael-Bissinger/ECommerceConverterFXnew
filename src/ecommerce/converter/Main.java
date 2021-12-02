@@ -132,8 +132,8 @@ public class Main extends Application{
         // Platform-Choice
         ObservableList<String> platformoptions =
                 FXCollections.observableArrayList(
-                        "Real",
                         "Conrad",
+                        "Real",
                         "Alltricks"
                 );
         final ComboBox platforms_box = new ComboBox(platformoptions);
