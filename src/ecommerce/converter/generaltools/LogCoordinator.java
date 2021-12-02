@@ -23,47 +23,55 @@ public class LogCoordinator {
 
     public static final File LOGFILE = new File(LOGFILE_PATH);
 
+    private static boolean ACTIVITY_LOG = false; // Hier kann Log ein- oder ausgeschaltet werden
 
     public static void writeLog(String message) {
 
 
-        //String LOGFILE_PATH = Path.of(System.getProperty("user.dir")+"out/production/Design/logger/Log.log").toString();
-
-        //https://stackoverflow.com/questions/15758685/how-to-write-logs-in-text-file-when-using-java-util-logging-logger
-
-        Logger logger = Logger.getLogger("MyLog");
-        logger.setUseParentHandlers(false);
-
-        FileHandler fh;
+        if (ACTIVITY_LOG == true) {
 
 
-        //System.out.println("Aktuelel: " + System.getProperty("user.dir"));
+            //String LOGFILE_PATH = Path.of(System.getProperty("user.dir")+"out/production/Design/logger/Log.log").toString();
+
+            //https://stackoverflow.com/questions/15758685/how-to-write-logs-in-text-file-when-using-java-util-logging-logger
+
+            Logger logger = Logger.getLogger("MyLog");
+            logger.setUseParentHandlers(false);
+
+            FileHandler fh;
 
 
-        try {
-
-            // This block configure the logger with handler and formatter
-            //fh = new FileHandler("C:/temp/test/MyLogFile.log");
-            //fh = new FileHandler(filepath_origin.getParent() + "\\" + "Log.log");
-            fh = new FileHandler(LOGFILE_PATH);
+            //System.out.println("Aktuelel: " + System.getProperty("user.dir"));
 
 
-            logger.addHandler(fh);
-            SimpleFormatter formatter = new SimpleFormatter();
-            fh.setFormatter(formatter);
+            try {
 
-            // the following statement is used to log any messages
-            logger.info(message);
+                // This block configure the logger with handler and formatter
+                //fh = new FileHandler("C:/temp/test/MyLogFile.log");
+                //fh = new FileHandler(filepath_origin.getParent() + "\\" + "Log.log");
+                fh = new FileHandler(LOGFILE_PATH);
 
-        } catch (SecurityException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+
+                logger.addHandler(fh);
+                SimpleFormatter formatter = new SimpleFormatter();
+                fh.setFormatter(formatter);
+
+                // the following statement is used to log any messages
+                logger.info(message);
+
+            } catch (SecurityException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
         }
-
-
+    else {
+        System.out.println("Kann Log nicht schreiben, da Log nicht aktiv");
     }
 
+    }
 
     public static void openLog() {
 

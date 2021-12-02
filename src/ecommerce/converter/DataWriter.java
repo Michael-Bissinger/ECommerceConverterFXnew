@@ -20,7 +20,7 @@ public class DataWriter {
 
         switch (finalformat) {
             case "Maske (ASCII)":
-                createMaskASCII(platform, filepath_origin, daten_final);
+                createMaskASCII(filepath_origin, daten_final);
                 break;
 
             case "DATEV-Format (ASCII)":
@@ -37,7 +37,7 @@ public class DataWriter {
 
     }
 
-    static void createMaskASCII(String platform, File filepath_origin, String[][] daten_final) throws IOException {
+    static void createMaskASCII(File filepath_origin, String[][] daten_final) throws IOException {
         LogCoordinator.writeLog("FINALDATEN: Kreiere ASCII-Maske!");
 
         System.out.println("Pfad: " + filepath_origin.getParent());
