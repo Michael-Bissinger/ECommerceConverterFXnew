@@ -9,15 +9,16 @@ public class ExtractorReal {
     private static Integer KONTO_DEBITOR = 1469000; // Debitoren-Konto von "Real"
     private static Integer KONTO_KREDITOR = 7000130; // Kreditoren-Konto von "Real"
 
-    private static String[] RELEVANTE_ITEMS = {
-            "booking_date",
-            "booking_text",
-            "order_number",
-            "amount",
-            "fee_gross",
-            "buyer.email",
-            "billing.first_name",
-            "billing.last_name"}; // Relevante Items zur Berechnung
+    private static String[] RELEVANTE_ITEMS = { // Relevante Items zur Berechnung
+            "booking_date", // 0
+            "booking_text", // 1
+            "order_number", // 2
+            "amount", // 3
+            "fee_gross", // 4
+            "buyer.email", // 5
+            "billing.first_name", // 6
+            "billing.last_name", // 7
+            "fee_vat_%"}; // 8
 
     private static String[] GEBUEHRENARTEN = {
             "Bezahlung Zusatzleistungen",
@@ -51,7 +52,7 @@ public class ExtractorReal {
 
 
         // ****************** BU-SCHLÜSSEL ******************
-        System.out.println("BU-Schlüssel wird bei Real nicht beschrieben.");
+        daten_final = BUSchluesselWriter.getBUSchluessel(daten_final, positionen, daten_original, rows, RELEVANTE_ITEMS[8], RELEVANTE_ITEMS, 4);
 
 
         // ****************** DATUM ******************
