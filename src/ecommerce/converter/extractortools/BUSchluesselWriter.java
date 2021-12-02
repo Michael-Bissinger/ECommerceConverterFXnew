@@ -17,6 +17,34 @@ public class BUSchluesselWriter {
 
         System.out.println("Position von fee_vat_%: " + position_relevantesItemBuchungsschluessel);
 
+        for(int pointer_reihe=1; pointer_reihe<rows; pointer_reihe++) { // Int bei 1 starten, damit die oberste Zeile nicht mitgenommen wird
+
+            String BU_Schluessel = new String();
+
+
+            // Checken ob Buchungsschlüssel 9 in Frage kommt
+            for(int i=0; i<BU_9.length; i++) {
+
+                System.out.println("BULENG" + i);
+                System.out.println(daten_original[pointer_reihe][position_relevantesItemBuchungsschluessel]);
+                System.out.println(BU_9[i]);
+
+                if (daten_original[pointer_reihe][position_relevantesItemBuchungsschluessel].toString().equals(BU_9[i].toString())) {
+
+                    daten_final[pointer_reihe-1][position_final] = "9";
+                    System.out.println("Buchungsschlüssel 9 eingetragen an "+ daten_final[pointer_reihe-1][position_final]);
+
+
+                }
+
+            }
+
+
+
+            //System.out.print(pointer_reihe + ": " + daten_final[pointer_reihe-1][position_final]);
+
+        }
+
 
 
 
