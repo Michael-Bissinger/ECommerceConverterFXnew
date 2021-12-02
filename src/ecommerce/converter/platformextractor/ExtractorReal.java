@@ -20,9 +20,9 @@ public class ExtractorReal {
             "billing.last_name", // 7
             "fee_vat_%"}; // 8
 
-    private static String[] GEBUEHRENARTEN = {
-            "Bezahlung Zusatzleistungen",
-            "Freigabe Verkaufserlös"}; // Mögliche Gebührenarten bei "Real"
+    private static String[] GEBUEHRENARTEN = { // Mögliche Gebührenarten bei "Real"
+            "Bezahlung Zusatzleistungen", // 0
+            "Freigabe Verkaufserlös"}; // 1
 
 
 
