@@ -132,8 +132,8 @@ public class Main extends Application{
         // Platform-Choice
         ObservableList<String> platformoptions =
                 FXCollections.observableArrayList(
-                        "Conrad",
                         "Real",
+                        "Conrad",
                         "Alltricks"
                 );
         final ComboBox platforms_box = new ComboBox(platformoptions);
@@ -218,7 +218,11 @@ public class Main extends Application{
             @Override
             public void handle(ActionEvent event) {
 
-                LogCoordinator.deleteLog();
+
+                if (LogCoordinator.ACTIVITY_LOG == true) {
+                    LogCoordinator.deleteLog();
+                }
+
 
                 System.out.println("---------------START------------------");
 
