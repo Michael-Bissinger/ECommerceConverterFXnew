@@ -132,9 +132,10 @@ public class Main extends Application{
         // Platform-Choice
         ObservableList<String> platformoptions =
                 FXCollections.observableArrayList(
-                        "Real",
-                        "Conrad",
-                        "Alltricks"
+                        "Real"
+                        //,
+                        //"Conrad",
+                        //"Alltricks"
                 );
         final ComboBox platforms_box = new ComboBox(platformoptions);
         platforms_box.getSelectionModel().selectFirst(); // TODO: After testing remove
@@ -150,9 +151,10 @@ public class Main extends Application{
         // Endformat: "DATEV-Format" or "ASCII-Mask" or"XML"
         ObservableList<String> formatoptions =
                 FXCollections.observableArrayList(
-                        "Maske (ASCII)",
-                            "DATEV-Format (ASCII)",
-                            "XML"
+                        "Maske (ASCII)"
+                            //,
+                            //"DATEV-Format (ASCII)",
+                            //"XML"
                 );
         final ComboBox format_box = new ComboBox(formatoptions);
         format_box.getSelectionModel().selectFirst();
