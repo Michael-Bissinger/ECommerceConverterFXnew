@@ -2,6 +2,7 @@ package ecommerce.converter.platformextractor;
 
 import ecommerce.converter.extractortools.AccountWriter;
 import ecommerce.converter.extractortools.BroadcastCoordinator;
+import ecommerce.converter.extractortools.BuchungstextWriter;
 import ecommerce.converter.extractortools.ItemPositionCoordinator;
 
 public class ExtractorConrad {
@@ -49,7 +50,17 @@ public class ExtractorConrad {
         // ****************** DATUM ******************
         daten_final = BroadcastCoordinator.transferData(daten_final, positionen, daten_original, rows, RELEVANTE_ITEMS, RELEVANTE_ITEMS[0], 5);
 
+        // ****************** BELEGFELD 1 ******************
+        daten_final = BroadcastCoordinator.transferData(daten_final, positionen, daten_original, rows, RELEVANTE_ITEMS, RELEVANTE_ITEMS[2], 6);
 
+        // ****************** BELEGFELD 2 ******************
+        System.out.println("Belegfeld 2 wird bei Conrad nicht beschrieben.");
+
+        // ****************** BUCHUNGSTEXT ******************
+
+        String[] relevanteItemsBuchungstext = {RELEVANTE_ITEMS[1], RELEVANTE_ITEMS[3]};
+
+        daten_final = BuchungstextWriter.getBuchungstext(daten_final, positionen, daten_original, rows, relevanteItemsBuchungstext, RELEVANTE_ITEMS, 8);
 
 
         return daten_final;
