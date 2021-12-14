@@ -11,7 +11,7 @@ public class ParserConrad {
 
     public static String[][] parseConradData(String[][] daten) throws ParseException {
 
-        daten = ParserDate.reformatDate(daten, DATUM_FORMAT);
+        //daten = ParserDate.reformatDate(daten, DATUM_FORMAT);
 
         daten = ParserFix.writeFixation(daten);
 

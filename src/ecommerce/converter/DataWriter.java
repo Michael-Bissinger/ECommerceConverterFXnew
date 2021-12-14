@@ -24,7 +24,7 @@ public class DataWriter {
                 break;
 
             case "DATEV-Format (ASCII)":
-                //createDATEVformat(platform, filepath_origin);
+                createDATEVformat(platform, filepath_origin);
                 break;
 
             case "XML":
