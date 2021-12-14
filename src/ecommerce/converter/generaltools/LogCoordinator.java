@@ -23,7 +23,7 @@ public class LogCoordinator {
 
     public static final File LOGFILE = new File(LOGFILE_PATH);
 
-    public static boolean ACTIVITY_LOG = true; // Hier kann Log ein- oder ausgeschaltet werden
+    public static boolean ACTIVITY_LOG = false; // Hier kann Log ein- oder ausgeschaltet werden
 
     public static void writeLog(String message) {
 

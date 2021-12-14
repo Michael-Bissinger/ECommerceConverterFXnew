@@ -132,10 +132,10 @@ public class Main extends Application{
         // Platform-Choice
         ObservableList<String> platformoptions =
                 FXCollections.observableArrayList(
-                        "Real"
-                        //,
-                        //"Conrad",
-                        //"Alltricks"
+                        "Conrad",
+                        "Real",
+                        "Conrad",
+                        "Alltricks"
                 );
         final ComboBox platforms_box = new ComboBox(platformoptions);
         platforms_box.getSelectionModel().selectFirst(); // TODO: After testing remove

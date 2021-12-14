@@ -14,43 +14,17 @@ public class DataExtractor {
         switch (platform) {
             case "Alltricks":
 
-            case "Amazon":
-
-                break;
-
-            case "Carrefour":
                 break;
             case "Conrad":
                 daten_final = ExtractorConrad.extractConradData(operation, daten, rows, columns);
 
                 break;
-            case "Crowdfox":
-
-            case "eBay":
-                break;
-            case "Manomano":
-
-            case "MediaMarkt":
-
-            case "Mercateo":
-
-            case "Metro":
-
-            case "Mivo":
-
-            case "Otto":
 
             case "Real":
 
                 daten_final = ExtractorReal.extractRealData(operation, daten, rows, columns);
 
                 break;
-
-            case "Rakuten":
-
-            case "Saturn":
-
-            case "Völkner":
 
             default:
                 System.out.println("Plattform ist nicht verfügbar");

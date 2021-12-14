@@ -1,5 +1,6 @@
 package ecommerce.converter;
 
+import ecommerce.converter.platformparser.ParserConrad;
 import ecommerce.converter.platformparser.ParserReal;
 
 import java.text.ParseException;
@@ -14,41 +15,16 @@ public class DataParser {
         switch (platform) {
             case "Alltricks":
 
-            case "Amazon":
-
-                break;
-
-            case "Carrefour":
                 break;
             case "Conrad":
+                daten = ParserConrad.parseConradData(daten);
                 break;
-            case "Crowdfox":
-
-            case "eBay":
-                break;
-            case "Manomano":
-
-            case "MediaMarkt":
-
-            case "Mercateo":
-
-            case "Metro":
-
-            case "Mivo":
-
-            case "Otto":
 
             case "Real":
 
                 daten = ParserReal.parseRealData(daten);
 
                 break;
-
-            case "Rakuten":
-
-            case "Saturn":
-
-            case "Völkner":
 
             default:
                 System.out.println("Plattform ist nicht verfügbar");

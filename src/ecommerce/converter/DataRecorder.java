@@ -19,44 +19,17 @@ public class DataRecorder {
         switch (platform) {
             case "Alltricks":
 
-            case "Amazon":
-
-                getOtherData(platform, filepath_origin);
                 break;
 
-            case "Carrefour":
-                break;
             case "Conrad":
                 rohdaten = getDataCSV(platform, filepath_origin, row_number, columns_number);
 
                 break;
 
-            case "Crowdfox":
-
-            case "eBay":
-                break;
-            case "Manomano":
-
-            case "MediaMarkt":
-
-            case "Mercateo":
-
-            case "Metro":
-
-            case "Mivo":
-
-            case "Otto":
-
             case "Real":
                 rohdaten = getDataCSV(platform, filepath_origin, row_number, columns_number);
 
                 break;
-
-            case "Rakuten":
-
-            case "Saturn":
-
-            case "Völkner":
 
             default:
                 System.out.println("Plattform ist nicht verfügbar");
