@@ -1,6 +1,7 @@
 package ecommerce.converter;
 
 import com.opencsv.exceptions.CsvValidationException;
+import ecommerce.converter.generaltools.DimensionCalculator;
 
 import java.io.File;
 import java.io.IOException;

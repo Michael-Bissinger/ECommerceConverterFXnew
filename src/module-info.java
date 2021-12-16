@@ -13,4 +13,5 @@ module Converter {
 
     opens ecommerce.converter;
     opens ecommerce.converter.platformtransformer;
+    opens ecommerce.converter.generaltools;
 }
