@@ -1,10 +1,8 @@
-package ecommerce.converter.platformextractor;
+package ecommerce.converter.platformtransformer;
 
-import ecommerce.converter.extractortools.*;
+import ecommerce.converter.transformtools.*;
 
-import java.util.Arrays;
-
-public class ExtractorReal {
+public class TransformerReal {
 
     private static Integer KONTO_DEBITOR = 1469000; // Debitoren-Konto von "Real"
     private static Integer KONTO_KREDITOR = 7000130; // Kreditoren-Konto von "Real"

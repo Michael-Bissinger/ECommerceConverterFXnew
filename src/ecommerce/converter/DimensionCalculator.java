@@ -2,7 +2,6 @@ package ecommerce.converter;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
-import ecommerce.converter.platformextractor.ExtractorReal;
 
 import java.io.File;
 import java.io.FileReader;

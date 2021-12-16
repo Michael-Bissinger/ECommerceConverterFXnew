@@ -12,5 +12,5 @@ module Converter {
     requires java.desktop;
 
     opens ecommerce.converter;
-    opens ecommerce.converter.platformextractor;
+    opens ecommerce.converter.platformtransformer;
 }

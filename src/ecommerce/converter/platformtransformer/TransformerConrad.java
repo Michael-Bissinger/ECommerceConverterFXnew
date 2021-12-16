@@ -1,11 +1,11 @@
-package ecommerce.converter.platformextractor;
+package ecommerce.converter.platformtransformer;
 
-import ecommerce.converter.extractortools.AccountWriter;
-import ecommerce.converter.extractortools.BroadcastCoordinator;
-import ecommerce.converter.extractortools.BuchungstextWriter;
-import ecommerce.converter.extractortools.ItemPositionCoordinator;
+import ecommerce.converter.transformtools.AccountWriter;
+import ecommerce.converter.transformtools.BroadcastCoordinator;
+import ecommerce.converter.transformtools.BuchungstextWriter;
+import ecommerce.converter.transformtools.ItemPositionCoordinator;
 
-public class ExtractorConrad {
+public class TransformerConrad {
 
     private static Integer KONTO_DEBITOR = 1462000; // Debitoren-Konto von "Conrad"
     private static Integer KONTO_KREDITOR = 7000166; // Kreditoren-Konto von "Conrad"
@@ -21,8 +21,9 @@ public class ExtractorConrad {
             };
 
     private static String[] GEBUEHRENARTEN = { // Mögliche Gebührenarten bei "Conrad"
-            "Bezahlung Zusatzleistungen",
-            "Freigabe Verkaufserlös"};
+            "Provisionen", // 0
+            "Provisionssteuer",
+            "Rückerstattung Provisionen"}; // 1
 
 
 

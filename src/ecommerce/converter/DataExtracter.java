@@ -9,9 +9,9 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.List;
 
-public class DataRecorder {
+public class DataExtracter {
 
-    public static String [] [] loadData(String platform, File filepath_origin, int row_number, int columns_number) throws IOException, CsvValidationException {
+    public static String [] [] extractData(String platform, File filepath_origin, int row_number, int columns_number) throws IOException, CsvValidationException {
 
         String [] [] rohdaten = new String [row_number] [columns_number];
 

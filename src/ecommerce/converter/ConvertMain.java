@@ -1,7 +1,6 @@
 package ecommerce.converter;
 
 import com.opencsv.exceptions.CsvValidationException;
-import ecommerce.converter.generaltools.LogCoordinator;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,11 +31,11 @@ public class ConvertMain {
         int columns = DimensionCalculator.getColumns(platform, filepath);
 
 
-        String [] [] daten_roh = DataRecorder.loadData(platform, filepath, rows, columns);
+        String [] [] daten_roh = DataExtracter.extractData(platform, filepath, rows, columns);
 
-        String [] [] daten_extrahiert = DataExtractor.extractData(platform, operation, daten_roh, rows, columns);
+        String [] [] daten_transformiert = DataTransformer.transformData(platform, operation, daten_roh, rows, columns);
 
-        String [] [] daten_geparsed = DataParser.parseData(platform, daten_extrahiert);
+        String [] [] daten_geparsed = DataParser.parseData(platform, daten_transformiert);
 
         DataWriter.writeData(filepath, platform, format_final, daten_geparsed);
 
