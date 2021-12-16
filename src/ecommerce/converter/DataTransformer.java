@@ -14,13 +14,13 @@ public class DataTransformer {
 
                 break;
             case "Conrad":
-                daten_final = TransformerConrad.extractConradData(operation, daten, rows, columns);
+                daten_final = TransformerConrad.transformConradData(operation, daten, rows, columns);
 
                 break;
 
             case "Real":
 
-                daten_final = TransformerReal.extractRealData(operation, daten, rows, columns);
+                daten_final = TransformerReal.transformRealData(operation, daten, rows, columns);
 
                 break;
 

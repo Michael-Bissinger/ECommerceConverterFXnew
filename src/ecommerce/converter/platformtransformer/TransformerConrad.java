@@ -27,7 +27,7 @@ public class TransformerConrad {
 
 
 
-    public static String[][] extractConradData(String operation, String[][] daten_original, int rows, int columns) {
+    public static String[][] transformConradData(String operation, String[][] daten_original, int rows, int columns) {
 
 
 
