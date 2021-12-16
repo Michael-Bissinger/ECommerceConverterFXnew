@@ -11,7 +11,7 @@ import java.util.List;
 
 public class DataExtracter {
 
-    public static String [] [] extractData(String platform, File filepath_origin, int row_number, int columns_number) throws IOException, CsvValidationException {
+    public static String [] [] extractData(String platform, File filepath_origin, int row_number, int columns_number) {
 
         String [] [] rohdaten = new String [row_number] [columns_number];
 
@@ -23,12 +23,10 @@ public class DataExtracter {
 
             case "Conrad":
                 rohdaten = getDataCSV(platform, filepath_origin, row_number, columns_number);
-
                 break;
 
             case "Real":
                 rohdaten = getDataCSV(platform, filepath_origin, row_number, columns_number);
-
                 break;
 
             default:
@@ -46,7 +44,7 @@ public class DataExtracter {
 
 
 
-    static void getOtherData(String platform, File filepath_origin) throws IOException, CsvValidationException {
+    static void getOtherData(String platform, File filepath_origin) throws IOException {
 
 
         //BufferedReader csvReader = new BufferedReader(new FileReader("C:\\Users\\michael.bissinger\\IdeaProjects\\IOTest\\testdatei.csv"));
@@ -73,7 +71,7 @@ public class DataExtracter {
     }
 
 
-    static String [] [] getDataCSV(String platform, File filepath_origin, int row_number, int columns_number) throws IOException, CsvValidationException {
+    private static String [] [] getDataCSV(String platform, File filepath_origin, int row_number, int columns_number) {
 
         // *********** USE CSV-Reader Software **************
         //https://www.baeldung.com/opencsv

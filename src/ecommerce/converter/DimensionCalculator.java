@@ -17,6 +17,9 @@ public class DimensionCalculator {
         switch (platform) {
             case "Alltricks":
 
+                columns = DimensionCalculator.getCSVColumns(filepath_origin);
+                break;
+
             case "Amazon":
 
                 break;
@@ -72,6 +75,8 @@ public class DimensionCalculator {
         switch (platform) {
             case "Alltricks":
 
+                rows = DimensionCalculator.getCSVRows(filepath_origin);
+                break;
             case "Amazon":
 
                 break;

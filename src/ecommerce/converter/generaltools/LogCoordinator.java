@@ -23,7 +23,7 @@ public class LogCoordinator {
 
     public static final File LOGFILE = new File(LOGFILE_PATH);
 
-    public static boolean ACTIVITY_LOG = false; // Hier kann Log ein- oder ausgeschaltet werden
+    public static boolean ACTIVITY_LOG = true; // Hier kann Log ein- oder ausgeschaltet werden
 
     public static void writeLog(String message) {
 
@@ -77,22 +77,30 @@ public class LogCoordinator {
 
         //https://www.javatpoint.com/how-to-open-a-file-in-java
 
-        try {
+        if (ACTIVITY_LOG == true) {
 
-            System.out.println("Öffne Log-File");
+            try {
 
-            //public static final File = new File(LOGFILE_PATH)
+                System.out.println("Öffne Log-File");
 
-            if (!Desktop.isDesktopSupported())//check if Desktop is supported by Platform or not
-            {
-                System.out.println("not supported");
-                return;
+                //public static final File = new File(LOGFILE_PATH)
+
+                if (!Desktop.isDesktopSupported())//check if Desktop is supported by Platform or not
+                {
+                    System.out.println("not supported");
+                    return;
+                }
+                Desktop desktop = Desktop.getDesktop();
+                if (LOGFILE.exists())         //checks file exists or not
+                    desktop.open(LOGFILE);              //opens the specified file
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            Desktop desktop = Desktop.getDesktop();
-            if (LOGFILE.exists())         //checks file exists or not
-                desktop.open(LOGFILE);              //opens the specified file
-        } catch (Exception e) {
-            e.printStackTrace();
+
+        } else {
+
+            System.out.println("Log-File nicht aktiv");
+
         }
 
 
@@ -100,18 +108,21 @@ public class LogCoordinator {
 
     public static void deleteLog() {
 
-        //https://stackoverflow.com/questions/13195797/delete-all-files-in-directory-but-not-directory-one-liner-solution
+        if (ACTIVITY_LOG == true) {
 
-        File deletefile = LOGFILE;
+            //https://stackoverflow.com/questions/13195797/delete-all-files-in-directory-but-not-directory-one-liner-solution
 
-        // https://www.baeldung.com/java-delete-directory
-        // https://stackoverflow.com/questions/13195797/delete-all-files-in-directory-but-not-directory-one-liner-solution
-        try {
-            FileUtils.cleanDirectory(deletefile.getParentFile());
-        } catch (IOException e) {
-            e.printStackTrace();
+            File deletefile = LOGFILE;
+
+            // https://www.baeldung.com/java-delete-directory
+            // https://stackoverflow.com/questions/13195797/delete-all-files-in-directory-but-not-directory-one-liner-solution
+            try {
+                FileUtils.cleanDirectory(deletefile.getParentFile());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         }
-
 
     }
 
