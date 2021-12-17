@@ -15,47 +15,25 @@ public class DimensionCalculator {
         int columns = 0;
 
         switch (platform) {
-            case "Alltricks":
-                columns = DimensionCalculator.getCSVColumns(filepath_origin);
-                break;
-
-            case "Conrad":
-                columns = DimensionCalculator.getCSVColumns(filepath_origin);
-                break;
-
-            case "Real":
-                columns = DimensionCalculator.getCSVColumns(filepath_origin);
-                break;
-
-            default:
-                System.out.println("Plattform ist nicht verfügbar");
-                break;
+            case "Alltricks" -> {columns = DimensionCalculator.getCSVColumns(filepath_origin);}
+            case "Conrad" -> {columns = DimensionCalculator.getCSVColumns(filepath_origin);}
+            case "Real" -> {columns = DimensionCalculator.getCSVColumns(filepath_origin);}
+            default -> {System.out.println("Plattform ist nicht verfügbar");}
         }
 
         return columns;
     }
 
 
-    public static int getRows (String platform, File filepath_origin) throws IOException, CsvValidationException {
+    public static int getRows (String platform, File filepath_origin) {
 
         int rows = 0;
 
         switch (platform) {
-            case "Alltricks":
-                rows = DimensionCalculator.getCSVRows(filepath_origin);
-                break;
-
-            case "Conrad":
-                rows = DimensionCalculator.getCSVRows(filepath_origin);
-                break;
-
-            case "Real":
-                rows = DimensionCalculator.getCSVRows(filepath_origin);
-                break;
-
-            default:
-                System.out.println("Plattform ist nicht verfügbar");
-                break;
+            case "Alltricks" -> {rows = DimensionCalculator.getCSVRows(filepath_origin);}
+            case "Conrad" -> {rows = DimensionCalculator.getCSVRows(filepath_origin);}
+            case "Real" -> {rows = DimensionCalculator.getCSVRows(filepath_origin);}
+            default -> {System.out.println("Plattform ist nicht verfügbar");}
         }
 
         return rows;
@@ -64,6 +42,7 @@ public class DimensionCalculator {
 
 
     private static int getCSVRows(File filepath_origin) {
+
         int rows = 0;
 
         try {
@@ -99,6 +78,7 @@ public class DimensionCalculator {
             String[] nextline_columns;
 
             while ((nextline_columns = reader2.readNext()) != null) {
+                // Anzahl Spalten wird hochgezählt, bis keine weitere mehr kommt
 
                 String[] elements_rows = Arrays.toString(nextline_columns).split(";");
                 columns = elements_rows.length;
