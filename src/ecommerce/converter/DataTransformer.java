@@ -7,7 +7,7 @@ public class DataTransformer {
 
     public static String[][] transformData(String platform, String operation, String[][] daten, int rows, int columns) {
 
-        String [] [] daten_final = new String[rows-1][7];
+        String [] [] daten_final = new String[rows-1][10];
 
         switch (platform) {
             case "Alltricks":
