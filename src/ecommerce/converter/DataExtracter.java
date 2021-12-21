@@ -5,32 +5,29 @@ import com.opencsv.exceptions.CsvValidationException;
 import ecommerce.converter.generaltools.LogCoordinator;
 import org.apache.commons.lang3.StringUtils;
 
+import org.apache.commons.io.FilenameUtils;
+
 import java.io.*;
 import java.util.Arrays;
 import java.util.List;
 
 public class DataExtracter {
 
-    public static String [] [] extractData(String platform, File filepath_origin, int row_number, int columns_number) {
+    public static String [] [] extractData(File filepath_origin, int row_number, int columns_number) {
 
         String [] [] rohdaten = new String [row_number] [columns_number];
 
+        // Dateiformat erkennen
+        String dateiformat = FilenameUtils.getExtension(String.valueOf(filepath_origin)); // returns "txt"
+        System.out.println("Die File-Extension ist: " + dateiformat);
 
-        switch (platform) {
-            case "Alltricks":
-
-                break;
-
-            case "Conrad":
-                rohdaten = getDataCSV(platform, filepath_origin, row_number, columns_number);
-                break;
-
-            case "Real":
-                rohdaten = getDataCSV(platform, filepath_origin, row_number, columns_number);
+        switch (dateiformat) {
+            case "csv":
+                rohdaten = getDataCSV(filepath_origin, row_number, columns_number);
                 break;
 
             default:
-                System.out.println("Plattform ist nicht verfügbar");
+                System.out.println("Dateiformat wurde nicht erkannt");
                 break;
         }
 
@@ -71,7 +68,7 @@ public class DataExtracter {
     }
 
 
-    private static String [] [] getDataCSV(String platform, File filepath_origin, int row_number, int columns_number) {
+    private static String [] [] getDataCSV(File filepath_origin, int row_number, int columns_number) {
 
         // *********** USE CSV-Reader Software **************
         //https://www.baeldung.com/opencsv

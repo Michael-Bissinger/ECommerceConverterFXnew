@@ -32,7 +32,7 @@ public class ConvertMain {
         int columns = DimensionCalculator.getColumns(platform, filepath);
 
 
-        String [] [] daten_roh = DataExtracter.extractData(platform, filepath, rows, columns);
+        String [] [] daten_roh = DataExtracter.extractData(filepath, rows, columns);
 
         String [] [] daten_transformiert = DataTransformer.transformData(platform, operation, daten_roh, rows, columns);
 
