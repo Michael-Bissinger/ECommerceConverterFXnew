@@ -1,15 +1,13 @@
 package ecommerce.converter.generaltools;
 
 import com.opencsv.CSVReader;
-import com.opencsv.exceptions.CsvValidationException;
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.Arrays;
 
-public class DimensionCalculator {
+public class DimensionCalculater {
 
     public static int getColumns (File filepath_origin) {
 
@@ -19,8 +17,7 @@ public class DimensionCalculator {
         String dateiformat = FilenameUtils.getExtension(String.valueOf(filepath_origin));
 
         switch (dateiformat) {
-            case "csv" -> {columns = DimensionCalculator.getCSVColumns(filepath_origin);}
-
+            case "csv" -> {columns = DimensionCalculater.getCSVColumns(filepath_origin);}
             default -> {System.out.println("FEHLER: Dateiformat kann nicht verarbeitet werden");}
         }
 
@@ -36,8 +33,7 @@ public class DimensionCalculator {
         String dateiformat = FilenameUtils.getExtension(String.valueOf(filepath_origin));
 
         switch (dateiformat) {
-            case "csv" -> {rows = DimensionCalculator.getCSVRows(filepath_origin);}
-
+            case "csv" -> {rows = DimensionCalculater.getCSVRows(filepath_origin);}
             default -> {System.out.println("FEHLER: Dateiformat kann nicht verarbeitet werden");}
         }
 
@@ -99,15 +95,11 @@ public class DimensionCalculator {
             System.out.println("FEHLER: Fehler beim Einlesen in getCSVRows!");
         }
 
-
-
         System.out.println("-------------------");
         System.out.println("Rohdatei enthält " + columns + " Spalten (columns).");
         System.out.println("-------------------");
 
         return columns;
     }
-
-
 
 }

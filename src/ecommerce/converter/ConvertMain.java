@@ -1,7 +1,7 @@
 package ecommerce.converter;
 
 import com.opencsv.exceptions.CsvValidationException;
-import ecommerce.converter.generaltools.DimensionCalculator;
+import ecommerce.converter.generaltools.DimensionCalculater;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,8 +15,8 @@ public class ConvertMain {
         System.out.println("Operation: [" + operation + "]");
         System.out.println("Endformat: [" + format_final + "]");
 
-        int rows = DimensionCalculator.getRows(filepath);
-        int columns = DimensionCalculator.getColumns(filepath);
+        int rows = DimensionCalculater.getRows(filepath);
+        int columns = DimensionCalculater.getColumns(filepath);
 
         // ----------------- Hauptklassen -----------------
 

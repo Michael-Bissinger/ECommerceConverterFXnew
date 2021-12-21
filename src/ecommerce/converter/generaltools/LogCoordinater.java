@@ -12,7 +12,7 @@ import java.awt.Desktop;
 
 import org.apache.commons.io.FileUtils;
 
-public class LogCoordinator {
+public class LogCoordinater {
 
     //File LOGFILE = System.getProperty("user.dir")+"out/production/Design/logger/Log.log";
     //public static final Path LOGFILE_PATH = Path.of(System.getProperty("user.dir")+"out/production/Design/logger/Log.log");

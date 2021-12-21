@@ -1,7 +1,7 @@
 package ecommerce.converter;
 
 import com.opencsv.CSVWriter;
-import ecommerce.converter.generaltools.LogCoordinator;
+import ecommerce.converter.generaltools.LogCoordinater;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -38,7 +38,7 @@ public class DataWriter {
     }
 
     static void createMaskASCII(File filepath_origin, String[][] daten_final) throws IOException {
-        LogCoordinator.writeLog("FINALDATEN: Kreiere ASCII-Maske!");
+        LogCoordinater.writeLog("FINALDATEN: Kreiere ASCII-Maske!");
 
         System.out.println("Pfad: " + filepath_origin.getParent());
 
@@ -76,7 +76,7 @@ public class DataWriter {
             } else {
                 System.out.println("Kein Buchungswert bei Spalte: " + column_pointer);
                 System.out.println("Buchung wird daher NICHT aufgenommen!");
-                LogCoordinator.writeLog("FINALDATEN: Buchung aus Spalte " + (column_pointer+2) + " wird nicht aufgenommen!");
+                LogCoordinater.writeLog("FINALDATEN: Buchung aus Spalte " + (column_pointer+2) + " wird nicht aufgenommen!");
                 // Es soll Originalspalte ausgegeben werden.
                 // (column_pointer+2) wird genutzt, weil die jetztige Datei keinen Header mehr hat (+1) und bei 0 begonnen wird (+1)
 
@@ -96,7 +96,7 @@ public class DataWriter {
 
         writer.writeAll(therows);
 
-        LogCoordinator.writeLog("FINALDATEN: Kreation ASCII-Maske abgeschlossen!");
+        LogCoordinater.writeLog("FINALDATEN: Kreation ASCII-Maske abgeschlossen!");
 
         writer.close();
     }

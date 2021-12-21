@@ -15,10 +15,6 @@ public class ParserConrad {
 
         daten = ParserFix.writeFixation(daten);
 
-
-
-
-
         return daten;
 
     }

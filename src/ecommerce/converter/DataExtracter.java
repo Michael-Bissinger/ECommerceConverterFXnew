@@ -1,7 +1,7 @@
 package ecommerce.converter;
 
 import com.opencsv.*;
-import ecommerce.converter.generaltools.LogCoordinator;
+import ecommerce.converter.generaltools.LogCoordinater;
 
 
 import org.apache.commons.io.FilenameUtils;
@@ -19,13 +19,8 @@ public class DataExtracter {
         String dateiformat = FilenameUtils.getExtension(String.valueOf(filepath_origin));
 
         switch (dateiformat) {
-            case "csv":
-                rohdaten = getDataCSV(filepath_origin, row_number, columns_number);
-                break;
-
-            default:
-                System.out.println("FEHLER: Dateiformat kann nicht verarbeitet werden");
-                break;
+            case "csv" -> {rohdaten = getDataCSV(filepath_origin, row_number, columns_number);}
+            default -> {System.out.println("FEHLER: Dateiformat kann nicht verarbeitet werden");}
         }
 
         System.out.println("+++++++++++");
@@ -80,7 +75,7 @@ public class DataExtracter {
         String[] nextline;
 
 
-        LogCoordinator.writeLog("ROHDATEN: Einlesen Beginn!");
+        LogCoordinater.writeLog("ROHDATEN: Einlesen Beginn!");
         Integer current_line = 0;
         while ((nextline = reader.readNext()) != null) {
             System.out.println("Aktuell bei Reihe: " + current_line);
@@ -127,10 +122,10 @@ public class DataExtracter {
        catch (Exception e)
         {
             System.out.println("FEHLER: Fehler beim Einlesen in getDataCSV!");
-            LogCoordinator.writeLog("ROHDATEN: FEHLER bei Einlesen!");
+            LogCoordinater.writeLog("ROHDATEN: FEHLER bei Einlesen!");
         }
 
-        LogCoordinator.writeLog("ROHDATEN: Einlesen abgeschlossen!");
+        LogCoordinater.writeLog("ROHDATEN: Einlesen abgeschlossen!");
         return CSV_Daten;
 
     }
