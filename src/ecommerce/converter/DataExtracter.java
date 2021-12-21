@@ -1,15 +1,13 @@
 package ecommerce.converter;
 
 import com.opencsv.*;
-import com.opencsv.exceptions.CsvValidationException;
 import ecommerce.converter.generaltools.LogCoordinator;
-import org.apache.commons.lang3.StringUtils;
+
 
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.*;
 import java.util.Arrays;
-import java.util.List;
 
 public class DataExtracter {
 
@@ -18,8 +16,7 @@ public class DataExtracter {
         String [] [] rohdaten = new String [row_number] [columns_number];
 
         // Dateiformat erkennen
-        String dateiformat = FilenameUtils.getExtension(String.valueOf(filepath_origin)); // returns "txt"
-        System.out.println("Die File-Extension ist: " + dateiformat);
+        String dateiformat = FilenameUtils.getExtension(String.valueOf(filepath_origin));
 
         switch (dateiformat) {
             case "csv":
@@ -27,7 +24,7 @@ public class DataExtracter {
                 break;
 
             default:
-                System.out.println("Dateiformat wurde nicht erkannt");
+                System.out.println("FEHLER: Dateiformat kann nicht verarbeitet werden");
                 break;
         }
 
@@ -138,57 +135,6 @@ public class DataExtracter {
 
     }
 
-
-
-
     }
 
 
-// ******************** USE ALTERNATIVE ****************
-//https://www.youtube.com/watch?v=-Aud0cDh-J8
-
-//String line = "";
-
-
-
-//Scanner scan = new Scanner("C:\\Users\\Michael\\Desktop\\Musik\\report_booking_gmu_a2760808c5c831e24673062dffc0e2516dd1a3f5600bdea140a51202eb02769a - Kopie.csv");
-//        Scanner scan = new Scanner("C:\\Users\\michael.bissinger\\Downloads\\report_booking_gmu_a2760808c5c831e24673062dffc0e2516dd1a3f5600bdea140a51202eb02769a.csv");
-//
-//
-//        String linex;
-//
-//        while(scan.hasNextLine()) {
-//            linex = scan.nextLine();
-//            System.out.println(linex);
-//        }
-//
-//        scan.close();
-//
-
-//        try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Michael\\Desktop\\Musik\\report_booking_gmu_a2760808c5c831e24673062dffc0e2516dd1a3f5600bdea140a51202eb02769a - Kopie.csv"))) {
-//
-//            //try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Michael\\Downloads\\report_booking_gmu_a2760808c5c831e24673062dffc0e2516dd1a3f5600bdea140a51202eb02769a.csv"))) {
-//
-//            System.out.println("File gefunden!");
-//            if ((line = br.readLine()) == null) {
-//                System.out.println("Ist null");
-//
-//
-//
-//            }
-//
-//            while ((line = br.readLine()) != null) {
-//                System.out.println(line);
-//
-//
-//
-//            }
-//
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//            System.out.println("File nicht da");
-//        }
-//
-//
-//
-//

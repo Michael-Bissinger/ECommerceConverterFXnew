@@ -2,6 +2,7 @@ package ecommerce.converter.generaltools;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
+import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
 import java.io.FileReader;
@@ -10,30 +11,34 @@ import java.util.Arrays;
 
 public class DimensionCalculator {
 
-    public static int getColumns (String platform, File filepath_origin) {
+    public static int getColumns (File filepath_origin) {
 
         int columns = 0;
 
-        switch (platform) {
-            case "Alltricks" -> {columns = DimensionCalculator.getCSVColumns(filepath_origin);}
-            case "Conrad" -> {columns = DimensionCalculator.getCSVColumns(filepath_origin);}
-            case "Real" -> {columns = DimensionCalculator.getCSVColumns(filepath_origin);}
-            default -> {System.out.println("Plattform ist nicht verfügbar");}
+        // Dateiformat erkennen
+        String dateiformat = FilenameUtils.getExtension(String.valueOf(filepath_origin));
+
+        switch (dateiformat) {
+            case "csv" -> {columns = DimensionCalculator.getCSVColumns(filepath_origin);}
+
+            default -> {System.out.println("FEHLER: Dateiformat kann nicht verarbeitet werden");}
         }
 
         return columns;
     }
 
 
-    public static int getRows (String platform, File filepath_origin) {
+    public static int getRows (File filepath_origin) {
 
         int rows = 0;
 
-        switch (platform) {
-            case "Alltricks" -> {rows = DimensionCalculator.getCSVRows(filepath_origin);}
-            case "Conrad" -> {rows = DimensionCalculator.getCSVRows(filepath_origin);}
-            case "Real" -> {rows = DimensionCalculator.getCSVRows(filepath_origin);}
-            default -> {System.out.println("Plattform ist nicht verfügbar");}
+        // Dateiformat erkennen
+        String dateiformat = FilenameUtils.getExtension(String.valueOf(filepath_origin));
+
+        switch (dateiformat) {
+            case "csv" -> {rows = DimensionCalculator.getCSVRows(filepath_origin);}
+
+            default -> {System.out.println("FEHLER: Dateiformat kann nicht verarbeitet werden");}
         }
 
         return rows;

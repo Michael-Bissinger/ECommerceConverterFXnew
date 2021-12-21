@@ -9,28 +9,16 @@ import java.text.ParseException;
 
 public class ConvertMain {
 
-    // Neu: Reihen: "Umsatz" (0), "Soll-Haben" (1), "Kontonummer" (2), "Gegenkonto" (3), "BU-Schlüssel" (4), "Belegdatum" (5), "Belegfeld 1" (6), "Belegfeld 2" (7), "Buchungstext" (8), "Festschreibung" (9)};
-//    String[] header = new String[]{"Umsatz", "Soll-Haben", "Kontonummer", "Gegenkonto", "BU-Schlüssel", "Belegdatum", "Belegfeld 1", "Belegfeld 2", "Buchungstext", "Festschreibung"};
-    private static String[] DATENMODELL = {
-            "Umsatz",
-            "Soll-Haben",
-            "Kontonummer",
-            "Gegenkonto",
-            "BU-Schlüssel",
-            "Belegfeld 1",
-            "Belegfeld 2",
-            "Buchungstext",
-            "Festschreibung"}; // Datenmodell
-
     public static void start (String platform, String operation, File filepath, String format_final) throws IOException, CsvValidationException, ParseException {
         System.out.println("Dateipfad: [" + filepath.getAbsolutePath() + "]");
         System.out.println("Plattform: [" + platform + "]");
         System.out.println("Operation: [" + operation + "]");
         System.out.println("Endformat: [" + format_final + "]");
 
-        int rows = DimensionCalculator.getRows(platform, filepath);
-        int columns = DimensionCalculator.getColumns(platform, filepath);
+        int rows = DimensionCalculator.getRows(filepath);
+        int columns = DimensionCalculator.getColumns(filepath);
 
+        // ----------------- Hauptklassen -----------------
 
         String [] [] daten_roh = DataExtracter.extractData(filepath, rows, columns);
 
@@ -40,8 +28,7 @@ public class ConvertMain {
 
         DataWriter.writeData(filepath, platform, format_final, daten_geparsed);
 
-
-
+        // ----------------- Ende -----------------
 
         System.out.println("Konvertierung abgeschlossen!");
 
