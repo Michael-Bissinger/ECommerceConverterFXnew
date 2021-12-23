@@ -18,19 +18,19 @@ public class DataWriter {
 
     public static void writeData(File filepath_origin, String platform, String finalformat, String[][] daten_final) {
 
-
         System.out.println("Daten werden zu Format " + finalformat + " konvertiert!");
 
         switch (finalformat) {
             case "Maske (ASCII)" -> createMaskASCII(filepath_origin, daten_final);
-            case "DATEV-Format (ASCII)" -> createDATEVformat(platform, filepath_origin);
+            case "DATEV-Format (ASCII)" -> createDATEVformat(platform, filepath_origin, daten_final);
 
             default -> System.out.println("FEHLER: Endformat kann nicht erstellt werden!");
         }
 
     }
 
-    static void createMaskASCII(File filepath_origin, String[][] daten_final) {
+    private static void createMaskASCII(File filepath_origin, String[][] daten_final) {
+
         LogCoordinator.writeLog("FINALDATEN: Kreiere ASCII-Maske!");
 
         System.out.println("Pfad: " + filepath_origin.getParent());
@@ -81,17 +81,7 @@ public class DataWriter {
 
             }
 
-
-
-
         }
-
-
-        // Exampledata
-        //String[] row1 = new String[]{"3,08", "H", "1469000", "70000130", "", "0101", "MUZ1S81", "Peter Test", "h.sdsd@t-online.de", "0"};
-        //therows.add(row1);
-
-
 
         writer.writeAll(therows);
 
@@ -104,8 +94,7 @@ public class DataWriter {
         }
     }
 
-
-    static void createDATEVformat(String platform, File filepath_origin) {
+    private static void createDATEVformat(String platform, File filepath_origin, String[][] daten_final) {
 
             // TODO: Neues CSV (DATEV-Format) schreiben
             // https://www.youtube.com/watch?v=sgGGjisdNPA
