@@ -42,7 +42,18 @@ public class DataWriter {
             e.printStackTrace();
         }
         List<String[]> therows = new ArrayList<>();
-        String[] header = new String[]{"Umsatz", "Soll-Haben", "Kontonummer", "Gegenkonto", "BU-Schlüssel", "Belegdatum", "Belegfeld 1", "Belegfeld 2", "Buchungstext", "Festschreibung"};
+
+        String[] header = new String[]{
+                        "Umsatz",
+                        "Soll-Haben",
+                        "Kontonummer",
+                        "Gegenkonto",
+                        "BU-Schlüssel",
+                        "Belegdatum",
+                        "Belegfeld 1",
+                        "Belegfeld 2",
+                        "Buchungstext",
+                        "Festschreibung"};
         therows.add(header);
 
         for(int column_pointer=0; column_pointer<daten_final.length; column_pointer++) {
