@@ -1,7 +1,7 @@
 package ecommerce.converter;
 
 import com.opencsv.*;
-import ecommerce.converter.generaltools.LogCoordinater;
+import ecommerce.converter.generaltools.LogCoordinator;
 
 
 import org.apache.commons.io.FilenameUtils;
@@ -9,7 +9,7 @@ import org.apache.commons.io.FilenameUtils;
 import java.io.*;
 import java.util.Arrays;
 
-public class DataExtracter {
+public class DataExtractor {
 
     public static String [] [] extractData(File filepath_origin, int row_number, int columns_number) {
 
@@ -75,7 +75,7 @@ public class DataExtracter {
         String[] nextline;
 
 
-        LogCoordinater.writeLog("ROHDATEN: Einlesen Beginn!");
+        LogCoordinator.writeLog("ROHDATEN: Einlesen Beginn!");
         Integer current_line = 0;
         while ((nextline = reader.readNext()) != null) {
             System.out.println("Aktuell bei Reihe: " + current_line);
@@ -122,10 +122,10 @@ public class DataExtracter {
        catch (Exception e)
         {
             System.out.println("FEHLER: Fehler beim Einlesen in getDataCSV!");
-            LogCoordinater.writeLog("ROHDATEN: FEHLER bei Einlesen!");
+            LogCoordinator.writeLog("ROHDATEN: FEHLER bei Einlesen!");
         }
 
-        LogCoordinater.writeLog("ROHDATEN: Einlesen abgeschlossen!");
+        LogCoordinator.writeLog("ROHDATEN: Einlesen abgeschlossen!");
         return CSV_Daten;
 
     }

@@ -1,7 +1,7 @@
 package ecommerce.converter;
 
 import com.opencsv.exceptions.CsvValidationException;
-import ecommerce.converter.generaltools.LogCoordinater;
+import ecommerce.converter.generaltools.LogCoordinator;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -220,8 +220,8 @@ public class Main extends Application{
             public void handle(ActionEvent event) {
 
 
-                if (LogCoordinater.ACTIVITY_LOG == true) {
-                    LogCoordinater.deleteLog();
+                if (LogCoordinator.ACTIVITY_LOG == true) {
+                    LogCoordinator.deleteLog();
                 }
 
 
@@ -277,7 +277,7 @@ public class Main extends Application{
             @Override
             public void handle(ActionEvent actionEvent) {
 
-                LogCoordinater.openLog();
+                LogCoordinator.openLog();
 
             }
         });
