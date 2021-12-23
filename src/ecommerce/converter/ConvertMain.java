@@ -10,11 +10,14 @@ import java.text.ParseException;
 public class ConvertMain {
 
     public static void start (String platform, String operation, File filepath, String format_final) throws IOException, CsvValidationException, ParseException {
+
+        // ----------------- Ausgabe von Parametern -----------------
         System.out.println("Dateipfad: [" + filepath.getAbsolutePath() + "]");
         System.out.println("Plattform: [" + platform + "]");
         System.out.println("Operation: [" + operation + "]");
         System.out.println("Endformat: [" + format_final + "]");
 
+        // ----------------- Errechnen von Spalten und Reihen -----------------
         int rows = DimensionCalculator.getRows(filepath);
         int columns = DimensionCalculator.getColumns(filepath);
 

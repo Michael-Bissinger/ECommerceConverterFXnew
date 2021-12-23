@@ -7,7 +7,7 @@ import java.util.Date;
 public class ParserDate {
 
 
-    public static String[][] reformatDate(String[][] daten, String datum_format) throws ParseException {
+    public static String[][] reformatDate(String[][] daten, String datum_format) {
 
 
         //https://stackoverflow.com/questions/4772425/change-date-format-in-a-java-string
@@ -19,7 +19,12 @@ public class ParserDate {
             System.out.print("Datum (original), Position " + row_pointer + " ist: " + daten[row_pointer][5]);
 
             //https://stackoverflow.com/questions/4772425/change-date-format-in-a-java-string
-            Date date_aktuell = new SimpleDateFormat(datum_format).parse(daten[row_pointer][5]);
+            Date date_aktuell = null;
+            try {
+                date_aktuell = new SimpleDateFormat(datum_format).parse(daten[row_pointer][5]);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             //date_new = daten[row2_pointer][5]
             date_new = new SimpleDateFormat("ddMM").format(date_aktuell);
 
