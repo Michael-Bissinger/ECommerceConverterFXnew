@@ -17,8 +17,8 @@ public class DimensionCalculator {
         String dateiformat = FilenameUtils.getExtension(String.valueOf(filepath_origin));
 
         switch (dateiformat) {
-            case "csv" -> {columns = DimensionCalculator.getCSVColumns(filepath_origin);}
-            default -> {System.out.println("FEHLER: Dateiformat kann nicht verarbeitet werden");}
+            case "csv" -> columns = DimensionCalculator.getCSVColumns(filepath_origin);
+            default -> System.out.println("FEHLER: Dateiformat kann nicht verarbeitet werden");
         }
 
         return columns;
@@ -33,8 +33,8 @@ public class DimensionCalculator {
         String dateiformat = FilenameUtils.getExtension(String.valueOf(filepath_origin));
 
         switch (dateiformat) {
-            case "csv" -> {rows = DimensionCalculator.getCSVRows(filepath_origin);}
-            default -> {System.out.println("FEHLER: Dateiformat kann nicht verarbeitet werden");}
+            case "csv" -> rows = DimensionCalculator.getCSVRows(filepath_origin);
+            default -> System.out.println("FEHLER: Dateiformat kann nicht verarbeitet werden");
         }
 
         return rows;

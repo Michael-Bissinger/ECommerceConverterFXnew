@@ -11,16 +11,16 @@ import java.util.Arrays;
 
 public class DataExtractor {
 
-    public static String [] [] extractData(File filepath_origin, int row_number, int columns_number) {
+    public static String [] [] extractData(File filepath, int rows, int columns) {
 
-        String [] [] rohdaten = new String [row_number] [columns_number];
+        String [] [] rohdaten = new String [rows] [columns];
 
         // Dateiformat erkennen
-        String dateiformat = FilenameUtils.getExtension(String.valueOf(filepath_origin));
+        String dateiformat = FilenameUtils.getExtension(String.valueOf(filepath));
 
         switch (dateiformat) {
-            case "csv" -> {rohdaten = getDataCSV(filepath_origin, row_number, columns_number);}
-            default -> {System.out.println("FEHLER: Dateiformat kann nicht verarbeitet werden");}
+            case "csv" -> rohdaten = getDataCSV(filepath, rows, columns);
+            default -> System.out.println("FEHLER: Dateiformat kann nicht verarbeitet werden");
         }
 
         System.out.println("+++++++++++");
@@ -33,7 +33,7 @@ public class DataExtractor {
 
 
 
-    static void getOtherData(String platform, File filepath_origin) throws IOException {
+    static void getOtherData(File filepath_origin) throws IOException {
 
 
         //BufferedReader csvReader = new BufferedReader(new FileReader("C:\\Users\\michael.bissinger\\IdeaProjects\\IOTest\\testdatei.csv"));
@@ -60,14 +60,14 @@ public class DataExtractor {
     }
 
 
-    private static String [] [] getDataCSV(File filepath_origin, int row_number, int columns_number) {
+    private static String [] [] getDataCSV(File filepath_origin, int rows, int columns) {
 
         // *********** USE CSV-Reader Software **************
         //https://www.baeldung.com/opencsv
         //https://www.youtube.com/watch?v=ZyjT2qYE4d4
 
         // Ergebnis
-        String [] [] CSV_Daten = new String [row_number] [columns_number];
+        String [] [] CSV_Daten = new String [rows] [columns];
 
         try {
             CSVReader reader = new CSVReader(new FileReader(filepath_origin));
