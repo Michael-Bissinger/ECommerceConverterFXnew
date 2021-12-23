@@ -1,6 +1,7 @@
 package ecommerce.converter;
 
 import com.opencsv.CSVWriter;
+import ecommerce.converter.generaltools.DimensionCalculator;
 import ecommerce.converter.generaltools.LogCoordinator;
 
 import java.io.File;
@@ -11,38 +12,35 @@ import java.util.List;
 
 public class DataWriter {
 
-    public static String MANDANTENUMBER = "10754"; // Internal number in DATEV, with GmbH & Co KG change to "10755"
+    // Interne Nummer in DATEV, wird bei GmbH & Co KG zu "10755"
+    // Als String deklariert, damit sich die Nummer in .csv schreiben lässt
+    public static String MANDANTENUMBER = "10754";
 
-    public static void writeData(File filepath_origin, String platform, String finalformat, String[][] daten_final) throws IOException {
+    public static void writeData(File filepath_origin, String platform, String finalformat, String[][] daten_final) {
 
 
         System.out.println("Daten werden zu Format " + finalformat + " konvertiert!");
 
         switch (finalformat) {
-            case "Maske (ASCII)":
-                createMaskASCII(filepath_origin, daten_final);
-                break;
+            case "Maske (ASCII)" -> createMaskASCII(filepath_origin, daten_final);
+            case "DATEV-Format (ASCII)" -> createDATEVformat(platform, filepath_origin);
 
-            case "DATEV-Format (ASCII)":
-                createDATEVformat(platform, filepath_origin);
-                break;
-
-            case "XML":
-
-            default:
-                System.out.println("FEHLER: Endformat kann nicht erstellt werden!");
-                break;
+            default -> System.out.println("FEHLER: Endformat kann nicht erstellt werden!");
         }
-
 
     }
 
-    static void createMaskASCII(File filepath_origin, String[][] daten_final) throws IOException {
+    static void createMaskASCII(File filepath_origin, String[][] daten_final) {
         LogCoordinator.writeLog("FINALDATEN: Kreiere ASCII-Maske!");
 
         System.out.println("Pfad: " + filepath_origin.getParent());
 
-        CSVWriter writer = new CSVWriter(new FileWriter(filepath_origin.getParent() + "\\" + "Mask_ASCII_test.csv"),';','"', '\\',CSVWriter.DEFAULT_LINE_END);
+        CSVWriter writer = null;
+        try {
+            writer = new CSVWriter(new FileWriter(filepath_origin.getParent() + "\\" + "Mask_ASCII_test.csv"),';','"', '\\',CSVWriter.DEFAULT_LINE_END);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         List<String[]> therows = new ArrayList<>();
         String[] header = new String[]{"Umsatz", "Soll-Haben", "Kontonummer", "Gegenkonto", "BU-Schlüssel", "Belegdatum", "Belegfeld 1", "Belegfeld 2", "Buchungstext", "Festschreibung"};
         therows.add(header);
@@ -99,11 +97,15 @@ public class DataWriter {
 
         LogCoordinator.writeLog("FINALDATEN: Kreation ASCII-Maske abgeschlossen!");
 
-        writer.close();
+        try {
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
-    static void createDATEVformat(String platform, File filepath_origin) throws IOException {
+    static void createDATEVformat(String platform, File filepath_origin) {
 
             // TODO: Neues CSV (DATEV-Format) schreiben
             // https://www.youtube.com/watch?v=sgGGjisdNPA

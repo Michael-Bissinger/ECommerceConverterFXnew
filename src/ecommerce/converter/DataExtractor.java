@@ -55,16 +55,10 @@ public class DataExtractor {
         }
         csvReader_bf.close();
 
-
-
     }
 
 
     private static String [] [] getDataCSV(File filepath_origin, int rows, int columns) {
-
-        // *********** USE CSV-Reader Software **************
-        //https://www.baeldung.com/opencsv
-        //https://www.youtube.com/watch?v=ZyjT2qYE4d4
 
         // Ergebnis
         String [] [] CSV_Daten = new String [rows] [columns];
@@ -90,7 +84,6 @@ public class DataExtractor {
 
                 for(int row_data = 0; row_data < elements.length; row_data++)
                 {
-
                     //System.out.println("Speichere Array-Itemnummer :" + elements[row_data]);
                     if (row_data == 0) {
                         //System.out.println("Erste Zeile");
@@ -107,7 +100,6 @@ public class DataExtractor {
 
                 }
 
-
            }
             //System.out.println("Das wurde in Position " + current_line + " gespeichert: " + Daten[current_line][0]);
             current_line++;
@@ -122,7 +114,7 @@ public class DataExtractor {
        catch (Exception e)
         {
             System.out.println("FEHLER: Fehler beim Einlesen in getDataCSV!");
-            LogCoordinator.writeLog("ROHDATEN: FEHLER bei Einlesen!");
+            LogCoordinator.writeLog("ROHDATEN: FEHLER beim Einlesen!");
         }
 
         LogCoordinator.writeLog("ROHDATEN: Einlesen abgeschlossen!");
@@ -130,6 +122,6 @@ public class DataExtractor {
 
     }
 
-    }
+}
 
 

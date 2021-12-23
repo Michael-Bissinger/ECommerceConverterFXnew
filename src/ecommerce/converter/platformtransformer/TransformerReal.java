@@ -68,22 +68,16 @@ public class TransformerReal {
 
         daten_final = BuchungstextWriter.getBuchungstext(daten_final, positionen, daten_original, rows, relevanteItemsBuchungstext, RELEVANTE_ITEMS, 8);
 
-        //daten_final = getBuchungstext(daten_final, positionen, daten_original, rows, RELEVANTE_ITEMS[5], RELEVANTE_ITEMS[6], RELEVANTE_ITEMS[7], RELEVANTE_ITEMS, 8);
-
 
         // ****************** Gebührencheck ******************
+
+
+
         switch (operation) {
             case "Nur Gebühren":
-                //RELEVANTE_ITEMS[0]
-
-                //daten_final = getSH(daten_final, rows, operation);
                 daten_final = SHCoordinator.getSH(daten_final, rows, operation, RELEVANTE_ITEMS[0]);
 
-
-                //String[] = {"Volvo", "BMW", "Ford", "Mazda"};
-
                 daten_final = extractFees(daten_final, daten_original, rows, columns, positionen, GEBUEHRENARTEN, RELEVANTE_ITEMS[1], RELEVANTE_ITEMS);
-
 
                 break;
             case "Nur Transaktionen":
@@ -99,8 +93,6 @@ public class TransformerReal {
                 System.out.println("Operation ist nicht verfügbar");
                 break;
         }
-
-
 
 
         return daten_final;

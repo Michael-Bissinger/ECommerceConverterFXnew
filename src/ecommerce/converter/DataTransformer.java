@@ -10,29 +10,14 @@ public class DataTransformer {
         String [] [] daten_final = new String[rows-1][10];
 
         switch (platform) {
-            case "Alltricks":
+            case "Alltricks" -> System.out.println("Alltricks wird noch gebaut");
+            case "Conrad" -> daten_final = TransformerConrad.transformConradData(operation, daten, rows, columns);
+            case "Real" -> daten_final = TransformerReal.transformRealData(operation, daten, rows, columns);
 
-                break;
-            case "Conrad":
-                daten_final = TransformerConrad.transformConradData(operation, daten, rows, columns);
-
-                break;
-
-            case "Real":
-
-                daten_final = TransformerReal.transformRealData(operation, daten, rows, columns);
-
-                break;
-
-            default:
-                System.out.println("Plattform ist nicht verfügbar");
-                break;
+            default -> System.out.println("FEHLER: Dateiformat kann nicht verarbeitet werden");
         }
-
 
         return daten_final;
     }
-
-
 
 }
