@@ -16,7 +16,7 @@ public class DataWriter {
     // Als String deklariert, damit sich die Nummer in .csv schreiben lässt
     public static String MANDANTENUMBER = "10754";
 
-    public static void writeData(File filepath_origin, String platform, String finalformat, String[][] daten_final) {
+    public static void writeData (File filepath_origin, String platform, String finalformat, String[][] daten_final) {
 
         System.out.println("Daten werden zu Format " + finalformat + " konvertiert!");
 
@@ -29,7 +29,7 @@ public class DataWriter {
 
     }
 
-    private static void createMaskASCII(File filepath_origin, String[][] daten_final) {
+    private static void createMaskASCII (File filepath_origin, String[][] daten_final) {
 
         LogCoordinator.writeLog("FINALDATEN: Kreiere ASCII-Maske!");
 
@@ -45,7 +45,6 @@ public class DataWriter {
         String[] header = new String[]{"Umsatz", "Soll-Haben", "Kontonummer", "Gegenkonto", "BU-Schlüssel", "Belegdatum", "Belegfeld 1", "Belegfeld 2", "Buchungstext", "Festschreibung"};
         therows.add(header);
 
-
         for(int column_pointer=0; column_pointer<daten_final.length; column_pointer++) {
             String[] row_aktuell = new String[daten_final.length];
 
@@ -59,17 +58,14 @@ public class DataWriter {
             if (daten_final[column_pointer][row_pointer] == null) {
                 row_aktuell[row_pointer] = "";
 
-                } else
-             {
+                } else {
                  row_aktuell[row_pointer] = daten_final[column_pointer][row_pointer];
-            }
+                }
 
             }
-
 
             //System.out.println("Anzeige: " + row_aktuell[0]);
             if (row_aktuell[0] != "") {
-
                 therows.add(row_aktuell);
 
             } else {
@@ -80,7 +76,6 @@ public class DataWriter {
                 // (column_pointer+2) wird genutzt, weil die jetztige Datei keinen Header mehr hat (+1) und bei 0 begonnen wird (+1)
 
             }
-
         }
 
         writer.writeAll(therows);
@@ -94,7 +89,7 @@ public class DataWriter {
         }
     }
 
-    private static void createDATEVformat(String platform, File filepath_origin, String[][] daten_final) {
+    private static void createDATEVformat (String platform, File filepath_origin, String[][] daten_final) {
 
             // TODO: Neues CSV (DATEV-Format) schreiben
             // https://www.youtube.com/watch?v=sgGGjisdNPA
