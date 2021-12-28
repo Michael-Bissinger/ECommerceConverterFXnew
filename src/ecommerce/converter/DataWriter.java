@@ -35,13 +35,21 @@ public class DataWriter {
 
         List<Integer> months = checkDate(daten_final);
 
+        int aktueller_monat = 0;
+        while (aktueller_monat < months.size()) {
+            System.out.println("Da stehts: " + months.get(aktueller_monat));
+
+
+
+
         LogCoordinator.writeLog("FINALDATEN: Kreiere ASCII-Maske!");
 
         System.out.println("Pfad: " + filepath_origin.getParent());
 
         CSVWriter writer = null;
         try {
-            writer = new CSVWriter(new FileWriter(filepath_origin.getParent() + "\\" + "Mask_ASCII_test.csv"),';','"', '\\',CSVWriter.DEFAULT_LINE_END);
+            writer = new CSVWriter(new FileWriter(filepath_origin.getParent() + "\\" +
+                    "Mask_ASCII_" + months.get(aktueller_monat) + ".csv"),';','"', '\\',CSVWriter.DEFAULT_LINE_END);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -101,6 +109,9 @@ public class DataWriter {
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+
+            aktueller_monat++;
         }
     }
 
