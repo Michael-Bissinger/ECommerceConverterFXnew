@@ -30,6 +30,8 @@ public class DataWriter {
 
     private static void createMaskASCII (File filepath_origin, String[][] daten_final) {
 
+        List<Integer> months = checkDate(daten_final);
+
         LogCoordinator.writeLog("FINALDATEN: Kreiere ASCII-Maske!");
 
         System.out.println("Pfad: " + filepath_origin.getParent());
@@ -99,7 +101,19 @@ public class DataWriter {
         }
     }
 
-    private static void createDATEVFormat(String platform, File filepath_origin, String[][] daten_final) {
+    private static List<Integer> checkDate (String[][] daten_final) {
+
+        List<Integer> months = new ArrayList<Integer>();
+
+        for (int rowpointer = 0; rowpointer < daten_final.length; rowpointer++) {
+            System.out.println("Stelle: " + rowpointer);
+        }
+
+        return months;
+    }
+
+
+        private static void createDATEVFormat(String platform, File filepath_origin, String[][] daten_final) {
 
             // TODO: Neues CSV (DATEV-Format) schreiben
             // https://www.youtube.com/watch?v=sgGGjisdNPA
