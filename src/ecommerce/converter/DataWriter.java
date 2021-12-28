@@ -6,7 +6,10 @@ import ecommerce.converter.generaltools.LogCoordinator;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class DataWriter {
@@ -106,8 +109,26 @@ public class DataWriter {
         List<Integer> months = new ArrayList<Integer>();
 
         for (int rowpointer = 0; rowpointer < daten_final.length; rowpointer++) {
-            System.out.println("Stelle: " + rowpointer);
+            //System.out.println("Stelle: " + rowpointer + ": " + daten_final[rowpointer][5]);
+
+            Date date_aktuell = null;
+            try {
+                date_aktuell = new SimpleDateFormat("ddMM").parse(daten_final[rowpointer][5]);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            if (!months.contains(date_aktuell.getMonth()+1)) {
+
+                months.add(date_aktuell.getMonth()+1);
+
+            }
+
+            System.out.println(date_aktuell.getMonth()+1);
+
         }
+
+        System.out.println("Finale Liste: " + months);
 
         return months;
     }
