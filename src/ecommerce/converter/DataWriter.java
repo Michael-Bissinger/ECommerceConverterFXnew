@@ -122,6 +122,20 @@ public class DataWriter {
 
         boolean match = false;
 
+        Date date_aktuell = null;
+        try {
+            date_aktuell = new SimpleDateFormat("ddMM").parse(datum);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+
+        if (date_aktuell.getMonth() == currentmonth) {
+            System.out.println("YESSSS");
+            match = true;
+        }
+
 
         return match;
     }
