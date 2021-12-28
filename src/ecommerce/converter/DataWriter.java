@@ -33,7 +33,7 @@ public class DataWriter {
 
     private static void createMaskASCII (File filepath_origin, String[][] daten_final) {
 
-        List<Integer> months = checkDate(daten_final);
+        List<Integer> months = collectMonths(daten_final);
 
         int aktueller_monat = 0;
         while (aktueller_monat < months.size()) {
@@ -89,7 +89,9 @@ public class DataWriter {
 
             //System.out.println("Anzeige: " + row_aktuell[0]);
             if (row_aktuell[0] != "") {
-                therows.add(row_aktuell);
+                if (checkDate(row_aktuell[5], aktueller_monat)  == true) {
+                    therows.add(row_aktuell);
+                }
 
             } else {
                 System.out.println("Kein Buchungswert bei Spalte: " + column_pointer);
@@ -115,7 +117,16 @@ public class DataWriter {
         }
     }
 
-    private static List<Integer> checkDate (String[][] daten_final) {
+    private static boolean checkDate(String datum, Integer currentmonth) {
+
+
+        boolean match = false;
+
+
+        return match;
+    }
+
+    private static List<Integer> collectMonths(String[][] daten_final) {
 
         List<Integer> months = new ArrayList<Integer>();
 
