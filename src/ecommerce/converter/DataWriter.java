@@ -1,7 +1,6 @@
 package ecommerce.converter;
 
 import com.opencsv.CSVWriter;
-import ecommerce.converter.generaltools.DimensionCalculator;
 import ecommerce.converter.generaltools.LogCoordinator;
 
 import java.io.File;
@@ -14,7 +13,7 @@ public class DataWriter {
 
     // Interne Nummer in DATEV, wird bei GmbH & Co KG zu "10755"
     // Als String deklariert, damit sich die Nummer in .csv schreiben lässt
-    public static String MANDANTENUMBER = "10754";
+    public static String MANDANTENUMMER = "10754";
 
     public static void writeData (File filepath_origin, String platform, String finalformat, String[][] daten_final) {
 
@@ -22,7 +21,7 @@ public class DataWriter {
 
         switch (finalformat) {
             case "Maske (ASCII)" -> createMaskASCII(filepath_origin, daten_final);
-            case "DATEV-Format (ASCII)" -> createDATEVformat(platform, filepath_origin, daten_final);
+            case "DATEV-Format (ASCII)" -> createDATEVFormat(platform, filepath_origin, daten_final);
 
             default -> System.out.println("FEHLER: Endformat kann nicht erstellt werden!");
         }
@@ -100,7 +99,7 @@ public class DataWriter {
         }
     }
 
-    private static void createDATEVformat (String platform, File filepath_origin, String[][] daten_final) {
+    private static void createDATEVFormat(String platform, File filepath_origin, String[][] daten_final) {
 
             // TODO: Neues CSV (DATEV-Format) schreiben
             // https://www.youtube.com/watch?v=sgGGjisdNPA
@@ -126,7 +125,7 @@ public class DataWriter {
                         "\""+"1000188U00027"+"\"",
                         "\""+"1000188U00027"+"\"",
                         "467742",
-                        MANDANTENUMBER, // Mandantennummer
+                        MANDANTENUMMER, // Mandantennummer
                         "20210101", // Startdatum? TODO: Herausfinden
                         "4",
                         "20210501", // Aktueller Monat? TODO: Herausfinden
