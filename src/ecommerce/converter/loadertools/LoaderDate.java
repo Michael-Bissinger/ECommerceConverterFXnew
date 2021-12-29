@@ -8,24 +8,6 @@ import java.util.List;
 
 public class LoaderDate {
 
-    public static boolean checkDate(String datum, Integer currentmonth) {
-
-        boolean match = false;
-
-        Date date_aktuell = null;
-        try {
-            date_aktuell = new SimpleDateFormat("ddMM").parse(datum);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        if (date_aktuell.getMonth()+1 == currentmonth) {
-            match = true;
-        }
-
-        return match;
-    }
-
     public static List<Integer> collectMonths(String[][] daten_final) {
 
         List<Integer> months = new ArrayList<Integer>();
@@ -55,5 +37,22 @@ public class LoaderDate {
         return months;
     }
 
+    public static boolean checkDate(String datum, Integer currentmonth) {
+
+        boolean match = false;
+
+        Date date_aktuell = null;
+        try {
+            date_aktuell = new SimpleDateFormat("ddMM").parse(datum);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if (date_aktuell.getMonth()+1 == currentmonth) {
+            match = true;
+        }
+
+        return match;
+    }
 
 }
