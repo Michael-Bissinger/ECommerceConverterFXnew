@@ -89,7 +89,7 @@ public class DataWriter {
 
             //System.out.println("Anzeige: " + row_aktuell[0]);
             if (row_aktuell[0] != "") {
-                if (checkDate(row_aktuell[5], aktueller_monat)  == true) {
+                if (checkDate(row_aktuell[5], months.get(aktueller_monat))  == true) {
                     therows.add(row_aktuell);
                 }
 
@@ -119,7 +119,6 @@ public class DataWriter {
 
     private static boolean checkDate(String datum, Integer currentmonth) {
 
-
         boolean match = false;
 
         Date date_aktuell = null;
@@ -129,13 +128,9 @@ public class DataWriter {
             e.printStackTrace();
         }
 
-
-
-        if (date_aktuell.getMonth() == currentmonth) {
-            System.out.println("YESSSS");
+        if (date_aktuell.getMonth()+1 == currentmonth) {
             match = true;
         }
-
 
         return match;
     }
