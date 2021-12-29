@@ -6,11 +6,11 @@ import ecommerce.converter.generaltools.LogCoordinator;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+
+import static ecommerce.converter.loadertools.LoaderDate.checkDate;
+import static ecommerce.converter.loadertools.LoaderDate.collectMonths;
 
 public class DataWriter {
 
@@ -117,52 +117,7 @@ public class DataWriter {
         }
     }
 
-    private static boolean checkDate(String datum, Integer currentmonth) {
 
-        boolean match = false;
-
-        Date date_aktuell = null;
-        try {
-            date_aktuell = new SimpleDateFormat("ddMM").parse(datum);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        if (date_aktuell.getMonth()+1 == currentmonth) {
-            match = true;
-        }
-
-        return match;
-    }
-
-    private static List<Integer> collectMonths(String[][] daten_final) {
-
-        List<Integer> months = new ArrayList<Integer>();
-
-        for (int rowpointer = 0; rowpointer < daten_final.length; rowpointer++) {
-            //System.out.println("Stelle: " + rowpointer + ": " + daten_final[rowpointer][5]);
-
-            Date date_aktuell = null;
-            try {
-                date_aktuell = new SimpleDateFormat("ddMM").parse(daten_final[rowpointer][5]);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-            if (!months.contains(date_aktuell.getMonth()+1)) {
-
-                months.add(date_aktuell.getMonth()+1);
-
-            }
-
-            System.out.println(date_aktuell.getMonth()+1);
-
-        }
-
-        System.out.println("Finale Liste: " + months);
-
-        return months;
-    }
 
 
         private static void createDATEVFormat(String platform, File filepath_origin, String[][] daten_final) {
