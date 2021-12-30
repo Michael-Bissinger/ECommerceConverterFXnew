@@ -150,6 +150,7 @@ public class Main extends Application{
         // Endformat: "DATEV-Format" or "ASCII-Mask" or"XML"
         ObservableList<String> formatoptions =
                 FXCollections.observableArrayList(
+                        "DATEV-Format (ASCII)",
                         "Maske (ASCII)"
                             //,
                             //"DATEV-Format (ASCII)",

@@ -3,9 +3,7 @@ package ecommerce.converter;
 import com.opencsv.CSVWriter;
 import ecommerce.converter.generaltools.LogCoordinator;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,9 +35,6 @@ public class DataWriter {
 
         int aktueller_monat = 0;
         while (aktueller_monat < months.size()) {
-            System.out.println("Da stehts: " + months.get(aktueller_monat));
-
-
 
 
         LogCoordinator.writeLog("FINALDATEN: Kreiere ASCII-Maske!");
@@ -122,82 +117,120 @@ public class DataWriter {
 
         private static void createDATEVFormat(String platform, File filepath_origin, String[][] daten_final) {
 
-            // TODO: Neues CSV (DATEV-Format) schreiben
-            // https://www.youtube.com/watch?v=sgGGjisdNPA
+            List<Integer> months = collectMonths(daten_final);
+
+            int aktueller_monat = 0;
+            while (aktueller_monat < months.size()) {
+
+                try (PrintWriter writer = new PrintWriter(filepath_origin.getParent() + "\\" +
+                        "DATEV_Format_" + months.get(aktueller_monat) + ".csv")) {
+
+                    //fw = new FileWriter(filepath_origin.getParent() + "\\" +
+                    //        "DATEV_Format_" + months.get(aktueller_monat) + ".csv");
+
+                    StringBuilder sb = new StringBuilder();
+                    sb.append("id");
+                    sb.append(',');
+                    sb.append("Name");
+                    sb.append('\n');
+
+                    sb.append("1");
+                    sb.append(',');
+                    sb.append("Prashant Ghimire");
+                    sb.append('\n');
+
+                    writer.write(sb.toString());
+
+                    System.out.println("done!");
+
+                } catch (FileNotFoundException e) {
+                    System.out.println(e.getMessage());
+                }
 
 
-            System.out.println("DATEV-Format wird erstellt!");
-            // TODO: Paragraph-Symbol rausnehmen https://stackoverflow.com/questions/6841622/writeallresultset-res-boolean-b-method-of-opencsv-adds-double-quotes-around-da/29362439#29362439
-            try (CSVWriter writer = new CSVWriter(new FileWriter("DATEVformat_test.csv"),';','"','\\',CSVWriter.DEFAULT_LINE_END))
-            {
-                List<String[]> therows = new ArrayList<>();
-
-                //Erste Zeile
-                //DTVF	700	21	Buchungsstapel	12	2,02111E+16	2,02111E+16	RE	1000188U00027	1000188U00027	467742	11600	20210101	4	20210501	20210531	Visa 05	LK	1	0	0	EUR		KP		117301	3
-                String[] header = new String[]{
-                        "\""+"DTVF"+"\"",
-                        "700",
-                        "21",
-                        "\""+"Buchungsstapel"+"\"",
-                        "12",
-                        "20211111143006400"+"\"",
-                        "20211111143006400"+"\"",
-                        "\""+"RE",
-                        "\""+"1000188U00027"+"\"",
-                        "\""+"1000188U00027"+"\"",
-                        "467742",
-                        MANDANTENUMMER, // Mandantennummer
-                        "20210101", // Startdatum? TODO: Herausfinden
-                        "4",
-                        "20210501", // Aktueller Monat? TODO: Herausfinden
-                        "20210531", // Ende des Monats? TODO: Herausfinden
-                        "\""+platform + "_Stapel"+"\"", // Name Buchungsstapel TODO: Noch den jeweiligen Monat hinzufügen
-                        "\""+"LK"+"\"",
-                        "1",
-                        "0",
-                        "0",
-                        "\""+"EUR"+"\"",
-                        "",
-                        "\""+"KP"+"\"",
-                        "",
-                        "117301",
-                        "\""+"3"+"\"",
-                        "",
-                        "",
-                        "\""+""+"\"",
-                        "\""+""+"\""
-
-
-                }; // Oberste Zeile muss alle nötigen Felder haben (Video 7:50)
-                therows.add(header);
-
-                //Zweite Zeile (eigentlich erste Zeile
-                //booking_date;booking_text;order_date;order_number;amount;balance;price_gross;shipping_charges_gross;sum_price_gross;fee_%;fee_net;fee_vat_%;fee_gross;payout;ean;id_item;title_item;offer_id;unit_condition;delivery_time_min;delivery_time_max;note;unit_sent_timestamp;delivery_time_expires;buyer.id_buyer;buyer.email;pseudonym;shipping.first_name;shipping.last_name;shipping.gender;shipping.company_name;shipping.street;shipping.house_number;shipping.additional_field;shipping.postcode;shipping.city;shipping.country;shipping.phone;billing.first_name;billing.last_name;billing.gender;billing.company_name;billing.street;billing.house_number;billing.additional_field;billing.postcode;billing.city;billing.country;billing.phone
-
-                String[] row1 = new String[]{"iyyxcd", "xcxc", "crew", "launchdate"}; // Muss alle nötigen Felder haben (Video 7:50)
-                therows.add(row1);
-
-                String[] row2 = new String[]{"1", "bla", "12", "2121212"};
-                therows.add(row2);
-
-                writer.writeAll(therows);
-
-
-
-            } catch (IOException e) {
-                e.printStackTrace();
             }
 
-
-
-
-            //try (CSVWriter writer = new CSVWriter(new FileWriter(filepath_origin.getAbsolutePath()))) {
-            //} catch (IOException e) {
-            //   e.printStackTrace();
-            //}
-
-
         }
+
+
+    private static void createDATEVFormatold(String platform, File filepath_origin, String[][] daten_final) {
+
+
+        // TODO: Neues CSV (DATEV-Format) schreiben
+        // https://www.youtube.com/watch?v=sgGGjisdNPA
+
+        System.out.println("DATEV-Format wird erstellt!");
+        // TODO: Paragraph-Symbol rausnehmen https://stackoverflow.com/questions/6841622/writeallresultset-res-boolean-b-method-of-opencsv-adds-double-quotes-around-da/29362439#29362439
+        try (CSVWriter writer = new CSVWriter(new FileWriter("DATEVformat_test.csv"),';','"','\\',CSVWriter.DEFAULT_LINE_END))
+        {
+            List<String[]> therows = new ArrayList<>();
+
+            //Erste Zeile
+            //DTVF	700	21	Buchungsstapel	12	2,02111E+16	2,02111E+16	RE	1000188U00027	1000188U00027	467742	11600	20210101	4	20210501	20210531	Visa 05	LK	1	0	0	EUR		KP		117301	3
+            String[] header = new String[]{
+                    "\""+"DTVF"+"\"",
+                    "700",
+                    "21",
+                    "\""+"Buchungsstapel"+"\"",
+                    "12",
+                    "20211111143006400"+"\"",
+                    "20211111143006400"+"\"",
+                    "\""+"RE",
+                    "\""+"1000188U00027"+"\"",
+                    "\""+"1000188U00027"+"\"",
+                    "467742",
+                    MANDANTENUMMER, // Mandantennummer
+                    "20210101", // Startdatum? TODO: Herausfinden
+                    "4",
+                    "20210501", // Aktueller Monat? TODO: Herausfinden
+                    "20210531", // Ende des Monats? TODO: Herausfinden
+                    "\""+platform + "_Stapel"+"\"", // Name Buchungsstapel TODO: Noch den jeweiligen Monat hinzufügen
+                    "\""+"LK"+"\"",
+                    "1",
+                    "0",
+                    "0",
+                    "\""+"EUR"+"\"",
+                    "",
+                    "\""+"KP"+"\"",
+                    "",
+                    "117301",
+                    "\""+"3"+"\"",
+                    "",
+                    "",
+                    "\""+""+"\"",
+                    "\""+""+"\""
+
+
+            }; // Oberste Zeile muss alle nötigen Felder haben (Video 7:50)
+            therows.add(header);
+
+            //Zweite Zeile (eigentlich erste Zeile
+            //booking_date;booking_text;order_date;order_number;amount;balance;price_gross;shipping_charges_gross;sum_price_gross;fee_%;fee_net;fee_vat_%;fee_gross;payout;ean;id_item;title_item;offer_id;unit_condition;delivery_time_min;delivery_time_max;note;unit_sent_timestamp;delivery_time_expires;buyer.id_buyer;buyer.email;pseudonym;shipping.first_name;shipping.last_name;shipping.gender;shipping.company_name;shipping.street;shipping.house_number;shipping.additional_field;shipping.postcode;shipping.city;shipping.country;shipping.phone;billing.first_name;billing.last_name;billing.gender;billing.company_name;billing.street;billing.house_number;billing.additional_field;billing.postcode;billing.city;billing.country;billing.phone
+
+            String[] row1 = new String[]{"iyyxcd", "xcxc", "crew", "launchdate"}; // Muss alle nötigen Felder haben (Video 7:50)
+            therows.add(row1);
+
+            String[] row2 = new String[]{"1", "bla", "12", "2121212"};
+            therows.add(row2);
+
+            writer.writeAll(therows);
+
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+        //try (CSVWriter writer = new CSVWriter(new FileWriter(filepath_origin.getAbsolutePath()))) {
+        //} catch (IOException e) {
+        //   e.printStackTrace();
+        //}
+
+    }
+
 
 
     }
