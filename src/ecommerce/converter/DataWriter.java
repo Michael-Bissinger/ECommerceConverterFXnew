@@ -120,7 +120,12 @@ public class DataWriter {
             List<Integer> months = collectMonths(daten_final);
 
             int aktueller_monat = 0;
+
+            System.out.println("months.size_: " + months.size());
             while (aktueller_monat < months.size()) {
+
+
+                //https://stackoverflow.com/questions/30073980/java-writing-strings-to-a-csv-file
 
                 try (PrintWriter writer = new PrintWriter(filepath_origin.getParent() + "\\" +
                         "DATEV_Format_" + months.get(aktueller_monat) + ".csv")) {
@@ -130,12 +135,12 @@ public class DataWriter {
 
                     StringBuilder sb = new StringBuilder();
                     sb.append("id");
-                    sb.append(',');
+                    sb.append(';');
                     sb.append("Name");
                     sb.append('\n');
 
                     sb.append("1");
-                    sb.append(',');
+                    sb.append(';');
                     sb.append("Prashant Ghimire");
                     sb.append('\n');
 
@@ -148,6 +153,8 @@ public class DataWriter {
                 }
 
 
+
+                aktueller_monat++;
             }
 
         }
