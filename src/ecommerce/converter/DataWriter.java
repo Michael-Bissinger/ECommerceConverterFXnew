@@ -134,6 +134,34 @@ public class DataWriter {
                     //        "DATEV_Format_" + months.get(aktueller_monat) + ".csv");
 
                     StringBuilder sb = new StringBuilder();
+                    // **** Kopfzeile ****
+                    //"EXTF";700;21;"Buchungsstapel";12;20210130140440439;;"RK";"";"";29098;55003;20210101;4;20210101;20210831;"Buchungsstapel";"WD";1;0;0;"EUR";;"";;;"03";;;"";""
+
+                    sb.append("\"EXTF\"");          //"EXTF"
+                    sb.append(';');
+                    sb.append("700");               //700
+                    sb.append(';');
+                    sb.append("21");                //21
+                    sb.append(';');
+                    sb.append("\"Buchungsstapel\"");//"Buchungsstapel"
+                    sb.append(';');
+                    sb.append("12");                //12
+                    sb.append(';');
+                    sb.append("20210130140440439"); //20210130140440439
+                    sb.append(';');
+                    sb.append(';');
+                    sb.append("\"RK\"");            //"RK"
+                    sb.append(';');
+                    sb.append("\"\"");              //""
+                    sb.append(';');
+                    sb.append("\"\"");              //""
+                    sb.append(';');
+                    sb.append(';');
+                    sb.append(';');
+
+
+                    sb.append('\n');
+
                     sb.append("id");
                     sb.append(';');
                     sb.append("Name");
