@@ -156,9 +156,42 @@ public class DataWriter {
                     sb.append(';');
                     sb.append("\"\"");              //""
                     sb.append(';');
+                    sb.append("29098");             //29098
+                    sb.append(';');
+                    sb.append("55003");             //55003
+                    sb.append(';');
+                    sb.append("20210101");          //20210101
+                    sb.append(';');
+                    sb.append("4");                 //4
+                    sb.append(';');
+                    sb.append("20210101");          //20210101
+                    sb.append(';');
+                    sb.append("20210831");          //20210831
+                    sb.append(';');
+                    sb.append("\"Buchungsstapel\"");//"Buchungsstapel"
+                    sb.append(';');
+                    sb.append("\"WD\"");            //"WD"
+                    sb.append(';');
+                    sb.append("1");                 //1
+                    sb.append(';');
+                    sb.append("0");                 //0
+                    sb.append(';');
+                    sb.append("0");                 //0
+                    sb.append(';');
+                    sb.append("\"EUR\"");           //"EUR"
                     sb.append(';');
                     sb.append(';');
-
+                    sb.append("\"\"");              //""
+                    sb.append(';');
+                    sb.append(';');
+                    sb.append(';');
+                    sb.append("\"03\"");            //"03"
+                    sb.append(';');
+                    sb.append(';');
+                    sb.append(';');
+                    sb.append("\"\"");              //""
+                    sb.append(';');
+                    sb.append("\"\"");              //""
 
                     sb.append('\n');
 
