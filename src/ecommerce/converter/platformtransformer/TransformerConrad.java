@@ -1,9 +1,6 @@
 package ecommerce.converter.platformtransformer;
 
-import ecommerce.converter.transformtools.AccountWriter;
-import ecommerce.converter.transformtools.BroadcastCoordinator;
-import ecommerce.converter.transformtools.BuchungstextWriter;
-import ecommerce.converter.transformtools.ItemPositionCoordinator;
+import ecommerce.converter.transformtools.*;
 
 public class TransformerConrad {
 
@@ -62,6 +59,9 @@ public class TransformerConrad {
         String[] relevanteItemsBuchungstext = {RELEVANTE_ITEMS[1], RELEVANTE_ITEMS[3]};
 
         daten_final = BuchungstextWriter.getBuchungstext(daten_final, positionen, daten_original, rows, relevanteItemsBuchungstext, RELEVANTE_ITEMS, 8);
+
+        // ****************** FESTSCHREIBUNG ******************
+        daten_final = FixationCoordinator.writeFixation(daten_final);
 
 
         return daten_final;

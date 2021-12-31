@@ -1,7 +1,6 @@
 package ecommerce.converter.platformparser;
 
 import ecommerce.converter.parsertools.ParserDate;
-import ecommerce.converter.parsertools.ParserFix;
 
 
 public class ParserReal {
@@ -13,7 +12,7 @@ public class ParserReal {
 
         daten = ParserDate.reformatDate(daten, DATUM_FORMAT);
 
-        daten = ParserFix.writeFixation(daten);
+        //daten = ParserFix.writeFixation(daten);
 
 
 

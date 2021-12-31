@@ -68,6 +68,8 @@ public class TransformerReal {
 
         daten_final = BuchungstextWriter.getBuchungstext(daten_final, positionen, daten_original, rows, relevanteItemsBuchungstext, RELEVANTE_ITEMS, 8);
 
+        // ****************** FESTSCHREIBUNG ******************
+        daten_final = FixationCoordinator.writeFixation(daten_final);
 
         // ****************** Gebührencheck ******************
 

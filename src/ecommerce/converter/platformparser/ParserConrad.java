@@ -1,7 +1,6 @@
 package ecommerce.converter.platformparser;
 
 import ecommerce.converter.parsertools.ParserDate;
-import ecommerce.converter.parsertools.ParserFix;
 
 import java.text.ParseException;
 
@@ -13,7 +12,7 @@ public class ParserConrad {
 
         daten = ParserDate.reformatDate(daten, DATUM_FORMAT);
 
-        daten = ParserFix.writeFixation(daten);
+        //daten = ParserFix.writeFixation(daten);
 
         return daten;
 

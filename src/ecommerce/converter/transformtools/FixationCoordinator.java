@@ -1,7 +1,7 @@
-package ecommerce.converter.parsertools;
+package ecommerce.converter.transformtools;
 
 
-public class ParserFix {
+public class FixationCoordinator {
 
     public static String[][] writeFixation(String[][] daten){
 
