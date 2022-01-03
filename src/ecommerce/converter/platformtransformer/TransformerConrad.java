@@ -40,15 +40,14 @@ public class TransformerConrad {
 
         // ****************** DEBITORENKONTO ******************
         daten_final = AccountWriter.writeAccount(daten_final, rows, KONTO_DEBITOR, 3); // Schreibe Debitorenkonto  in 3. Reihe (also Position 2) von daten_final
-        System.out.println("Fertig mit Debitoren-Konto!");
-
 
         // ****************** KREDITORENKONTO ******************
         daten_final = AccountWriter.writeAccount(daten_final, rows, KONTO_KREDITOR, 4); // Schreibe Kreditorenkonto  in 4. Reihe (also Position 3) von daten_final
-        System.out.println("Fertig mit Kreditoren-Konto!");
 
         // ****************** DATUM ******************
         daten_final = BroadcastCoordinator.transferData(daten_final, positionen, daten_original, rows, RELEVANTE_ITEMS, RELEVANTE_ITEMS[0], 5);
+        daten_final = TransformerDate.reformatDate(daten_final, DATUM_FORMAT); // Transform to DATEV-format of Date
+
 
         // ****************** BELEGFELD 1 ******************
         daten_final = BroadcastCoordinator.transferData(daten_final, positionen, daten_original, rows, RELEVANTE_ITEMS, RELEVANTE_ITEMS[2], 6);
