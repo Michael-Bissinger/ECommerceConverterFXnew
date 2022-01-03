@@ -9,7 +9,7 @@ public class ParserReal {
 
     public static String[][] parseRealData(String[][] daten) {
 
-        daten = ParserDate.reformatDate(daten, DATUM_FORMAT);
+        //daten = ParserDate.reformatDate(daten, DATUM_FORMAT);
 
         return daten;
 

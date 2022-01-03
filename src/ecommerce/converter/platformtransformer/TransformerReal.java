@@ -1,5 +1,6 @@
 package ecommerce.converter.platformtransformer;
 
+import ecommerce.converter.parsertools.ParserDate;
 import ecommerce.converter.transformtools.*;
 
 public class TransformerReal {
@@ -23,7 +24,7 @@ public class TransformerReal {
             "Freigabe Verkaufserlös"}; // 1
 
 
-
+    private static String DATUM_FORMAT = "yyyy-MM-dd HH:mm:ss"; // Datumsformat von "Real"
 
 
     public static String[][] transformRealData(String operation, String[][] daten_original, int rows, int columns) {
@@ -52,7 +53,7 @@ public class TransformerReal {
 
         // ****************** DATUM ******************
         daten_final = BroadcastCoordinator.transferData(daten_final, positionen, daten_original, rows, RELEVANTE_ITEMS, RELEVANTE_ITEMS[0], 5);
-
+        daten_final = TransformerDate.reformatDate(daten_final, DATUM_FORMAT); // Transform to DATEV-format of Date
 
         // ****************** BELEGFELD 1 ******************
         daten_final = BroadcastCoordinator.transferData(daten_final, positionen, daten_original, rows, RELEVANTE_ITEMS, RELEVANTE_ITEMS[2], 6);

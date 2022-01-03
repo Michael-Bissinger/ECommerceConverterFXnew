@@ -22,6 +22,8 @@ public class TransformerConrad {
             "Provisionssteuer",
             "Rückerstattung Provisionen"}; // 1
 
+    private static String DATUM_FORMAT = "dd.MM.yy - HH:mm:ss"; // Datumsformat von "Conrad" (01.08.19 - 15:20:53)
+
 
 
     public static String[][] transformConradData(String operation, String[][] daten_original, int rows, int columns) {
