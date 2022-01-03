@@ -32,8 +32,7 @@ public class DataExtractor {
 
     private static String [] [] getDataCSV(File filepath_origin, int rows, int columns) {
 
-        // Ergebnis
-        String [] [] CSV_Daten = new String [rows] [columns];
+        String [] [] CSV_Daten = new String [rows] [columns]; // Finales Ergebnis
 
         try {
             CSVReader reader = new CSVReader(new FileReader(filepath_origin));

@@ -1,5 +1,6 @@
 package ecommerce.converter;
 
+import ecommerce.converter.platformtransformer.TransformerAlltricks;
 import ecommerce.converter.platformtransformer.TransformerConrad;
 import ecommerce.converter.platformtransformer.TransformerReal;
 
@@ -10,7 +11,7 @@ public class DataTransformer {
         String [] [] daten_final = new String[rows-1][10];
 
         switch (platform) {
-            case "Alltricks" -> System.out.println("Alltricks wird noch gebaut");
+            case "Alltricks" -> daten_final = TransformerAlltricks.transformAlltricksData(operation, daten, rows, columns);
             case "Conrad" -> daten_final = TransformerConrad.transformConradData(operation, daten, rows, columns);
             case "Real" -> daten_final = TransformerReal.transformRealData(operation, daten, rows, columns);
 

@@ -11,15 +11,11 @@ public class TransformerDate {
 
     public static String[][] reformatDate(String[][] daten, String datum_format) {
 
-
-        //https://stackoverflow.com/questions/4772425/change-date-format-in-a-java-string
-
         for (int row_pointer = 0; row_pointer < daten.length; row_pointer++) {
 
             String date_new;
             System.out.print("Datum (original), Position " + row_pointer + " ist: " + daten[row_pointer][5]);
 
-            //https://stackoverflow.com/questions/4772425/change-date-format-in-a-java-string
             Date date_aktuell = null;
             try {
                 date_aktuell = new SimpleDateFormat(datum_format).parse(daten[row_pointer][5]);

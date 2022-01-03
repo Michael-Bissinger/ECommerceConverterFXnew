@@ -24,7 +24,6 @@ public class TransformerReal {
             "Nettotransaktionsgebuehren fuer stornierte Transaktionen", // 2
             "Umsatzsteuer für stornierte Transaktionen"}; // 3
 
-
     private static String DATUM_FORMAT = "yyyy-MM-dd HH:mm:ss"; // Datumsformat von "Real" (2019-12-01 00:23:11)
 
 
