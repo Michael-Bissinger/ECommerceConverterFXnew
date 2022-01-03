@@ -29,7 +29,7 @@ public class ConvertMain {
 
         //String [] [] daten_geparsed = DataParser.parseData(platform, daten_transformiert);
 
-        DataWriter.writeData(filepath, platform, format_final, daten_transformiert);
+        DataWriter.writeData(filepath, platform, format_final, daten_transformiert, daten_roh);
 
         // ----------------- Ende -----------------
 

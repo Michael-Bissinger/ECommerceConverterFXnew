@@ -32,10 +32,40 @@ public class LoaderDate {
 
         }
 
-        System.out.println("Finale Liste: " + months);
+        System.out.println("Finale Liste (Monate): " + months);
 
         return months;
     }
+
+    public static List<Integer> collectYears(String[][] daten_final) {
+
+        List<Integer> years = new ArrayList<Integer>();
+
+        for (int rowpointer = 0; rowpointer < daten_final.length; rowpointer++) {
+            //System.out.println("Stelle: " + rowpointer + ": " + daten_final[rowpointer][5]);
+
+            Date date_aktuell = null;
+            try {
+                date_aktuell = new SimpleDateFormat("ddMM").parse(daten_final[rowpointer][5]);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            if (!years.contains(date_aktuell.getYear())) {
+
+                years.add(date_aktuell.getYear()+1);
+
+            }
+
+            System.out.println(date_aktuell.getMonth()+1);
+
+        }
+
+        System.out.println("Finale Liste (Jahre): " + years);
+
+        return years;
+    }
+
 
     public static boolean checkDate(String datum, Integer currentmonth) {
 

@@ -2,6 +2,7 @@ package ecommerce.converter;
 
 import com.opencsv.CSVWriter;
 import ecommerce.converter.generaltools.LogCoordinator;
+import ecommerce.converter.loadertools.LoaderDate;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -16,12 +17,12 @@ public class DataWriter {
     // Als String deklariert, damit sich die Nummer in .csv schreiben lässt
     public static String MANDANTENUMMER = "10754";
 
-    public static void writeData (File filepath_origin, String platform, String finalformat, String[][] daten_final) {
+    public static void writeData (File filepath_origin, String platform, String finalformat, String[][] daten_final, String[][] daten_roh) {
 
         System.out.println("Daten werden zu Format " + finalformat + " konvertiert!");
 
         switch (finalformat) {
-            case "Maske (ASCII)" -> createMaskASCII(filepath_origin, daten_final);
+            case "Maske (ASCII)" -> createMaskASCII(filepath_origin, daten_final, daten_roh);
             case "DATEV-Format (ASCII)" -> createDATEVFormat(platform, filepath_origin, daten_final);
 
             default -> System.out.println("FEHLER: Endformat kann nicht erstellt werden!");
@@ -29,9 +30,11 @@ public class DataWriter {
 
     }
 
-    private static void createMaskASCII (File filepath_origin, String[][] daten_final) {
+    private static void createMaskASCII (File filepath_origin, String[][] daten_final, String[][] daten_roh) {
 
-        List<Integer> months = collectMonths(daten_final);
+        List<Integer> months = LoaderDate.collectMonths(daten_final);
+
+        List<Integer> years = LoaderDate.collectYears(daten_roh);
 
         int aktueller_monat = 0;
         while (aktueller_monat < months.size()) {
@@ -117,7 +120,7 @@ public class DataWriter {
 
         private static void createDATEVFormat(String platform, File filepath_origin, String[][] daten_final) {
 
-            List<Integer> months = collectMonths(daten_final);
+            List<Integer> months = LoaderDate.collectMonths(daten_final);
 
             int aktueller_monat = 0;
 
