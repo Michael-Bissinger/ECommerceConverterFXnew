@@ -20,7 +20,9 @@ public class TransformerReal {
 
     private static String[] GEBUEHRENARTEN = { // Mögliche Gebührenarten bei "Real"
             "Bezahlung Zusatzleistungen", // 0
-            "Freigabe Verkaufserlös"}; // 1
+            "Freigabe Verkaufserlös", // 1
+            "Nettotransaktionsgebuehren fuer stornierte Transaktionen", // 2
+            "Umsatzsteuer für stornierte Transaktionen"}; // 3
 
 
     private static String DATUM_FORMAT = "yyyy-MM-dd HH:mm:ss"; // Datumsformat von "Real" (2019-12-01 00:23:11)
@@ -105,11 +107,14 @@ public class TransformerReal {
 
 
                 System.out.println("++++++++++ START REIHE: " + (pointer_reihe-1) + "++++++++++");
-                System.out.println("Gebührenart: " + daten_original[pointer_reihe][position_relevantesItem]);
 
 
+                // ***************************************************
+                // GEBÜHR "Bezahlung Zusatzleistungen" // 0
+                // ***************************************************
+                if (daten_original[pointer_reihe][position_relevantesItem].contains(gebuehrenarten[0])) {
 
-                if (daten_original[pointer_reihe][position_relevantesItem].contains(gebuehrenarten[0])) { // "Bezahlung Zusatzleistungen"
+                    System.out.println("Gebührenart: " + daten_original[pointer_reihe][position_relevantesItem]);
 
                     // ****************** UMSATZ ******************
 
@@ -135,9 +140,12 @@ public class TransformerReal {
                     System.out.println("++++++++++ ENDE REIHE: " + (pointer_reihe-1) + "++++++++++");
 
                 }
+                // ***************************************************
+                // GEBÜHR "Freigabe Verkaufserlös" // 1
+                // ***************************************************
+                if (daten_original[pointer_reihe][position_relevantesItem].contains(gebuehrenarten[1])) {
 
-
-                if (daten_original[pointer_reihe][position_relevantesItem].contains(gebuehrenarten[1])) { // "Freigabe Verkaufserlös"
+                    System.out.println("Gebührenart: " + daten_original[pointer_reihe][position_relevantesItem]);
 
                     // ****************** UMSATZ ******************
 
@@ -147,6 +155,70 @@ public class TransformerReal {
                     // ****************** SOLL/HABEN ******************
 
                     daten_final[pointer_reihe-1][1] = "H";
+                    System.out.println("S/H: Reihe " + (pointer_reihe-1) + ": " + daten_final[pointer_reihe-1][1]);
+
+                    // ****************** BU-SCHLÜSSEL ******************
+
+                    String bu_schluessel_roh = daten_original[pointer_reihe][position_fee_vat];
+                    System.out.println("Das sind die Informationen zum BU-Schlüssel: " + bu_schluessel_roh);
+
+                    daten_final[pointer_reihe-1][4] = BUSchluesselWriter.getBUSchluessel(bu_schluessel_roh);
+
+                    System.out.println("Buchungsschlüssel: Reihe " + (pointer_reihe-1) + ": \"" + daten_final[pointer_reihe-1][4] + "\"");
+
+                    // ****************** FERTIG ******************
+
+                    System.out.println("++++++++++ ENDE REIHE: " + (pointer_reihe-1) + "++++++++++");
+
+                }
+
+                // ***************************************************
+                // GEBÜHR "Nettotransaktionsgebuehren fuer stornierte Transaktionen" // 2
+                // ***************************************************
+                if (daten_original[pointer_reihe][position_relevantesItem].contains(gebuehrenarten[2])) {
+
+                    System.out.println("Gebührenart: " + daten_original[pointer_reihe][position_relevantesItem]);
+
+                    // ****************** UMSATZ ******************
+
+                    String value_String = daten_original[pointer_reihe][position_amount];
+                    daten_final[pointer_reihe-1][0] = BroadcastCoordinator.trimNumber(value_String, true);
+
+                    // ****************** SOLL/HABEN ******************
+
+                    daten_final[pointer_reihe-1][1] = "S";
+                    System.out.println("S/H: Reihe " + (pointer_reihe-1) + ": " + daten_final[pointer_reihe-1][1]);
+
+                    // ****************** BU-SCHLÜSSEL ******************
+
+                    String bu_schluessel_roh = daten_original[pointer_reihe][position_fee_vat];
+                    System.out.println("Das sind die Informationen zum BU-Schlüssel: " + bu_schluessel_roh);
+
+                    daten_final[pointer_reihe-1][4] = BUSchluesselWriter.getBUSchluessel(bu_schluessel_roh);
+
+                    System.out.println("Buchungsschlüssel: Reihe " + (pointer_reihe-1) + ": \"" + daten_final[pointer_reihe-1][4] + "\"");
+
+                    // ****************** FERTIG ******************
+
+                    System.out.println("++++++++++ ENDE REIHE: " + (pointer_reihe-1) + "++++++++++");
+
+                }
+
+                // ***************************************************
+                // GEBÜHR "Umsatzsteuer für stornierte Transaktionen"}; // 3
+                // ***************************************************
+                if (daten_original[pointer_reihe][position_relevantesItem].contains(gebuehrenarten[3])) {
+
+                    System.out.println("Gebührenart: " + daten_original[pointer_reihe][position_relevantesItem]);
+
+                    // ****************** UMSATZ ******************
+
+                    String value_String = daten_original[pointer_reihe][position_amount];
+                    daten_final[pointer_reihe-1][0] = BroadcastCoordinator.trimNumber(value_String, true);
+
+                    // ****************** SOLL/HABEN ******************
+
+                    daten_final[pointer_reihe-1][1] = "S";
                     System.out.println("S/H: Reihe " + (pointer_reihe-1) + ": " + daten_final[pointer_reihe-1][1]);
 
                     // ****************** BU-SCHLÜSSEL ******************
