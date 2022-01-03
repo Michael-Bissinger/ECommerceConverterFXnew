@@ -12,10 +12,9 @@ public class LoaderDate {
 
     public static List<Integer> collectMonths(String[][] daten_final) {
 
-        List<Integer> months = new ArrayList<Integer>();
+        List<Integer> months = new ArrayList();
 
         for (int rowpointer = 0; rowpointer < daten_final.length; rowpointer++) {
-            //System.out.println("Stelle: " + rowpointer + ": " + daten_final[rowpointer][5]);
 
             Date date_aktuell = null;
             try {
@@ -29,8 +28,6 @@ public class LoaderDate {
                 months.add(date_aktuell.getMonth()+1);
 
             }
-
-            System.out.println(date_aktuell.getMonth()+1);
 
         }
 
