@@ -28,8 +28,7 @@ public class TransformerReal {
 
     public static String[][] transformRealData(String operation, String[][] daten_original, int rows, int columns) {
 
-        // Alt: Reihen: Umsatz, S/H, Debit-K, Kreditoren-K, Datum, Buchungstext 1, Buchungstext 2
-        // Neu: Reihen: "Umsatz" (0), "Soll-Haben" (1), "Kontonummer" (2), "Gegenkonto" (3), "BU-Schlüssel" (4), "Belegdatum" (5), "Belegfeld 1" (6), "Belegfeld 2" (7), "Buchungstext" (8), "Festschreibung" (9)};
+        // Reihen: "Umsatz" (0), "Soll-Haben" (1), "Kontonummer" (2), "Gegenkonto" (3), "BU-Schlüssel" (4), "Belegdatum" (5), "Belegfeld 1" (6), "Belegfeld 2" (7), "Buchungstext" (8), "Festschreibung" (9)};
         String[][] daten_final = new String[rows-1][10];
 
         // Positionen relevanter Items herausfinden
@@ -42,10 +41,6 @@ public class TransformerReal {
         // ****************** KREDITORENKONTO ******************
         daten_final = AccountWriter.writeAccount(daten_final, rows, KONTO_KREDITOR, 4); // Schreibe Kreditorenkonto  in 4. Reihe (also Position 3) von daten_final
 
-        // ****************** BU-SCHLÜSSEL ******************
-        //daten_final = BUSchluesselWriter.getBUSchluessel(daten_final, positionen, daten_original, rows, RELEVANTE_ITEMS[8], RELEVANTE_ITEMS, 4);
-
-
         // ****************** DATUM ******************
         daten_final = BroadcastCoordinator.transferData(daten_final, positionen, daten_original, rows, RELEVANTE_ITEMS, RELEVANTE_ITEMS[0], 5);
         daten_final = TransformerDate.reformatDate(daten_final, DATUM_FORMAT); // Transform to DATEV-format of Date
@@ -53,10 +48,8 @@ public class TransformerReal {
         // ****************** BELEGFELD 1 ******************
         daten_final = BroadcastCoordinator.transferData(daten_final, positionen, daten_original, rows, RELEVANTE_ITEMS, RELEVANTE_ITEMS[2], 6);
 
-
         // ****************** BELEGFELD 2 ******************
         System.out.println("Belegfeld 2 wird bei Real nicht beschrieben.");
-
 
         // ****************** BUCHUNGSTEXT ******************
 
@@ -67,30 +60,16 @@ public class TransformerReal {
         // ****************** FESTSCHREIBUNG ******************
         daten_final = FixationCoordinator.writeFixation(daten_final);
 
-        // ****************** Gebührencheck ******************
 
-
+        // ***************************************************
+        // ****************** GEBÜHRENCHECK ******************
+        // ***************************************************
+        // Hauptinformationen für Buchung
 
         switch (operation) {
-            case "Nur Gebühren":
-
-                daten_final = extractFees(daten_final, daten_original, rows, columns, positionen, GEBUEHRENARTEN, RELEVANTE_ITEMS[1], RELEVANTE_ITEMS);
-
-                break;
-            case "Nur Transaktionen":
-
-                break;
-
-            case "Transaktionen und Gebühren":
-
-                break;
-
-
-            default:
-                System.out.println("Operation ist nicht verfügbar");
-                break;
+            case "Nur Gebühren" -> daten_final = extractFees(daten_final, daten_original, rows, positionen, GEBUEHRENARTEN, RELEVANTE_ITEMS[1], RELEVANTE_ITEMS);
+            default -> System.out.println("FEHLER: Operation ist nicht verfügbar");
         }
-
 
         return daten_final;
 
@@ -98,11 +77,7 @@ public class TransformerReal {
 
 
 
-
-
-
-
-    private static String[][] extractFees(String[][] daten_final, String[][] daten_original, int rows, int columns, String[][] positionen, String[] gebuehrenarten, String relevantesItem, String[] relevanteItems) {
+    private static String[][] extractFees(String[][] daten_final, String[][] daten_original, int rows, String[][] positionen, String[] gebuehrenarten, String relevantesItem, String[] relevanteItems) {
 
         // ****************** Relevante Items zur Bestimmung von Gebühren ******************
 
@@ -187,7 +162,6 @@ public class TransformerReal {
 
                     System.out.println("++++++++++ ENDE REIHE: " + (pointer_reihe-1) + "++++++++++");
 
-
                 }
 
             }
@@ -197,55 +171,5 @@ public class TransformerReal {
         return daten_final;
 
     }
-
-    private static String chooseFeeType(String[] datenzeile, String[][] positionen) {
-
-        String gebuehrtyp = new String();
-        String bookingtext = new String();
-
-
-        String carName = "booking_text";// insert code here
-        for (int i=0;i<positionen.length;i++) {
-            if (positionen[i][0].equals(carName)) {
-
-                System.out.println("Array-Position von: " + carName + ": " + i);
-
-                bookingtext = datenzeile[i];
-
-                break;
-            }
-        }
-
-
-        System.out.println("bookingtext: " +bookingtext);
-
-
-        // Check fee
-
-        //https://stackoverflow.com/questions/5091057/how-to-find-a-whole-word-in-a-string-in-java
-
-
-        //"Bezahlung Zusatzleistungen",
-        //        "Freigabe Verkaufserlös"
-
-        for (int i=0;i<GEBUEHRENARTEN.length;i++) {
-
-            //System.out.println("Suche nach " + GEBUEHRENARTEN[i]);
-
-            //https://stackoverflow.com/questions/5091057/how-to-find-a-whole-word-in-a-string-in-java
-            if (bookingtext.contains(GEBUEHRENARTEN[i])) {
-                //System.out.println("TREFFFFFFFFFFFFFER!");
-                gebuehrtyp = GEBUEHRENARTEN[i];
-            } else {
-                //System.out.println("Kein Treffer");
-            }
-
-        }
-
-        System.out.println("Gebührtyp final ist: " + gebuehrtyp);
-
-        return gebuehrtyp;
-    }
-
 
 }
