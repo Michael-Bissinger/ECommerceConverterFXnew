@@ -134,6 +134,8 @@ public class TransformerReal {
 
                 if (daten_original[pointer_reihe][position_relevantesItem].contains(gebuehrenarten[0])) { // "Bezahlung Zusatzleistungen"
 
+                    // ****************** UMSATZ ******************
+
                     String value_String = daten_original[pointer_reihe][position_amount];
                     daten_final[pointer_reihe-1][0] = BroadcastCoordinator.trimNumber(value_String, true);
 
@@ -151,10 +153,10 @@ public class TransformerReal {
 
                 if (daten_original[pointer_reihe][position_relevantesItem].contains(gebuehrenarten[1])) { // "Freigabe Verkaufserlös"
 
+                    // ****************** UMSATZ ******************
+
                     String value_String = daten_original[pointer_reihe][position_fee_gross];
                     daten_final[pointer_reihe-1][0] = BroadcastCoordinator.trimNumber(value_String, false);
-                    //daten_final[pointer_reihe-1][0] = daten_original[pointer_reihe][position_fee_gross];
-                    //daten_final[pointer_reihe-1][0] = daten_original[pointer_reihe][position_fee_gross];
 
 
                     // ****************** BU-SCHLÜSSEL ******************
@@ -164,7 +166,7 @@ public class TransformerReal {
 
                     daten_final[pointer_reihe-1][4] = BUSchluesselWriter.getBUSchluessel(bu_schluessel_roh);
 
-                    System.out.println("Buchungsschlüssel" +daten_final[pointer_reihe-1][4] + "eingetragen an" + pointer_reihe);
+                    System.out.println("Buchungsschlüssel \"" + daten_final[pointer_reihe-1][4] + "\" eingetragen an Reihe " + pointer_reihe);
 
 
 
