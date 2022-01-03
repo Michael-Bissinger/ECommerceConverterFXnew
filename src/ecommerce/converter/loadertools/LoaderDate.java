@@ -8,6 +8,11 @@ import java.util.List;
 
 public class LoaderDate {
 
+    private static String DATEV_DATUM = "ddMM";
+
+    private static String DATUM_FORMAT_CONRAD = "dd.MM.yy - HH:mm:ss"; // Datumsformat von "Conrad" (01.08.19 - 15:20:53)
+    private static String DATUM_FORMAT_REAL = "yyyy-MM-dd HH:mm:ss"; // Datumsformat von "Real" (2019-12-01 00:23:11)
+
     public static List<Integer> collectMonths(String[][] daten_final) {
 
         List<Integer> months = new ArrayList<Integer>();
@@ -17,7 +22,7 @@ public class LoaderDate {
 
             Date date_aktuell = null;
             try {
-                date_aktuell = new SimpleDateFormat("ddMM").parse(daten_final[rowpointer][5]);
+                date_aktuell = new SimpleDateFormat(DATEV_DATUM).parse(daten_final[rowpointer][5]);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
