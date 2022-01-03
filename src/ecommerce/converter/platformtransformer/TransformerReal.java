@@ -73,7 +73,6 @@ public class TransformerReal {
 
         switch (operation) {
             case "Nur Gebühren":
-                daten_final = SHCoordinator.getSH(daten_final, rows, operation, RELEVANTE_ITEMS[0]);
 
                 daten_final = extractFees(daten_final, daten_original, rows, columns, positionen, GEBUEHRENARTEN, RELEVANTE_ITEMS[1], RELEVANTE_ITEMS);
 
@@ -129,7 +128,10 @@ public class TransformerReal {
 
             for(int pointer_reihe=1; pointer_reihe<rows; pointer_reihe++) { // Bei "i = 1" beginnen, damit oberste Zeile nicht mitgenommen wird
 
-                System.out.println("Aktuell: " + daten_original[pointer_reihe][position_relevantesItem]);
+
+                System.out.println("++++++++++ START REIHE: " + (pointer_reihe-1) + "++++++++++");
+                System.out.println("Gebührenart: " + daten_original[pointer_reihe][position_relevantesItem]);
+
 
 
                 if (daten_original[pointer_reihe][position_relevantesItem].contains(gebuehrenarten[0])) { // "Bezahlung Zusatzleistungen"
@@ -139,6 +141,11 @@ public class TransformerReal {
                     String value_String = daten_original[pointer_reihe][position_amount];
                     daten_final[pointer_reihe-1][0] = BroadcastCoordinator.trimNumber(value_String, true);
 
+                    // ****************** SOLL/HABEN ******************
+
+                    daten_final[pointer_reihe-1][1] = "H";
+                    System.out.println("S/H: Reihe " + (pointer_reihe-1) + ": " + daten_final[pointer_reihe-1][1]);
+
                     // ****************** BU-SCHLÜSSEL ******************
 
                     String bu_schluessel_roh = daten_original[pointer_reihe][position_fee_vat];
@@ -146,7 +153,11 @@ public class TransformerReal {
 
                     daten_final[pointer_reihe-1][4] = BUSchluesselWriter.getBUSchluessel(bu_schluessel_roh);
 
-                    System.out.println("Buchungsschlüssel \"" + daten_final[pointer_reihe-1][4] + "\" eingetragen an Reihe " + pointer_reihe);
+                    System.out.println("Buchungsschlüssel: Reihe " + (pointer_reihe-1) + ": \"" + daten_final[pointer_reihe-1][4] + "\"");
+
+                    // ****************** FERTIG ******************
+
+                    System.out.println("++++++++++ ENDE REIHE: " + (pointer_reihe-1) + "++++++++++");
 
                 }
 
@@ -158,6 +169,10 @@ public class TransformerReal {
                     String value_String = daten_original[pointer_reihe][position_fee_gross];
                     daten_final[pointer_reihe-1][0] = BroadcastCoordinator.trimNumber(value_String, false);
 
+                    // ****************** SOLL/HABEN ******************
+
+                    daten_final[pointer_reihe-1][1] = "H";
+                    System.out.println("S/H: Reihe " + (pointer_reihe-1) + ": " + daten_final[pointer_reihe-1][1]);
 
                     // ****************** BU-SCHLÜSSEL ******************
 
@@ -166,13 +181,11 @@ public class TransformerReal {
 
                     daten_final[pointer_reihe-1][4] = BUSchluesselWriter.getBUSchluessel(bu_schluessel_roh);
 
-                    System.out.println("Buchungsschlüssel \"" + daten_final[pointer_reihe-1][4] + "\" eingetragen an Reihe " + pointer_reihe);
+                    System.out.println("Buchungsschlüssel: Reihe " + (pointer_reihe-1) + ": \"" + daten_final[pointer_reihe-1][4] + "\"");
 
+                    // ****************** FERTIG ******************
 
-
-
-
-                    //daten_final = BUSchluesselWriter.getBUSchluessel(daten_final, positionen, daten_original, rows, RELEVANTE_ITEMS[8], RELEVANTE_ITEMS, 4);
+                    System.out.println("++++++++++ ENDE REIHE: " + (pointer_reihe-1) + "++++++++++");
 
 
                 }
