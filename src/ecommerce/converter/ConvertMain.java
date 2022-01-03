@@ -27,9 +27,7 @@ public class ConvertMain {
 
         String [] [] daten_transformiert = DataTransformer.transformData(platform, operation, daten_roh, rows, columns);
 
-        //String [] [] daten_geparsed = DataParser.parseData(platform, daten_transformiert);
-
-        DataWriter.writeData(filepath, platform, format_final, daten_transformiert, daten_roh);
+        DataWriter.writeData(filepath, format_final, daten_transformiert);
 
         // ----------------- Ende -----------------
 

@@ -17,24 +17,23 @@ public class DataWriter {
     // Als String deklariert, damit sich die Nummer in .csv schreiben lässt
     public static String MANDANTENUMMER = "10754";
 
-    public static void writeData (File filepath_origin, String platform, String finalformat, String[][] daten_final, String[][] daten_roh) {
+    public static void writeData (File filepath_origin, String finalformat, String[][] daten_final) {
 
         System.out.println("Daten werden zu Format " + finalformat + " konvertiert!");
 
         switch (finalformat) {
-            case "Maske (ASCII)" -> createMaskASCII(filepath_origin, daten_final, daten_roh);
-            case "DATEV-Format (ASCII)" -> createDATEVFormat(platform, filepath_origin, daten_final);
+            case "Maske (ASCII)" -> createMaskASCII(filepath_origin, daten_final);
 
             default -> System.out.println("FEHLER: Endformat kann nicht erstellt werden!");
         }
 
     }
 
-    private static void createMaskASCII (File filepath_origin, String[][] daten_final, String[][] daten_roh) {
+    private static void createMaskASCII (File filepath_origin, String[][] daten_final) {
 
         List<Integer> months = LoaderDate.collectMonths(daten_final);
 
-        List<Integer> years = LoaderDate.collectYears(daten_roh);
+        //List<Integer> years = LoaderDate.collectYears(daten_roh);
 
         int aktueller_monat = 0;
         while (aktueller_monat < months.size()) {
