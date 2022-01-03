@@ -43,7 +43,7 @@ public class TransformerReal {
         daten_final = AccountWriter.writeAccount(daten_final, rows, KONTO_KREDITOR, 4); // Schreibe Kreditorenkonto  in 4. Reihe (also Position 3) von daten_final
 
         // ****************** BU-SCHLÜSSEL ******************
-        daten_final = BUSchluesselWriter.getBUSchluessel(daten_final, positionen, daten_original, rows, RELEVANTE_ITEMS[8], RELEVANTE_ITEMS, 4);
+        //daten_final = BUSchluesselWriter.getBUSchluessel(daten_final, positionen, daten_original, rows, RELEVANTE_ITEMS[8], RELEVANTE_ITEMS, 4);
 
 
         // ****************** DATUM ******************
@@ -105,6 +105,8 @@ public class TransformerReal {
 
     private static String[][] extractFees(String[][] daten_final, String[][] daten_original, int rows, int columns, String[][] positionen, String[] gebuehrenarten, String relevantesItem, String[] relevanteItems) {
 
+        // ****************** Relevante Items zur Bestimmung von Gebühren ******************
+
         int position_relevantesItem = ItemPositionCoordinator.findRelevantPosition(positionen, relevantesItem, relevanteItems);
         System.out.println("Position von bookingtext:" + position_relevantesItem);
 
@@ -114,29 +116,36 @@ public class TransformerReal {
         int position_fee_gross = ItemPositionCoordinator.findRelevantPosition(positionen, relevanteItems[4], relevanteItems);
         System.out.println("Position von fee_gross:" + position_fee_gross);
 
+        int position_fee_vat = ItemPositionCoordinator.findRelevantPosition(positionen, relevanteItems[8], relevanteItems);
+        System.out.println("Position von fee_vat_%:" + position_fee_vat);
 
 
+        // ****************** Durchtesten aller Gebührenarten ******************
 
+        System.out.println("Anzahl Gebührenarten: " + gebuehrenarten.length);
+        for(int k=1; k<gebuehrenarten.length; k++) { // So lange iterieren wie man Gebührenarten hat
 
-        System.out.println("Länge String: " + gebuehrenarten.length);
-        for(int k=0; k<gebuehrenarten.length; k++) { // So lange iterieren wie man Gebührenarten hat
-
-            System.out.println("--- Checke Gebührenart Nr. " + (k+1) + "/" + (gebuehrenarten.length) + ": " + gebuehrenarten[k] + " ---");
+            System.out.println("--- Checke Gebührenart Nr. " + (k) + "/" + (gebuehrenarten.length) + ": " + gebuehrenarten[k] + " ---");
 
             for(int pointer_reihe=1; pointer_reihe<rows; pointer_reihe++) { // Bei "i = 1" beginnen, damit oberste Zeile nicht mitgenommen wird
 
                 System.out.println("Aktuell: " + daten_original[pointer_reihe][position_relevantesItem]);
 
-                //if (daten_original[pointer_reihe][position_relevantesItem].contains(gebuehrenarten[k])) {
-                //
-                //}
 
                 if (daten_original[pointer_reihe][position_relevantesItem].contains(gebuehrenarten[0])) { // "Bezahlung Zusatzleistungen"
 
                     String value_String = daten_original[pointer_reihe][position_amount];
                     daten_final[pointer_reihe-1][0] = BroadcastCoordinator.trimNumber(value_String, true);
 
-                    //System.out.println("Treffer");
+                    // ****************** BU-SCHLÜSSEL ******************
+
+                    String bu_schluessel_roh = daten_original[pointer_reihe][position_fee_vat];
+                    System.out.println("Das sind die Informationen zum BU-Schlüssel: " + bu_schluessel_roh);
+
+                    daten_final[pointer_reihe-1][4] = BUSchluesselWriter.getBUSchluessel(bu_schluessel_roh);
+
+                    System.out.println("Buchungsschlüssel \"" + daten_final[pointer_reihe-1][4] + "\" eingetragen an Reihe " + pointer_reihe);
+
                 }
 
 
@@ -146,6 +155,23 @@ public class TransformerReal {
                     daten_final[pointer_reihe-1][0] = BroadcastCoordinator.trimNumber(value_String, false);
                     //daten_final[pointer_reihe-1][0] = daten_original[pointer_reihe][position_fee_gross];
                     //daten_final[pointer_reihe-1][0] = daten_original[pointer_reihe][position_fee_gross];
+
+
+                    // ****************** BU-SCHLÜSSEL ******************
+
+                    String bu_schluessel_roh = daten_original[pointer_reihe][position_fee_vat];
+                    System.out.println("Das sind die Informationen zum BU-Schlüssel: " + bu_schluessel_roh);
+
+                    daten_final[pointer_reihe-1][4] = BUSchluesselWriter.getBUSchluessel(bu_schluessel_roh);
+
+                    System.out.println("Buchungsschlüssel" +daten_final[pointer_reihe-1][4] + "eingetragen an" + pointer_reihe);
+
+
+
+
+
+                    //daten_final = BUSchluesselWriter.getBUSchluessel(daten_final, positionen, daten_original, rows, RELEVANTE_ITEMS[8], RELEVANTE_ITEMS, 4);
+
 
                 }
 

@@ -10,7 +10,39 @@ public class BUSchluesselWriter {
     //private static String[] ALLE_BUSCHLUESSEL = BU_9; // Alle möglichen Buchungsschlüssel zusammen
 
 
-    public static String[][] getBUSchluessel(String[][] daten_final, String[][] positionen, String[][] daten_original, int rows, String relevantesItemBUSchluessel, String[] relevanteItems, int position_final) {
+        public static String getBUSchluessel(String bu_information) {
+
+            String BUSchluessel = "";
+
+
+            for(int i = 0; i < BU_9.length; i++)
+            {
+
+                if (bu_information.equals(BU_9[i])) {
+
+
+                    BUSchluessel = "9";
+
+
+
+                }
+
+            }
+
+
+
+
+
+
+
+            return BUSchluessel;
+
+        }
+
+
+
+
+        public static String[][] getBUSchluesselalt(String[][] daten_final, String[][] positionen, String[][] daten_original, int rows, String relevantesItemBUSchluessel, String[] relevanteItems, int position_final) {
 
 
         int position_relevantesItemBuchungsschluessel = ItemPositionCoordinator.findRelevantPosition(positionen, relevantesItemBUSchluessel, relevanteItems);
