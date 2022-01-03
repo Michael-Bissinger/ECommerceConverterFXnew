@@ -8,6 +8,10 @@ public class TransformerDate {
 
     private static String DATEV_DATUM = "ddMM";
 
+    private static String DATUM_FORMAT_CONRAD = "dd.MM.yy - HH:mm:ss"; // Datumsformat von "Conrad" (01.08.19 - 15:20:53)
+    private static String DATUM_FORMAT_REAL = "yyyy-MM-dd HH:mm:ss"; // Datumsformat von "Real" (2019-12-01 00:23:11)
+
+
     public static String[][] reformatDate(String[][] daten, String datum_format) {
 
 

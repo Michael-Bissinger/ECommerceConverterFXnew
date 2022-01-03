@@ -23,7 +23,7 @@ public class TransformerReal {
             "Freigabe Verkaufserlös"}; // 1
 
 
-    private static String DATUM_FORMAT = "yyyy-MM-dd HH:mm:ss"; // Datumsformat von "Real"
+    private static String DATUM_FORMAT = "yyyy-MM-dd HH:mm:ss"; // Datumsformat von "Real" (2019-12-01 00:23:11)
 
 
     public static String[][] transformRealData(String operation, String[][] daten_original, int rows, int columns) {
