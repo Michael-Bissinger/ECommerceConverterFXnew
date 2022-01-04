@@ -12,12 +12,12 @@ import static ecommerce.converter.loadertools.LoaderDate.checkDate;
 
 public class DataWriter {
 
-    public static void writeData (File filepath_origin, String finalformat, String[][] daten_final) {
+    public static void writeData (File filepath, String finalformat, String[][] daten_final) {
 
         System.out.println("Daten werden zu Format " + finalformat + " konvertiert!");
 
         switch (finalformat) {
-            case "Maske (ASCII)" -> createMaskASCII(filepath_origin, daten_final);
+            case "Maske (ASCII)" -> createMaskASCII(filepath, daten_final);
 
             default -> System.out.println("FEHLER: Endformat kann nicht erstellt werden!");
         }

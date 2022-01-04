@@ -25,7 +25,7 @@ public class TransformerConrad {
     private static String DATUM_FORMAT = "dd.MM.yy - HH:mm:ss"; // Datumsformat von "Conrad" (01.08.19 - 15:20:53)
 
 
-    public static String[][] transformConradData(String operation, String[][] daten_original, int rows, int columns) {
+    public static String[][] transformData(String operation, String[][] daten_original, int rows, int columns) {
 
         // Reihen: "Umsatz" (0), "Soll-Haben" (1), "Kontonummer" (2), "Gegenkonto" (3), "BU-Schlüssel" (4), "Belegdatum" (5), "Belegfeld 1" (6), "Belegfeld 2" (7), "Buchungstext" (8), "Festschreibung" (9)};
         String[][] daten_final = new String[rows-1][10];

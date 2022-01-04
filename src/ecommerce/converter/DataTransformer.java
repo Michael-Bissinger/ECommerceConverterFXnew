@@ -11,9 +11,9 @@ public class DataTransformer {
         String [] [] daten_final = new String[rows-1][10];
 
         switch (platform) {
-            case "Alltricks" -> daten_final = TransformerAlltricks.transformAlltricksData(operation, daten, rows, columns);
-            case "Conrad" -> daten_final = TransformerConrad.transformConradData(operation, daten, rows, columns);
-            case "Real" -> daten_final = TransformerReal.transformRealData(operation, daten, rows, columns);
+            case "Alltricks" -> daten_final = TransformerAlltricks.transformData(operation, daten, rows, columns);
+            case "Conrad" -> daten_final = TransformerConrad.transformData(operation, daten, rows, columns);
+            case "Real" -> daten_final = TransformerReal.transformData(operation, daten, rows, columns);
 
             default -> System.out.println("FEHLER: Dateiformat kann nicht verarbeitet werden");
         }

@@ -19,7 +19,7 @@ public class TransformerAlltricks {
     private static String DATUM_FORMAT = "dd.MM.yyyy - HH:mm:ss"; // Datumsformat von "Alltricks" (14.04.2020 - 20:58:24)
                                         //08.06.2020 - 00:09:12
     
-    public static String[][] transformAlltricksData(String operation, String[][] daten_original, int rows, int columns) {
+    public static String[][] transformData(String operation, String[][] daten_original, int rows, int columns) {
 
         // Reihen: "Umsatz" (0), "Soll-Haben" (1), "Kontonummer" (2), "Gegenkonto" (3), "BU-Schlüssel" (4), "Belegdatum" (5), "Belegfeld 1" (6), "Belegfeld 2" (7), "Buchungstext" (8), "Festschreibung" (9)};
         String[][] daten_final = new String[rows-1][10];
