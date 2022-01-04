@@ -22,18 +22,19 @@ public class TransformerReal {
             "Bezahlung Zusatzleistungen", // 0
             "Freigabe Verkaufserlös", // 1
             "Nettotransaktionsgebuehren fuer stornierte Transaktionen", // 2
-            "Umsatzsteuer für stornierte Transaktionen"}; // 3
+            "Umsatzsteuer für stornierte Transaktionen", // 3
+            "Storno Freigabe Verkaufserlös"}; // 4
 
     private static String DATUM_FORMAT = "yyyy-MM-dd HH:mm:ss"; // Datumsformat von "Real" (2019-12-01 00:23:11)
 
 
-    public static String[][] transformData(String operation, String[][] daten_original, int rows, int columns) {
+    public static String[][] transformData(String operation, String[][] daten_roh, int rows, int columns) {
 
         // Reihen: "Umsatz" (0), "Soll-Haben" (1), "Kontonummer" (2), "Gegenkonto" (3), "BU-Schlüssel" (4), "Belegdatum" (5), "Belegfeld 1" (6), "Belegfeld 2" (7), "Buchungstext" (8), "Festschreibung" (9)};
         String[][] daten_final = new String[rows-1][10];
 
         // Positionen relevanter Items herausfinden
-        String[][] positionen = ItemPositionCoordinator.storeRelevantPositions(daten_original, columns, RELEVANTE_ITEMS);
+        String[][] positionen = ItemPositionCoordinator.storeRelevantPositions(daten_roh, columns, RELEVANTE_ITEMS);
 
 
         // ****************** DEBITORENKONTO ******************
@@ -43,11 +44,11 @@ public class TransformerReal {
         daten_final = AccountWriter.writeAccount(daten_final, rows, KONTO_KREDITOR, 4); // Schreibe Kreditorenkonto  in 4. Reihe (also Position 3) von daten_final
 
         // ****************** DATUM ******************
-        daten_final = BroadcastCoordinator.transferData(daten_final, positionen, daten_original, rows, RELEVANTE_ITEMS, RELEVANTE_ITEMS[0], 5);
+        daten_final = BroadcastCoordinator.transferData(daten_final, positionen, daten_roh, rows, RELEVANTE_ITEMS, RELEVANTE_ITEMS[0], 5);
         daten_final = TransformerDate.reformatDate(daten_final, DATUM_FORMAT); // Transform to DATEV-format of Date
 
         // ****************** BELEGFELD 1 ******************
-        daten_final = BroadcastCoordinator.transferData(daten_final, positionen, daten_original, rows, RELEVANTE_ITEMS, RELEVANTE_ITEMS[2], 6);
+        daten_final = BroadcastCoordinator.transferData(daten_final, positionen, daten_roh, rows, RELEVANTE_ITEMS, RELEVANTE_ITEMS[2], 6);
 
         // ****************** BELEGFELD 2 ******************
         System.out.println("Belegfeld 2 wird bei Real nicht beschrieben.");
@@ -56,7 +57,7 @@ public class TransformerReal {
 
         String[] relevanteItemsBuchungstext = {RELEVANTE_ITEMS[5], RELEVANTE_ITEMS[6], RELEVANTE_ITEMS[7]};
 
-        daten_final = BuchungstextWriter.getBuchungstext(daten_final, positionen, daten_original, rows, relevanteItemsBuchungstext, RELEVANTE_ITEMS, 8);
+        daten_final = BuchungstextWriter.getBuchungstext(daten_final, positionen, daten_roh, rows, relevanteItemsBuchungstext, RELEVANTE_ITEMS, 8);
 
         // ****************** FESTSCHREIBUNG ******************
         daten_final = FixationCoordinator.writeFixation(daten_final);
@@ -68,7 +69,7 @@ public class TransformerReal {
         // Hauptinformationen für Buchung
 
         switch (operation) {
-            case "Nur Gebühren" -> daten_final = extractFees(daten_final, daten_original, rows, positionen, GEBUEHRENARTEN, RELEVANTE_ITEMS[1], RELEVANTE_ITEMS);
+            case "Nur Gebühren" -> daten_final = extractFees(daten_final, daten_roh, rows, positionen, GEBUEHRENARTEN, RELEVANTE_ITEMS[1], RELEVANTE_ITEMS);
             default -> System.out.println("FEHLER: Operation ist nicht verfügbar");
         }
 
@@ -139,10 +140,11 @@ public class TransformerReal {
                     System.out.println("++++++++++ ENDE REIHE: " + (pointer_reihe-1) + "++++++++++");
 
                 }
+
                 // ***************************************************
-                // GEBÜHR "Freigabe Verkaufserlös" // 1
+                // GEBÜHR "Freigabe Verkaufserlös" // 1 (Storno ausgeschlossen)
                 // ***************************************************
-                if (daten_original[pointer_reihe][position_relevantesItem].contains(gebuehrenarten[1])) {
+                if (daten_original[pointer_reihe][position_relevantesItem].contains(gebuehrenarten[1]) && !daten_original[pointer_reihe][position_relevantesItem].contains("Storno")) {
 
                     System.out.println("Gebührenart: " + daten_original[pointer_reihe][position_relevantesItem]);
 
@@ -234,6 +236,43 @@ public class TransformerReal {
                     System.out.println("++++++++++ ENDE REIHE: " + (pointer_reihe-1) + "++++++++++");
 
                 }
+
+
+
+                // ***************************************************
+                // GEBÜHR "Storno Freigabe Verkaufserlös"; // 4
+                // ***************************************************
+                if (daten_original[pointer_reihe][position_relevantesItem].contains(gebuehrenarten[4])) {
+
+                    System.out.println("Gebührenart: " + daten_original[pointer_reihe][position_relevantesItem]);
+
+                    // ****************** UMSATZ ******************
+
+                    String value_String = daten_original[pointer_reihe][position_fee_gross];
+                    daten_final[pointer_reihe-1][0] = BroadcastCoordinator.trimNumber(value_String, false);
+
+                    // ****************** SOLL/HABEN ******************
+
+                    daten_final[pointer_reihe-1][1] = "S";
+                    System.out.println("S/H: Reihe " + (pointer_reihe-1) + ": " + daten_final[pointer_reihe-1][1]);
+
+                    // ****************** BU-SCHLÜSSEL ******************
+
+                    String bu_schluessel_roh = daten_original[pointer_reihe][position_fee_vat];
+                    System.out.println("Das sind die Informationen zum BU-Schlüssel: " + bu_schluessel_roh);
+
+                    daten_final[pointer_reihe-1][4] = BUSchluesselWriter.getBUSchluessel(bu_schluessel_roh);
+
+                    System.out.println("Buchungsschlüssel: Reihe " + (pointer_reihe-1) + ": \"" + daten_final[pointer_reihe-1][4] + "\"");
+
+                    // ****************** FERTIG ******************
+
+                    System.out.println("++++++++++ ENDE REIHE: " + (pointer_reihe-1) + "++++++++++");
+
+                }
+
+
+
 
             }
 
