@@ -17,7 +17,7 @@ public class TransformerAlltricks {
             "XXX"}; // 2
 
     private static String DATUM_FORMAT = "dd.MM.yyyy - HH:mm:ss"; // Datumsformat von "Alltricks" (14.04.2020 - 20:58:24)
-
+                                        //08.06.2020 - 00:09:12
     
     public static String[][] transformAlltricksData(String operation, String[][] daten_original, int rows, int columns) {
 

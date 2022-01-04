@@ -13,13 +13,13 @@ public class DataExtractor {
 
     public static String [] [] extractData(File filepath, int rows, int columns) {
 
-        String [] [] rohdaten = new String [rows] [columns];
+        String [] [] daten_roh = new String [rows] [columns];
 
         // Dateiformat erkennen
         String dateiformat = FilenameUtils.getExtension(String.valueOf(filepath));
 
         switch (dateiformat) {
-            case "csv" -> rohdaten = getDataCSV(filepath, rows, columns);
+            case "csv" -> daten_roh = getDataCSV(filepath, rows, columns);
             default -> System.out.println("FEHLER: Dateiformat kann nicht verarbeitet werden");
         }
 
@@ -27,7 +27,7 @@ public class DataExtractor {
         System.out.println("Rohdaten importiert");
         System.out.println("+++++++++++");
 
-        return rohdaten;
+        return daten_roh;
     }
 
     private static String [] [] getDataCSV(File filepath_origin, int rows, int columns) {

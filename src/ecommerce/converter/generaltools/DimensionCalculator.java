@@ -9,15 +9,15 @@ import java.util.Arrays;
 
 public class DimensionCalculator {
 
-    public static int getColumns (File filepath_origin) {
+    public static int getColumns (File filepath) {
 
         int columns = 0;
 
         // Dateiformat erkennen
-        String dateiformat = FilenameUtils.getExtension(String.valueOf(filepath_origin));
+        String dateiformat = FilenameUtils.getExtension(String.valueOf(filepath));
 
         switch (dateiformat) {
-            case "csv" -> columns = DimensionCalculator.getCSVColumns(filepath_origin);
+            case "csv" -> columns = DimensionCalculator.getCSVColumns(filepath);
             default -> System.out.println("FEHLER: Dateiformat kann nicht verarbeitet werden");
         }
 
@@ -25,15 +25,15 @@ public class DimensionCalculator {
     }
 
 
-    public static int getRows (File filepath_origin) {
+    public static int getRows (File filepath) {
 
         int rows = 0;
 
         // Dateiformat erkennen
-        String dateiformat = FilenameUtils.getExtension(String.valueOf(filepath_origin));
+        String dateiformat = FilenameUtils.getExtension(String.valueOf(filepath));
 
         switch (dateiformat) {
-            case "csv" -> rows = DimensionCalculator.getCSVRows(filepath_origin);
+            case "csv" -> rows = DimensionCalculator.getCSVRows(filepath);
             default -> System.out.println("FEHLER: Dateiformat kann nicht verarbeitet werden");
         }
 
@@ -42,12 +42,12 @@ public class DimensionCalculator {
 
 
 
-    private static int getCSVRows(File filepath_origin) {
+    private static int getCSVRows(File filepath) {
 
         int rows = 0;
 
         try {
-            CSVReader reader = new CSVReader(new FileReader(filepath_origin));
+            CSVReader reader = new CSVReader(new FileReader(filepath));
             String[] nextline;
 
             while ((nextline = reader.readNext()) != null) {
@@ -67,15 +67,16 @@ public class DimensionCalculator {
         System.out.println("-------------------");
         System.out.println("Rohdatei enthält " + rows + " Reihen (rows).");
         System.out.println("-------------------");
+
         return rows; // Die finale Anzahl an Reihen wird zurückgegeben
     }
 
-    private static int getCSVColumns(File filepath_origin) {
+    private static int getCSVColumns(File filepath) {
 
         int columns = 1;
 
         try {
-            CSVReader reader2 = new CSVReader(new FileReader(filepath_origin));
+            CSVReader reader2 = new CSVReader(new FileReader(filepath));
             String[] nextline_columns;
 
             while ((nextline_columns = reader2.readNext()) != null) {
@@ -83,7 +84,6 @@ public class DimensionCalculator {
 
                 String[] elements_rows = Arrays.toString(nextline_columns).split(";");
                 columns = elements_rows.length;
-
             }
 
             reader2.close();
@@ -101,5 +101,4 @@ public class DimensionCalculator {
 
         return columns;
     }
-
 }
