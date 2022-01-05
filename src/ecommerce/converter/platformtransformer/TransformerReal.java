@@ -23,7 +23,8 @@ public class TransformerReal {
             "Freigabe Verkaufserlös", // 1
             "Nettotransaktionsgebuehren fuer stornierte Transaktionen", // 2
             "Umsatzsteuer für stornierte Transaktionen", // 3
-            "Storno Freigabe Verkaufserlös"}; // 4
+            "Storno Freigabe Verkaufserlös", // 4
+            "Erlöse Bestell-Nr."}; // 5
 
     private static String DATUM_FORMAT = "yyyy-MM-dd HH:mm:ss"; // Datumsformat von "Real" (2019-12-01 00:23:11)
 
@@ -56,7 +57,6 @@ public class TransformerReal {
         // ****************** BUCHUNGSTEXT ******************
 
         String[] relevanteItemsBuchungstext = {RELEVANTE_ITEMS[5], RELEVANTE_ITEMS[6], RELEVANTE_ITEMS[7]};
-
         daten_final = BuchungstextWriter.getBuchungstext(daten_final, positionen, daten_roh, rows, relevanteItemsBuchungstext, RELEVANTE_ITEMS, 8);
 
         // ****************** FESTSCHREIBUNG ******************
@@ -74,10 +74,7 @@ public class TransformerReal {
         }
 
         return daten_final;
-
     }
-
-
 
     private static String[][] extractFees(String[][] daten_final, String[][] daten_original, int rows, String[][] positionen, String[] gebuehrenarten, String relevantesItem, String[] relevanteItems) {
 
@@ -270,6 +267,47 @@ public class TransformerReal {
                     System.out.println("++++++++++ ENDE REIHE: " + (pointer_reihe-1) + "++++++++++");
 
                 }
+
+
+
+
+                // ***************************************************
+                // GEBÜHR "Erlöse Bestell-Nr."; // 5
+                // ***************************************************
+                if (daten_original[pointer_reihe][position_relevantesItem].contains(gebuehrenarten[5]) && !daten_original[pointer_reihe][position_relevantesItem].contains("Freigabe Verkaufserlös")) {
+
+                    System.out.println("Gebührenart: " + daten_original[pointer_reihe][position_relevantesItem]);
+
+                    // ****************** UMSATZ ******************
+
+                    String value_String = daten_original[pointer_reihe][position_fee_gross];
+                    daten_final[pointer_reihe-1][0] = BroadcastCoordinator.trimNumber(value_String, false);
+
+                    // ****************** SOLL/HABEN ******************
+
+                    daten_final[pointer_reihe-1][1] = "H";
+                    System.out.println("S/H: Reihe " + (pointer_reihe-1) + ": " + daten_final[pointer_reihe-1][1]);
+
+                    // ****************** BU-SCHLÜSSEL ******************
+
+                    String bu_schluessel_roh = daten_original[pointer_reihe][position_fee_vat];
+                    System.out.println("Das sind die Informationen zum BU-Schlüssel: " + bu_schluessel_roh);
+
+                    daten_final[pointer_reihe-1][4] = BUSchluesselWriter.getBUSchluessel(bu_schluessel_roh);
+
+                    System.out.println("Buchungsschlüssel: Reihe " + (pointer_reihe-1) + ": \"" + daten_final[pointer_reihe-1][4] + "\"");
+
+                    // ****************** FERTIG ******************
+
+                    daten_final[pointer_reihe-1][3] = "1371000"; //TODO Entfernen
+
+                    System.out.println("++++++++++ ENDE REIHE: " + (pointer_reihe-1) + "++++++++++");
+
+                }
+
+
+
+
 
 
 
