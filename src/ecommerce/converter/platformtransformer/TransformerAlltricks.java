@@ -19,13 +19,13 @@ public class TransformerAlltricks {
     private static String DATUM_FORMAT = "dd.MM.yyyy - HH:mm:ss"; // Datumsformat von "Alltricks" (14.04.2020 - 20:58:24)
                                         //08.06.2020 - 00:09:12
     
-    public static String[][] transformData(String operation, String[][] daten_original, int rows, int columns) {
+    public static String[][] transformData(String operation, String[][] daten_roh, int rows, int columns) {
 
         // Reihen: "Umsatz" (0), "Soll-Haben" (1), "Kontonummer" (2), "Gegenkonto" (3), "BU-Schlüssel" (4), "Belegdatum" (5), "Belegfeld 1" (6), "Belegfeld 2" (7), "Buchungstext" (8), "Festschreibung" (9)};
         String[][] daten_final = new String[rows-1][10];
 
         // Positionen relevanter Items herausfinden
-        String[][] positionen = ItemPositionCoordinator.storeRelevantPositions(daten_original, columns, RELEVANTE_ITEMS);
+        String[][] positionen = ItemPositionCoordinator.storeRelevantPositions(daten_roh, columns, RELEVANTE_ITEMS);
 
 
         // ****************** DEBITORENKONTO ******************
@@ -35,7 +35,7 @@ public class TransformerAlltricks {
         daten_final = AccountWriter.writeAccount(daten_final, rows, KONTO_KREDITOR, 4); // Schreibe Kreditorenkonto  in 4. Reihe (also Position 3) von daten_final
 
         // ****************** DATUM ******************
-        daten_final = BroadcastCoordinator.transferData(daten_final, positionen, daten_original, rows, RELEVANTE_ITEMS, RELEVANTE_ITEMS[0], 5);
+        daten_final = BroadcastCoordinator.transferData(daten_final, positionen, daten_roh, rows, RELEVANTE_ITEMS, RELEVANTE_ITEMS[0], 5);
         daten_final = TransformerDate.reformatDate(daten_final, DATUM_FORMAT); // Transform to DATEV-format of Date
 
         // ****************** FESTSCHREIBUNG ******************

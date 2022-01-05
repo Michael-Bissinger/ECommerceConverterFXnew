@@ -29,9 +29,7 @@ public class TransformerDate {
             daten[row_pointer][5] = date_new;
 
             System.out.println("I Datum (neu), Position " + row_pointer + " ist: " + daten[row_pointer][5]);
-
         }
-
 
         System.out.println("reformatDate");
 

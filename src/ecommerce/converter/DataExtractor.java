@@ -68,7 +68,6 @@ public class DataExtractor {
            }
             current_line++;
             System.out.println("+++++++++++++++++++++++");
-
         }
         reader.close();
         System.out.println("Einlesen der Daten durchgeführt!");
@@ -82,7 +81,6 @@ public class DataExtractor {
 
         LogCoordinator.writeLog("ROHDATEN: Einlesen abgeschlossen!");
         return CSV_Daten;
-
     }
 }
 

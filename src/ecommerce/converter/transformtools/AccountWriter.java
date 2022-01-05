@@ -17,6 +17,5 @@ public class AccountWriter {
         System.out.println("Fertig mit Konto: " + kontonummer);
 
         return daten;
-
     }
 }
