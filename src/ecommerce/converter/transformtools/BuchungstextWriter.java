@@ -2,12 +2,11 @@ package ecommerce.converter.transformtools;
 
 public class BuchungstextWriter {
 
-    public static String[][] getBuchungstext(String[][] daten_final, String[][] positionen, String[][] daten_original, int rows, String[] relevanteItemsBuchungstext, String[] relevanteItems, int position_final) {
+    public static String[][] getBuchungstext(String[][] daten_final, String[][] positionen, String[][] daten_roh, int rows, String[] relevanteItemsBuchungstext, String[] relevanteItems, int position_final) {
 
         System.out.println("Get buchungstext aktiv");
 
         // Positionen in Originaldatei finden
-
         int[] positionen_relevateItems =  new int[relevanteItemsBuchungstext.length];
 
         for (int i=0; i<relevanteItemsBuchungstext.length; i++) {
@@ -15,10 +14,6 @@ public class BuchungstextWriter {
             positionen_relevateItems[i] = ItemPositionCoordinator.findRelevantPosition(positionen, relevanteItemsBuchungstext[i], relevanteItems);
 
         }
-
-        //Integer position_relevantesItem1 = ItemPositionCoordinator.findRelevantPosition(positionen, relevantesItem1, relevanteItems);
-        //Integer position_relevantesItem2 = ItemPositionCoordinator.findRelevantPosition(positionen, relevantesItem2, relevanteItems);
-        //Integer position_relevantesItem3 = ItemPositionCoordinator.findRelevantPosition(positionen, relevantesItem3, relevanteItems);
 
         System.out.print("++++++++ ");
         for (int i=0; i<relevanteItemsBuchungstext.length; i++) {
@@ -48,25 +43,17 @@ public class BuchungstextWriter {
 
             for (int i=0; i<relevanteItemsBuchungstext.length; i++) {
 
-                buchungstext_zeile = buchungstext_zeile + daten_original[pointer_reihe][positionen_relevateItems[i]] + " ";
+                buchungstext_zeile = buchungstext_zeile + daten_roh[pointer_reihe][positionen_relevateItems[i]] + " ";
                 //positionen_relevateItems[i] = ItemPositionCoordinator.findRelevantPosition(positionen, relevanteItems[i], relevanteItems);
 
             }
-
-            //buchungstext_zeile = daten_original[pointer_reihe][position_relevantesItem2] + " " + daten_original[pointer_reihe][position_relevantesItem3] + " " + daten_original[pointer_reihe][position_relevantesItem1];
-
+            //buchungstext_zeile = daten_roh[pointer_reihe][position_relevantesItem2] + " " + daten_roh[pointer_reihe][position_relevantesItem3] + " " + daten_roh[pointer_reihe][position_relevantesItem1];
 
             daten_final[pointer_reihe-1][position_final] = buchungstext_zeile;
             System.out.print(pointer_reihe + ": " + daten_final[pointer_reihe-1][position_final]);
 
         }
 
-
-
         return daten_final;
-
-
     }
-
-
 }

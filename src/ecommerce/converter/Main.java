@@ -32,15 +32,10 @@ public class Main extends Application{
     public static String FILEPATH = null; // Store filepath from Drag and Drop
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        //Scene scene = new Scene(new Label("Foo"));
-        //Scene scene = new Scene(new GridPane(), 500, 500);
-
+    public void start(Stage primaryStage)  {
 
 
         // Controls
-
-
         final TextField directory_newfile = new TextField();
 
 
@@ -125,9 +120,6 @@ public class Main extends Application{
             }
         });
 
-
-
-
         // Platform-Choice
         ObservableList<String> platformoptions =
                 FXCollections.observableArrayList(
@@ -158,8 +150,6 @@ public class Main extends Application{
         final ComboBox format_box = new ComboBox(formatoptions);
         format_box.getSelectionModel().selectFirst();
 
-
-
         // Create and setup GridPane
 
         GridPane grid = new GridPane();
@@ -182,11 +172,8 @@ public class Main extends Application{
         // i3: wie viele Felder nutzt es rechts (column) aus
         // i4: wie viele Felder nutzt es nach unten (row) aus
 
-
-
         //Drag and Drop
         grid.add(dragTarget, 0, 0, 2, 2);
-        //grid.add(directory_rawfile, 1, 0, 1, 1);
 
         grid.add(lbl_platform, 0, 2);
         grid.add(platforms_box, 1, 2);
@@ -233,20 +220,10 @@ public class Main extends Application{
 
                     File rawfile = new File(FILEPATH);
 
-                    try {
                         ConvertMain.start(platforms_box.getSelectionModel().getSelectedItem().toString(),
                                 operation_box.getSelectionModel().getSelectedItem().toString(),
                                 rawfile,
                                 format_box.getSelectionModel().getSelectedItem().toString());
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (CsvValidationException e) {
-                        e.printStackTrace();
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
 
                 } else {
 

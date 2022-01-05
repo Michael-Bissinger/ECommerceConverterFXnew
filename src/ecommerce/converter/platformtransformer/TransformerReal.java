@@ -304,20 +304,9 @@ public class TransformerReal {
                     System.out.println("++++++++++ ENDE REIHE: " + (pointer_reihe-1) + "++++++++++");
 
                 }
-
-
-
-
-
-
-
-
             }
-
         }
 
         return daten_final;
-
     }
-
 }

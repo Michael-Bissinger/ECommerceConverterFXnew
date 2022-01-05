@@ -9,7 +9,7 @@ import java.text.ParseException;
 
 public class ConvertMain {
 
-    public static void start (String platform, String operation, File filepath, String format_final) throws IOException, CsvValidationException, ParseException {
+    public static void start (String platform, String operation, File filepath, String format_final) {
 
         // ----------------- Ausgabe von Parametern -----------------
         System.out.println("Dateipfad: [" + filepath.getAbsolutePath() + "]");
@@ -32,8 +32,5 @@ public class ConvertMain {
         // ----------------- Ende -----------------
 
         System.out.println("Konvertierung abgeschlossen!");
-
-
     }
-
 }

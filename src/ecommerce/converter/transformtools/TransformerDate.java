@@ -8,7 +8,6 @@ public class TransformerDate {
 
     private static String DATEV_DATUM = "ddMM";
 
-
     public static String[][] reformatDate(String[][] daten, String datum_format) {
 
         for (int row_pointer = 0; row_pointer < daten.length; row_pointer++) {
