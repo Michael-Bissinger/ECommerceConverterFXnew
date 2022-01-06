@@ -18,7 +18,6 @@ public class BroadcastCoordinator {
             String buchungstext_zeile = new String();
             buchungstext_zeile = daten_original[pointer_reihe][position_relevantesItem];
 
-            //https://stackoverflow.com/questions/4975978/remove-specific-characters-from-string-in-java
             buchungstext_zeile = buchungstext_zeile.replace("\"", ""); // Sollte noch " drin sein, dann rausmachen
 
             daten_final[pointer_reihe-1][position_final] = buchungstext_zeile;
@@ -33,11 +32,9 @@ public class BroadcastCoordinator {
 
     public static String trimNumber(String wert, boolean signswap) {
 
-        //https://stackoverflow.com/questions/5455794/removing-whitespace-from-strings-in-java
         wert = wert.replaceAll("\\s+",""); // delete white-spaces
 
         System.out.println("Aktueller Wert: " + wert);
-
 
         if (signswap == true) { // Wenn Vorzeichen geändert werden soll
             wert = wert.replaceAll(",","."); // replace , with .
