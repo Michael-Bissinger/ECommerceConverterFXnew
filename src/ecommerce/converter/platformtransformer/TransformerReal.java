@@ -39,10 +39,10 @@ public class TransformerReal {
 
 
         // ****************** DEBITORENKONTO ******************
-        daten_final = AccountWriter.writeAccount(daten_final, rows, KONTO_DEBITOR, 3); // Schreibe Debitorenkonto  in 3. Reihe (also Position 2) von daten_final
+        daten_final = AccountWriter.writeAccount(daten_final, rows, KONTO_DEBITOR, 2); // Schreibe Debitorenkonto  in 3. Reihe (also Position 2) von daten_final
 
         // ****************** KREDITORENKONTO ******************
-        daten_final = AccountWriter.writeAccount(daten_final, rows, KONTO_KREDITOR, 4); // Schreibe Kreditorenkonto  in 4. Reihe (also Position 3) von daten_final
+        daten_final = AccountWriter.writeAccount(daten_final, rows, KONTO_KREDITOR, 3); // Schreibe Kreditorenkonto  in 4. Reihe (also Position 3) von daten_final
 
         // ****************** DATUM ******************
         daten_final = BroadcastCoordinator.transferData(daten_final, positionen, daten_roh, rows, RELEVANTE_ITEMS, RELEVANTE_ITEMS[0], 5);
@@ -76,12 +76,12 @@ public class TransformerReal {
         return daten_final;
     }
 
-    private static String[][] extractFees(String[][] daten_final, String[][] daten_original, int rows, String[][] positionen, String[] gebuehrenarten, String relevantesItem, String[] relevanteItems) {
+    private static String[][] extractFees(String[][] daten_final, String[][] daten_roh, int rows, String[][] positionen, String[] gebuehrenarten, String relevantesItem, String[] relevanteItems) {
 
         // ****************** Relevante Items zur Bestimmung von Gebühren ******************
 
-        int position_relevantesItem = ItemPositionCoordinator.findRelevantPosition(positionen, relevantesItem, relevanteItems);
-        System.out.println("Position von bookingtext:" + position_relevantesItem);
+        int position_relevantesItemGebuehrenart = ItemPositionCoordinator.findRelevantPosition(positionen, relevantesItem, relevanteItems);
+        System.out.println("Position von bookingtext:" + position_relevantesItemGebuehrenart);
 
         int position_amount = ItemPositionCoordinator.findRelevantPosition(positionen, relevanteItems[3], relevanteItems);
         System.out.println("Position von amount:" + position_amount);
@@ -102,21 +102,19 @@ public class TransformerReal {
 
             for(int pointer_reihe=1; pointer_reihe<rows; pointer_reihe++) { // Bei "i = 1" beginnen, damit oberste Zeile nicht mitgenommen wird
 
-
                 System.out.println("++++++++++ START REIHE: " + (pointer_reihe-1) + "++++++++++");
-
 
                 // ***************************************************
                 // GEBÜHR "Bezahlung Zusatzleistungen" // 0
                 // ***************************************************
-                if (daten_original[pointer_reihe][position_relevantesItem].contains(gebuehrenarten[0])) {
+                if (daten_roh[pointer_reihe][position_relevantesItemGebuehrenart].contains(gebuehrenarten[0])) {
 
-                    System.out.println("Gebührenart: " + daten_original[pointer_reihe][position_relevantesItem]);
+                    System.out.println("Gebührenart: " + daten_roh[pointer_reihe][position_relevantesItemGebuehrenart]);
 
                     // ****************** UMSATZ ******************
 
-                    String value_String = daten_original[pointer_reihe][position_amount];
-                    daten_final[pointer_reihe-1][0] = BroadcastCoordinator.trimNumber(value_String, true);
+                    String wert_String = daten_roh[pointer_reihe][position_amount];
+                    daten_final[pointer_reihe-1][0] = BroadcastCoordinator.trimNumber(wert_String, true);
 
                     // ****************** SOLL/HABEN ******************
 
@@ -125,7 +123,7 @@ public class TransformerReal {
 
                     // ****************** BU-SCHLÜSSEL ******************
 
-                    String bu_schluessel_roh = daten_original[pointer_reihe][position_fee_vat];
+                    String bu_schluessel_roh = daten_roh[pointer_reihe][position_fee_vat];
                     System.out.println("Das sind die Informationen zum BU-Schlüssel: " + bu_schluessel_roh);
 
                     daten_final[pointer_reihe-1][4] = BUSchluesselWriter.getBUSchluessel(bu_schluessel_roh);
@@ -141,14 +139,14 @@ public class TransformerReal {
                 // ***************************************************
                 // GEBÜHR "Freigabe Verkaufserlös" // 1 (Storno ausgeschlossen)
                 // ***************************************************
-                if (daten_original[pointer_reihe][position_relevantesItem].contains(gebuehrenarten[1]) && !daten_original[pointer_reihe][position_relevantesItem].contains("Storno")) {
+                if (daten_roh[pointer_reihe][position_relevantesItemGebuehrenart].contains(gebuehrenarten[1]) && !daten_roh[pointer_reihe][position_relevantesItemGebuehrenart].contains("Storno")) {
 
-                    System.out.println("Gebührenart: " + daten_original[pointer_reihe][position_relevantesItem]);
+                    System.out.println("Gebührenart: " + daten_roh[pointer_reihe][position_relevantesItemGebuehrenart]);
 
                     // ****************** UMSATZ ******************
 
-                    String value_String = daten_original[pointer_reihe][position_fee_gross];
-                    daten_final[pointer_reihe-1][0] = BroadcastCoordinator.trimNumber(value_String, false);
+                    String wert_String = daten_roh[pointer_reihe][position_fee_gross];
+                    daten_final[pointer_reihe-1][0] = BroadcastCoordinator.trimNumber(wert_String, false);
 
                     // ****************** SOLL/HABEN ******************
 
@@ -157,7 +155,7 @@ public class TransformerReal {
 
                     // ****************** BU-SCHLÜSSEL ******************
 
-                    String bu_schluessel_roh = daten_original[pointer_reihe][position_fee_vat];
+                    String bu_schluessel_roh = daten_roh[pointer_reihe][position_fee_vat];
                     System.out.println("Das sind die Informationen zum BU-Schlüssel: " + bu_schluessel_roh);
 
                     daten_final[pointer_reihe-1][4] = BUSchluesselWriter.getBUSchluessel(bu_schluessel_roh);
@@ -173,14 +171,14 @@ public class TransformerReal {
                 // ***************************************************
                 // GEBÜHR "Nettotransaktionsgebuehren fuer stornierte Transaktionen" // 2
                 // ***************************************************
-                if (daten_original[pointer_reihe][position_relevantesItem].contains(gebuehrenarten[2])) {
+                if (daten_roh[pointer_reihe][position_relevantesItemGebuehrenart].contains(gebuehrenarten[2])) {
 
-                    System.out.println("Gebührenart: " + daten_original[pointer_reihe][position_relevantesItem]);
+                    System.out.println("Gebührenart: " + daten_roh[pointer_reihe][position_relevantesItemGebuehrenart]);
 
                     // ****************** UMSATZ ******************
 
-                    String value_String = daten_original[pointer_reihe][position_amount];
-                    daten_final[pointer_reihe-1][0] = BroadcastCoordinator.trimNumber(value_String, true);
+                    String wert_String = daten_roh[pointer_reihe][position_amount];
+                    daten_final[pointer_reihe-1][0] = BroadcastCoordinator.trimNumber(wert_String, true);
 
                     // ****************** SOLL/HABEN ******************
 
@@ -189,7 +187,7 @@ public class TransformerReal {
 
                     // ****************** BU-SCHLÜSSEL ******************
 
-                    String bu_schluessel_roh = daten_original[pointer_reihe][position_fee_vat];
+                    String bu_schluessel_roh = daten_roh[pointer_reihe][position_fee_vat];
                     System.out.println("Das sind die Informationen zum BU-Schlüssel: " + bu_schluessel_roh);
 
                     daten_final[pointer_reihe-1][4] = BUSchluesselWriter.getBUSchluessel(bu_schluessel_roh);
@@ -205,14 +203,14 @@ public class TransformerReal {
                 // ***************************************************
                 // GEBÜHR "Umsatzsteuer für stornierte Transaktionen"}; // 3
                 // ***************************************************
-                if (daten_original[pointer_reihe][position_relevantesItem].contains(gebuehrenarten[3])) {
+                if (daten_roh[pointer_reihe][position_relevantesItemGebuehrenart].contains(gebuehrenarten[3])) {
 
-                    System.out.println("Gebührenart: " + daten_original[pointer_reihe][position_relevantesItem]);
+                    System.out.println("Gebührenart: " + daten_roh[pointer_reihe][position_relevantesItemGebuehrenart]);
 
                     // ****************** UMSATZ ******************
 
-                    String value_String = daten_original[pointer_reihe][position_amount];
-                    daten_final[pointer_reihe-1][0] = BroadcastCoordinator.trimNumber(value_String, true);
+                    String wert_String = daten_roh[pointer_reihe][position_amount];
+                    daten_final[pointer_reihe-1][0] = BroadcastCoordinator.trimNumber(wert_String, true);
 
                     // ****************** SOLL/HABEN ******************
 
@@ -221,7 +219,7 @@ public class TransformerReal {
 
                     // ****************** BU-SCHLÜSSEL ******************
 
-                    String bu_schluessel_roh = daten_original[pointer_reihe][position_fee_vat];
+                    String bu_schluessel_roh = daten_roh[pointer_reihe][position_fee_vat];
                     System.out.println("Das sind die Informationen zum BU-Schlüssel: " + bu_schluessel_roh);
 
                     daten_final[pointer_reihe-1][4] = BUSchluesselWriter.getBUSchluessel(bu_schluessel_roh);
@@ -239,14 +237,14 @@ public class TransformerReal {
                 // ***************************************************
                 // GEBÜHR "Storno Freigabe Verkaufserlös"; // 4
                 // ***************************************************
-                if (daten_original[pointer_reihe][position_relevantesItem].contains(gebuehrenarten[4])) {
+                if (daten_roh[pointer_reihe][position_relevantesItemGebuehrenart].contains(gebuehrenarten[4])) {
 
-                    System.out.println("Gebührenart: " + daten_original[pointer_reihe][position_relevantesItem]);
+                    System.out.println("Gebührenart: " + daten_roh[pointer_reihe][position_relevantesItemGebuehrenart]);
 
                     // ****************** UMSATZ ******************
 
-                    String value_String = daten_original[pointer_reihe][position_fee_gross];
-                    daten_final[pointer_reihe-1][0] = BroadcastCoordinator.trimNumber(value_String, false);
+                    String wert_String = daten_roh[pointer_reihe][position_fee_gross];
+                    daten_final[pointer_reihe-1][0] = BroadcastCoordinator.trimNumber(wert_String, false);
 
                     // ****************** SOLL/HABEN ******************
 
@@ -255,7 +253,7 @@ public class TransformerReal {
 
                     // ****************** BU-SCHLÜSSEL ******************
 
-                    String bu_schluessel_roh = daten_original[pointer_reihe][position_fee_vat];
+                    String bu_schluessel_roh = daten_roh[pointer_reihe][position_fee_vat];
                     System.out.println("Das sind die Informationen zum BU-Schlüssel: " + bu_schluessel_roh);
 
                     daten_final[pointer_reihe-1][4] = BUSchluesselWriter.getBUSchluessel(bu_schluessel_roh);
@@ -274,14 +272,14 @@ public class TransformerReal {
                 // ***************************************************
                 // GEBÜHR "Erlöse Bestell-Nr."; // 5
                 // ***************************************************
-                if (daten_original[pointer_reihe][position_relevantesItem].contains(gebuehrenarten[5]) && !daten_original[pointer_reihe][position_relevantesItem].contains("Freigabe Verkaufserlös")) {
+                if (daten_roh[pointer_reihe][position_relevantesItemGebuehrenart].contains(gebuehrenarten[5]) && !daten_roh[pointer_reihe][position_relevantesItemGebuehrenart].contains("Freigabe Verkaufserlös")) {
 
-                    System.out.println("Gebührenart: " + daten_original[pointer_reihe][position_relevantesItem]);
+                    System.out.println("Gebührenart: " + daten_roh[pointer_reihe][position_relevantesItemGebuehrenart]);
 
                     // ****************** UMSATZ ******************
 
-                    String value_String = daten_original[pointer_reihe][position_fee_gross];
-                    daten_final[pointer_reihe-1][0] = BroadcastCoordinator.trimNumber(value_String, false);
+                    String wert_String = daten_roh[pointer_reihe][position_fee_gross];
+                    daten_final[pointer_reihe-1][0] = BroadcastCoordinator.trimNumber(wert_String, false);
 
                     // ****************** SOLL/HABEN ******************
 
@@ -290,7 +288,7 @@ public class TransformerReal {
 
                     // ****************** BU-SCHLÜSSEL ******************
 
-                    String bu_schluessel_roh = daten_original[pointer_reihe][position_fee_vat];
+                    String bu_schluessel_roh = daten_roh[pointer_reihe][position_fee_vat];
                     System.out.println("Das sind die Informationen zum BU-Schlüssel: " + bu_schluessel_roh);
 
                     daten_final[pointer_reihe-1][4] = BUSchluesselWriter.getBUSchluessel(bu_schluessel_roh);

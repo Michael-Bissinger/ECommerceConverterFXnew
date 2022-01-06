@@ -10,8 +10,8 @@ public class AccountWriter {
         System.out.print("Daten final abgespeichert (" + "Konto" + ") Position: ");
         for(int pointer_reihe=1; pointer_reihe<rows; pointer_reihe++) { // Int bei 1 starten, damit die oberste Zeile nicht mitgenommen wird
 
-            daten[pointer_reihe-1][position_final -1] = kontonummer.toString();
-            System.out.print(pointer_reihe + ": " + daten[pointer_reihe-1][position_final -1] + " - ");
+            daten[pointer_reihe-1][position_final] = kontonummer.toString();
+            System.out.print(pointer_reihe + ": " + daten[pointer_reihe-1][position_final] + " - ");
 
         }
         System.out.println("Fertig mit Konto: " + kontonummer);

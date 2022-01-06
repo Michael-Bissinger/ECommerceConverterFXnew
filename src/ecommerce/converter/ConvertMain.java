@@ -1,11 +1,7 @@
 package ecommerce.converter;
 
-import com.opencsv.exceptions.CsvValidationException;
 import ecommerce.converter.generaltools.DimensionCalculator;
-
 import java.io.File;
-import java.io.IOException;
-import java.text.ParseException;
 
 public class ConvertMain {
 
@@ -23,10 +19,13 @@ public class ConvertMain {
 
         // ----------------- Hauptklassen -----------------
 
+        // *********** Extract ***********
         String [] [] daten_roh = DataExtractor.extractData(filepath, rows, columns);
 
+        // ********** Transform **********
         String [] [] daten_transformiert = DataTransformer.transformData(platform, operation, daten_roh, rows, columns);
 
+        // ************ Load *************
         DataWriter.writeData(filepath, format_final, daten_transformiert);
 
         // ----------------- Ende -----------------
