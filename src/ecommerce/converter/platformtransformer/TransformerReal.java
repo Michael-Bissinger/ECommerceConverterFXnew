@@ -137,7 +137,7 @@ public class TransformerReal {
                 }
 
                 // ***************************************************
-                // GEBÜHR "Freigabe Verkaufserlös" // 1 (Storno ausgeschlossen)
+                // GEBÜHR "Freigabe Verkaufserlös" (Storno ausgeschlossen) // 1
                 // ***************************************************
                 if (daten_roh[pointer_reihe][position_relevantesItemGebuehrenart].contains(gebuehrenarten[1]) && !daten_roh[pointer_reihe][position_relevantesItemGebuehrenart].contains("Storno")) {
 
@@ -159,7 +159,6 @@ public class TransformerReal {
                     System.out.println("Das sind die Informationen zum BU-Schlüssel: " + bu_schluessel_roh);
 
                     daten_final[pointer_reihe-1][4] = BUSchluesselWriter.getBUSchluessel(bu_schluessel_roh);
-
                     System.out.println("Buchungsschlüssel: Reihe " + (pointer_reihe-1) + ": \"" + daten_final[pointer_reihe-1][4] + "\"");
 
                     // ****************** FERTIG ******************
@@ -191,7 +190,6 @@ public class TransformerReal {
                     System.out.println("Das sind die Informationen zum BU-Schlüssel: " + bu_schluessel_roh);
 
                     daten_final[pointer_reihe-1][4] = BUSchluesselWriter.getBUSchluessel(bu_schluessel_roh);
-
                     System.out.println("Buchungsschlüssel: Reihe " + (pointer_reihe-1) + ": \"" + daten_final[pointer_reihe-1][4] + "\"");
 
                     // ****************** FERTIG ******************
@@ -223,7 +221,6 @@ public class TransformerReal {
                     System.out.println("Das sind die Informationen zum BU-Schlüssel: " + bu_schluessel_roh);
 
                     daten_final[pointer_reihe-1][4] = BUSchluesselWriter.getBUSchluessel(bu_schluessel_roh);
-
                     System.out.println("Buchungsschlüssel: Reihe " + (pointer_reihe-1) + ": \"" + daten_final[pointer_reihe-1][4] + "\"");
 
                     // ****************** FERTIG ******************
@@ -257,7 +254,6 @@ public class TransformerReal {
                     System.out.println("Das sind die Informationen zum BU-Schlüssel: " + bu_schluessel_roh);
 
                     daten_final[pointer_reihe-1][4] = BUSchluesselWriter.getBUSchluessel(bu_schluessel_roh);
-
                     System.out.println("Buchungsschlüssel: Reihe " + (pointer_reihe-1) + ": \"" + daten_final[pointer_reihe-1][4] + "\"");
 
                     // ****************** FERTIG ******************
@@ -265,8 +261,6 @@ public class TransformerReal {
                     System.out.println("++++++++++ ENDE REIHE: " + (pointer_reihe-1) + "++++++++++");
 
                 }
-
-
 
 
                 // ***************************************************
@@ -292,7 +286,6 @@ public class TransformerReal {
                     System.out.println("Das sind die Informationen zum BU-Schlüssel: " + bu_schluessel_roh);
 
                     daten_final[pointer_reihe-1][4] = BUSchluesselWriter.getBUSchluessel(bu_schluessel_roh);
-
                     System.out.println("Buchungsschlüssel: Reihe " + (pointer_reihe-1) + ": \"" + daten_final[pointer_reihe-1][4] + "\"");
 
                     // ****************** FERTIG ******************
