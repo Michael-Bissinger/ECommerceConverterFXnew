@@ -35,4 +35,3 @@ public class TransformerDate {
         return daten;
     }
 }
-
