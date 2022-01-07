@@ -3,7 +3,6 @@ package ecommerce.converter;
 import com.opencsv.*;
 import ecommerce.converter.generaltools.LogCoordinator;
 
-
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.*;
@@ -43,7 +42,7 @@ public class DataExtractor {
         Integer current_line = 0;
         while ((nextline = reader.readNext()) != null) {
             System.out.println("Aktuell bei Reihe: " + current_line);
-            //LogCoordinator.writeLog(("ROHDATEN: Einlesen von Reihe: " + current_line));
+            //"ROHDATEN: Einlesen von Reihe: current_line
 
             if(nextline != null){
                 System.out.println("CSV-Reader: " + Arrays.toString(nextline));
@@ -53,12 +52,12 @@ public class DataExtractor {
 
                 for(int row_data = 0; row_data < elements.length; row_data++)
                 {
-                    //System.out.println("Speichere Array-Itemnummer :" + elements[row_data]);
+                    //Speichere Array-Itemnummer: elements[row_data]
                     if (row_data == 0) {
-                        CSV_Daten[current_line] [row_data] = elements[row_data].substring(1); // Delete "[" at first one
+                        CSV_Daten[current_line] [row_data] = elements[row_data].substring(1); // Lösche "[" beim Ersten
                     } else if ((row_data+1 == elements.length)) {
                         System.out.println("Ende entdeckt!");
-                        CSV_Daten[current_line] [row_data] = elements[row_data].substring(0, elements[row_data].length() - 1); // Delete "]" at last one
+                        CSV_Daten[current_line] [row_data] = elements[row_data].substring(0, elements[row_data].length() - 1); // Lösche "]" beim Letzten
                     }
                     else {
                         CSV_Daten[current_line] [row_data] = elements[row_data];
@@ -83,5 +82,3 @@ public class DataExtractor {
         return CSV_Daten;
     }
 }
-
-
