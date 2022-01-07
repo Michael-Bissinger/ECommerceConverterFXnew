@@ -1,6 +1,5 @@
 package ecommerce.converter.transformtools;
 
-
 public class FixationCoordinator {
 
     public static String[][] writeFixation(String[][] daten){

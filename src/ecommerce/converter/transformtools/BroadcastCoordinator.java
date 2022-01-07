@@ -9,7 +9,7 @@ public class BroadcastCoordinator {
 
         System.out.println("++++++++ "+ relevantesItem + " ++++++++");
 
-        // Schreibe jeweiliges item in entsprechende Reihe (also Position -1) von daten_final
+        // Schreibe jeweiliges item in entsprechende Reihe von daten_final
         // Reihen:
         // "Umsatz" (0),
         // "Soll-Haben" (1),
@@ -23,12 +23,14 @@ public class BroadcastCoordinator {
         // "Festschreibung" (9)
         System.out.print("Daten final abgespeichert (" + relevantesItem + ") Position: ");
 
-        for(int pointer_reihe=1; pointer_reihe<rows; pointer_reihe++) { // Int bei 1 starten, damit die oberste Zeile nicht mitgenommen wird
+        for(int pointer_reihe=1; pointer_reihe<rows; pointer_reihe++) {
+            // Int bei 1 starten, damit die oberste Zeile nicht mitgenommen wird
 
             String buchungstext_zeile = new String();
             buchungstext_zeile = daten_original[pointer_reihe][position_relevantesItem];
 
-            buchungstext_zeile = buchungstext_zeile.replace("\"", ""); // Sollte noch " drin sein, dann rausmachen
+            buchungstext_zeile = buchungstext_zeile.replace("\"", "");
+            // Sollte noch " drin sein, dann entfernen
 
             daten_final[pointer_reihe-1][position_final] = buchungstext_zeile;
             System.out.print(pointer_reihe + ": " + daten_final[pointer_reihe-1][position_final] + " I ");
@@ -42,19 +44,19 @@ public class BroadcastCoordinator {
 
     public static String trimNumber(String wert, boolean signswap) {
 
-        wert = wert.replaceAll("\\s+",""); // delete white-spaces
+        wert = wert.replaceAll("\\s+",""); // Lösche white-spaces
 
         System.out.println("Aktueller Wert: " + wert);
 
         if (signswap == true) { // Wenn Vorzeichen geändert werden soll
-            wert = wert.replaceAll(",","."); // replace , with .
+            wert = wert.replaceAll(",","."); // Tausche , mit .
             double value_Double = Double.parseDouble(wert);
             value_Double = Math.abs(value_Double);
 
             wert = String.valueOf(value_Double);
-            wert = wert.replaceAll("\\.",","); // replace . with ,
+            wert = wert.replaceAll("\\.",","); // Tausche . mit ,
 
-            System.out.println("Neuer Value: " + value_Double);
+            System.out.println("Neuer Wert: " + value_Double);
         }
 
         return wert;
