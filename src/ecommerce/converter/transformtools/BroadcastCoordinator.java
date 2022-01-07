@@ -10,7 +10,17 @@ public class BroadcastCoordinator {
         System.out.println("++++++++ "+ relevantesItem + " ++++++++");
 
         // Schreibe jeweiliges item in entsprechende Reihe (also Position -1) von daten_final
-        // Reihen: "Umsatz" (0), "Soll-Haben" (1), "Kontonummer" (2), "Gegenkonto" (3), "BU-Schlüssel" (4), "Belegdatum" (5), "Belegfeld 1" (6), "Belegfeld 2" (7), "Buchungstext" (8), "Festschreibung" (9)};
+        // Reihen:
+        // "Umsatz" (0),
+        // "Soll-Haben" (1),
+        // "Kontonummer" (2),
+        // "Gegenkonto" (3),
+        // "BU-Schlüssel" (4),
+        // "Belegdatum" (5),
+        // "Belegfeld 1" (6),
+        // "Belegfeld 2" (7),
+        // "Buchungstext" (8),
+        // "Festschreibung" (9)
         System.out.print("Daten final abgespeichert (" + relevantesItem + ") Position: ");
 
         for(int pointer_reihe=1; pointer_reihe<rows; pointer_reihe++) { // Int bei 1 starten, damit die oberste Zeile nicht mitgenommen wird
