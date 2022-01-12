@@ -4,14 +4,14 @@ import ecommerce.converter.transformtools.*;
 
 public class TransformerAlltricks {
 
-    private static Integer KONTO_DEBITOR = 111111; // Debitoren-Konto von "Conrad" TODO
-    private static Integer KONTO_KREDITOR = 11111; // Kreditoren-Konto von "Conrad" TODO
+    private static Integer KONTO_DEBITOR = 1464001; // Debitoren-Konto von "Conrad" TODO
+    private static Integer KONTO_KREDITOR = 7000199; // Kreditoren-Konto von "Conrad" TODO
 
     private static String[] RELEVANTE_ITEMS = { // Relevante Items zur Berechnung
             "XXX"
             };
 
-    private static String[] GEBUEHRENARTEN = { // Mögliche Gebührenarten bei "Conrad"
+    private static String[] GEBUEHRENARTEN = { // Mögliche Gebührenarten bei "Alltricks"
             "XXX", // 0
             "XXXX", // 1
             "XXX"}; // 2

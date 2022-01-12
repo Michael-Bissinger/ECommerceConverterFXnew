@@ -4,8 +4,6 @@ public class BuchungstextWriter {
 
     public static String[][] getBuchungstext(String[][] daten_final, String[][] positionen, String[][] daten_roh, int rows, String[] relevanteItemsBuchungstext, String[] relevanteItems, int position_final) {
 
-        System.out.println("Get buchungstext aktiv");
-
         // Positionen in Originaldatei finden
         int[] positionen_relevateItems =  new int[relevanteItemsBuchungstext.length];
 
@@ -29,7 +27,8 @@ public class BuchungstextWriter {
 
         System.out.print("Position: ");
 
-        for(int pointer_reihe=1; pointer_reihe<rows; pointer_reihe++) { // Int bei 1 starten, damit die oberste Zeile nicht mitgenommen wird
+        for(int pointer_reihe=1; pointer_reihe<rows; pointer_reihe++) {
+            // Int bei 1 starten, damit die oberste Zeile nicht mitgenommen wird
 
             String buchungstext_zeile = new String();
 
