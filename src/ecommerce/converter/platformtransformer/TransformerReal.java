@@ -302,7 +302,7 @@ public class TransformerReal {
 
 
                 // ***************************************************
-                // GEBÜHR "Finalisierung der Pipeline."; // 6
+                // GEBÜHR "Finalisierung der Pipeline." // 6
                 // ***************************************************
                 if (daten_roh[pointer_reihe][position_relevantesItemGebuehrenart].contains(gebuehrenarten[6])) {
 
@@ -329,6 +329,102 @@ public class TransformerReal {
                     // ****************** FERTIG ******************
 
                     daten_final[pointer_reihe-1][3] = "1460000"; // Gegenkonto Geldtransit
+
+                    System.out.println("++++++++++ ENDE REIHE: " + (pointer_reihe-1) + "++++++++++");
+
+                }
+
+
+                // ***************************************************
+                // GEBÜHR "Storno Erlöse Bestell-Nr." // 7
+                // ***************************************************
+                if (daten_roh[pointer_reihe][position_relevantesItemGebuehrenart].contains(gebuehrenarten[7])) {
+
+                    System.out.println("Gebührenart: " + daten_roh[pointer_reihe][position_relevantesItemGebuehrenart]);
+
+                    // ****************** UMSATZ ******************
+
+                    String wert_String = daten_roh[pointer_reihe][position_fee_gross];
+                    daten_final[pointer_reihe-1][0] = BroadcastCoordinator.trimNumber(wert_String, false);
+
+                    // ****************** SOLL/HABEN ******************
+
+                    daten_final[pointer_reihe-1][1] = "H";
+                    System.out.println("S/H: Reihe " + (pointer_reihe-1) + ": " + daten_final[pointer_reihe-1][1]);
+
+                    // ****************** BU-SCHLÜSSEL ******************
+
+                    String bu_schluessel_roh = daten_roh[pointer_reihe][position_fee_vat];
+                    System.out.println("Das sind die Informationen zum BU-Schlüssel: " + bu_schluessel_roh);
+
+                    daten_final[pointer_reihe-1][4] = BUSchluesselWriter.getBUSchluessel(bu_schluessel_roh);
+                    System.out.println("Buchungsschlüssel: Reihe " + (pointer_reihe-1) + ": \"" + daten_final[pointer_reihe-1][4] + "\"");
+
+                    // ****************** FERTIG ******************
+
+                    System.out.println("++++++++++ ENDE REIHE: " + (pointer_reihe-1) + "++++++++++");
+
+                }
+
+
+                // ***************************************************
+                // GEBÜHR "Erstattung Bestell-Nr." // 8
+                // ***************************************************
+                if (daten_roh[pointer_reihe][position_relevantesItemGebuehrenart].contains(gebuehrenarten[8]) && !daten_roh[pointer_reihe][position_relevantesItemGebuehrenart].contains("Storno")) {
+
+                    System.out.println("Gebührenart: " + daten_roh[pointer_reihe][position_relevantesItemGebuehrenart]);
+
+                    // ****************** UMSATZ ******************
+
+                    String wert_String = daten_roh[pointer_reihe][position_fee_gross];
+                    daten_final[pointer_reihe-1][0] = BroadcastCoordinator.trimNumber(wert_String, false);
+
+                    // ****************** SOLL/HABEN ******************
+
+                    daten_final[pointer_reihe-1][1] = "S";
+                    System.out.println("S/H: Reihe " + (pointer_reihe-1) + ": " + daten_final[pointer_reihe-1][1]);
+
+                    // ****************** BU-SCHLÜSSEL ******************
+
+                    String bu_schluessel_roh = daten_roh[pointer_reihe][position_fee_vat];
+                    System.out.println("Das sind die Informationen zum BU-Schlüssel: " + bu_schluessel_roh);
+
+                    daten_final[pointer_reihe-1][4] = BUSchluesselWriter.getBUSchluessel(bu_schluessel_roh);
+                    System.out.println("Buchungsschlüssel: Reihe " + (pointer_reihe-1) + ": \"" + daten_final[pointer_reihe-1][4] + "\"");
+
+                    // ****************** FERTIG ******************
+
+                    System.out.println("++++++++++ ENDE REIHE: " + (pointer_reihe-1) + "++++++++++");
+
+                }
+
+
+                // ***************************************************
+                // GEBÜHR "Storno Erstattung Bestell-Nr." // 9
+                // ***************************************************
+                if (daten_roh[pointer_reihe][position_relevantesItemGebuehrenart].contains(gebuehrenarten[9])) {
+
+                    System.out.println("Gebührenart: " + daten_roh[pointer_reihe][position_relevantesItemGebuehrenart]);
+
+                    // ****************** UMSATZ ******************
+
+                    String wert_String = daten_roh[pointer_reihe][position_fee_gross];
+                    daten_final[pointer_reihe-1][0] = BroadcastCoordinator.trimNumber(wert_String, false);
+
+                    // ****************** SOLL/HABEN ******************
+
+                    daten_final[pointer_reihe-1][1] = "H";
+                    System.out.println("S/H: Reihe " + (pointer_reihe-1) + ": " + daten_final[pointer_reihe-1][1]);
+
+                    // ****************** BU-SCHLÜSSEL ******************
+
+                    String bu_schluessel_roh = daten_roh[pointer_reihe][position_fee_vat];
+                    System.out.println("Das sind die Informationen zum BU-Schlüssel: " + bu_schluessel_roh);
+
+                    daten_final[pointer_reihe-1][4] = BUSchluesselWriter.getBUSchluessel(bu_schluessel_roh);
+                    System.out.println("Buchungsschlüssel: Reihe " + (pointer_reihe-1) + ": \"" + daten_final[pointer_reihe-1][4] + "\"");
+
+                    // ****************** FERTIG ******************
 
                     System.out.println("++++++++++ ENDE REIHE: " + (pointer_reihe-1) + "++++++++++");
 
