@@ -14,13 +14,7 @@ import org.apache.commons.io.FileUtils;
 
 public class LogCoordinator {
 
-    //File LOGFILE = System.getProperty("user.dir")+"out/production/Design/logger/Log.log";
-    //public static final Path LOGFILE_PATH = Path.of(System.getProperty("user.dir")+"out/production/Design/logger/Log.log");
     public static final String LOGFILE_PATH = Path.of(System.getProperty("user.dir") + "/out/production/Design/logger/Log.log").toString();
-    //public static final String LOGFILE_PATH = Path.of(System.getProperty("user.dir")+"/ressources/logger/Log.log").toString();
-
-    //public static File LOGFILE = Path.of(System.getProperty("user.dir")+"out/production/Design/logger/Logfile.log");
-
     public static final File LOGFILE = new File(LOGFILE_PATH);
 
     public static boolean ACTIVITY_LOG = true; // Hier kann Log ein- oder ausgeschaltet werden
@@ -31,8 +25,6 @@ public class LogCoordinator {
         if (ACTIVITY_LOG == true) {
 
 
-            //String LOGFILE_PATH = Path.of(System.getProperty("user.dir")+"out/production/Design/logger/Log.log").toString();
-
             //https://stackoverflow.com/questions/15758685/how-to-write-logs-in-text-file-when-using-java-util-logging-logger
 
             Logger logger = Logger.getLogger("MyLog");
@@ -40,23 +32,14 @@ public class LogCoordinator {
 
             FileHandler fh;
 
-
-            //System.out.println("Aktuelel: " + System.getProperty("user.dir"));
-
-
             try {
 
-                // This block configure the logger with handler and formatter
-                //fh = new FileHandler("C:/temp/test/MyLogFile.log");
-                //fh = new FileHandler(filepath_origin.getParent() + "\\" + "Log.log");
                 fh = new FileHandler(LOGFILE_PATH);
-
 
                 logger.addHandler(fh);
                 SimpleFormatter formatter = new SimpleFormatter();
                 fh.setFormatter(formatter);
 
-                // the following statement is used to log any messages
                 logger.info(message);
 
             } catch (SecurityException e) {
@@ -83,7 +66,6 @@ public class LogCoordinator {
 
                 System.out.println("Öffne Log-File");
 
-                //public static final File = new File(LOGFILE_PATH)
 
                 if (!Desktop.isDesktopSupported())//check if Desktop is supported by Platform or not
                 {
@@ -103,36 +85,19 @@ public class LogCoordinator {
 
         }
 
-
     }
 
     public static void deleteLog() {
 
         if (ACTIVITY_LOG == true) {
 
-            //https://stackoverflow.com/questions/13195797/delete-all-files-in-directory-but-not-directory-one-liner-solution
-
             File deletefile = LOGFILE;
 
-            // https://www.baeldung.com/java-delete-directory
-            // https://stackoverflow.com/questions/13195797/delete-all-files-in-directory-but-not-directory-one-liner-solution
             try {
                 FileUtils.cleanDirectory(deletefile.getParentFile());
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         }
-
     }
-
-
-    }
-
-
-
-
-
-
-
-
+}
