@@ -8,8 +8,11 @@ public class TransformerAlltricks {
     private static Integer KONTO_KREDITOR = 7000199; // Kreditoren-Konto von "Alltricks"
 
     private static String[] RELEVANTE_ITEMS = { // Relevante Items zur Berechnung
-            "XXX"
-            };
+            "Erstellungsdatum", // 0
+            "Rechnungsnummer", // 1
+            "Bestellnr.", // 2
+            "Typ" // 3
+    };
 
     private static String[] GEBUEHRENARTEN = { // Mögliche Gebührenarten bei "Alltricks"
             "XXX", // 0
@@ -37,6 +40,17 @@ public class TransformerAlltricks {
         // ****************** DATUM ******************
         daten_final = BroadcastCoordinator.transferData(daten_final, positionen, daten_roh, rows, RELEVANTE_ITEMS, RELEVANTE_ITEMS[0], 5);
         daten_final = TransformerDate.reformatDate(daten_final, DATUM_FORMAT); // Transform to DATEV-format of Date
+
+        // ****************** BELEGFELD 1 ******************
+        daten_final = BroadcastCoordinator.transferData(daten_final, positionen, daten_roh, rows, RELEVANTE_ITEMS, RELEVANTE_ITEMS[1], 6);
+
+        // ****************** BELEGFELD 2 ******************
+        System.out.println("Belegfeld 2 wird bei Real nicht beschrieben.");
+
+        // ****************** BUCHUNGSTEXT ******************
+
+        String[] relevanteItemsBuchungstext = {RELEVANTE_ITEMS[2], RELEVANTE_ITEMS[3]};
+        daten_final = BuchungstextWriter.getBuchungstext(daten_final, positionen, daten_roh, rows, relevanteItemsBuchungstext, RELEVANTE_ITEMS, 8);
 
         // ****************** FESTSCHREIBUNG ******************
         daten_final = FixationCoordinator.writeFixation(daten_final);
