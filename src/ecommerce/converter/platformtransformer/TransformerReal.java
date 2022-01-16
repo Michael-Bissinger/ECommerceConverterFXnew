@@ -59,7 +59,6 @@ public class TransformerReal {
         System.out.println("Belegfeld 2 wird bei Real nicht beschrieben.");
 
         // ****************** BUCHUNGSTEXT ******************
-
         String[] relevanteItemsBuchungstext = {RELEVANTE_ITEMS[5], RELEVANTE_ITEMS[6], RELEVANTE_ITEMS[7]};
         daten_final = BuchungstextWriter.getBuchungstext(daten_final, positionen, daten_roh, rows, relevanteItemsBuchungstext, RELEVANTE_ITEMS, 8);
 

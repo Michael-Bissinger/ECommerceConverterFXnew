@@ -11,7 +11,8 @@ public class TransformerAlltricks {
             "Erstellungsdatum", // 0
             "Rechnungsnummer", // 1
             "Bestellnr.", // 2
-            "Typ" // 3
+            "Typ", // 3
+            "Betrag" // 4
     };
 
     private static String[] GEBUEHRENARTEN = { // Mögliche Gebührenarten bei "Alltricks"
@@ -48,16 +49,55 @@ public class TransformerAlltricks {
         System.out.println("Belegfeld 2 wird bei Real nicht beschrieben.");
 
         // ****************** BUCHUNGSTEXT ******************
-
         String[] relevanteItemsBuchungstext = {RELEVANTE_ITEMS[2], RELEVANTE_ITEMS[3]};
         daten_final = BuchungstextWriter.getBuchungstext(daten_final, positionen, daten_roh, rows, relevanteItemsBuchungstext, RELEVANTE_ITEMS, 8);
 
         // ****************** FESTSCHREIBUNG ******************
         daten_final = FixationCoordinator.writeFixation(daten_final);
 
+        // ***************************************************
+        // ****************** GEBÜHRENCHECK ******************
+        // ***************************************************
+        // Hauptinformationen für Buchung
+
+        switch (operation) {
+            case "Nur Gebühren" -> daten_final = extractFees(daten_final, daten_roh, rows, positionen, GEBUEHRENARTEN, RELEVANTE_ITEMS[3], RELEVANTE_ITEMS);
+            default -> System.out.println("FEHLER: Operation ist nicht verfügbar");
+        }
+
 
         return daten_final;
 
+    }
+
+    private static String[][] extractFees(String[][] daten_final, String[][] daten_roh, int rows, String[][] positionen, String[] gebuehrenarten, String relevantesItem, String[] relevanteItems) {
+
+        // ****************** Relevante Items zur Bestimmung von Gebühren ******************
+
+        int position_relevantesItemGebuehrenart = ItemPositionCoordinator.findRelevantPosition(positionen, relevantesItem, relevanteItems);
+        System.out.println("Position von Typ:" + position_relevantesItemGebuehrenart);
+
+        int position_amount = ItemPositionCoordinator.findRelevantPosition(positionen, relevanteItems[4], relevanteItems);
+        System.out.println("Position von Betrag:" + position_amount);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        return daten_final;
     }
 
 
