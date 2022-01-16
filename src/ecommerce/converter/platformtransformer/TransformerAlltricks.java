@@ -12,11 +12,12 @@ public class TransformerAlltricks {
             "Rechnungsnummer", // 1
             "Bestellnr.", // 2
             "Typ", // 3
-            "Betrag" // 4
+            "Betrag", // 4
+            "Beschreibung"// 5
     };
 
     private static String[] GEBUEHRENARTEN = { // Mögliche Gebührenarten bei "Alltricks"
-            "XXX", // 0
+            "Provisionen", // 0
             "XXXX", // 1
             "XXX"}; // 2
 
@@ -77,12 +78,59 @@ public class TransformerAlltricks {
         int position_relevantesItemGebuehrenart = ItemPositionCoordinator.findRelevantPosition(positionen, relevantesItem, relevanteItems);
         System.out.println("Position von Typ:" + position_relevantesItemGebuehrenart);
 
-        int position_amount = ItemPositionCoordinator.findRelevantPosition(positionen, relevanteItems[4], relevanteItems);
-        System.out.println("Position von Betrag:" + position_amount);
+        int position_betrag = ItemPositionCoordinator.findRelevantPosition(positionen, relevanteItems[4], relevanteItems);
+        System.out.println("Position von Betrag:" + position_betrag);
+
+        int position_beschreibung = ItemPositionCoordinator.findRelevantPosition(positionen, relevanteItems[4], relevanteItems);
+        System.out.println("Position von Beschreibung:" + position_beschreibung);
+
+        // ****************** Durchtesten aller Gebührenarten ******************
+
+        System.out.println("Anzahl Gebührenarten: " + gebuehrenarten.length);
+        for(int k=1; k<gebuehrenarten.length; k++) { // So lange iterieren wie man Gebührenarten hat
+
+            System.out.println("--- Checke Gebührenart Nr. " + (k) + "/" + (gebuehrenarten.length) + ": " + gebuehrenarten[k] + " ---");
+
+            for(int pointer_reihe=1; pointer_reihe<rows; pointer_reihe++) { // Bei "i = 1" beginnen, damit oberste Zeile nicht mitgenommen wird
+
+                System.out.println("++++++++++ START REIHE: " + (pointer_reihe - 1) + "++++++++++");
 
 
+                // ***************************************************
+                // GEBÜHR "Provisionen" // 0
+                // ***************************************************
+                if (daten_roh[pointer_reihe][position_relevantesItemGebuehrenart].contains(gebuehrenarten[0])) {
+
+                    System.out.println("Gebührenart: " + daten_roh[pointer_reihe][position_relevantesItemGebuehrenart]);
+
+                    // ****************** UMSATZ ******************
+
+                    String wert_String = daten_roh[pointer_reihe][position_betrag];
+                    daten_final[pointer_reihe-1][0] = BroadcastCoordinator.trimNumber(wert_String, true);
+
+                    // ****************** SOLL/HABEN ******************
+
+                    daten_final[pointer_reihe-1][1] = "H";
+                    System.out.println("S/H: Reihe " + (pointer_reihe-1) + ": " + daten_final[pointer_reihe-1][1]);
+
+                    // ****************** BU-SCHLÜSSEL ******************
+
+                    String bu_schluessel_roh = daten_roh[pointer_reihe][position_beschreibung];
+                    System.out.println("Das sind die Informationen zum BU-Schlüssel: " + bu_schluessel_roh);
+
+                    daten_final[pointer_reihe-1][4] = BUSchluesselWriter.getBUSchluessel(bu_schluessel_roh);
+
+                    System.out.println("Buchungsschlüssel: Reihe " + (pointer_reihe-1) + ": \"" + daten_final[pointer_reihe-1][4] + "\"");
+
+                    // ****************** FERTIG ******************
+
+                    System.out.println("++++++++++ ENDE REIHE: " + (pointer_reihe-1) + "++++++++++");
+
+                }
 
 
+            }
+        }
 
 
 
