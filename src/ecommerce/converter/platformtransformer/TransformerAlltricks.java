@@ -18,7 +18,7 @@ public class TransformerAlltricks {
 
     private static String[] GEBUEHRENARTEN = { // Mögliche Gebührenarten bei "Alltricks"
             "Provisionen", // 0
-            "XXXX", // 1
+            "Provisionssteuer", // 1
             "XXX"}; // 2
 
     private static String DATUM_FORMAT = "dd.MM.yyyy - HH:mm:ss"; // Datumsformat von "Alltricks" (14.04.2020 - 20:58:24)
@@ -34,10 +34,10 @@ public class TransformerAlltricks {
 
 
         // ****************** DEBITORENKONTO ******************
-        daten_final = AccountWriter.writeAccount(daten_final, rows, KONTO_DEBITOR, 3); // Schreibe Debitorenkonto  in 3. Reihe (also Position 2) von daten_final
+        daten_final = AccountWriter.writeAccount(daten_final, rows, KONTO_DEBITOR, 2); // Schreibe Debitorenkonto  in 3. Reihe (also Position 2) von daten_final
 
         // ****************** KREDITORENKONTO ******************
-        daten_final = AccountWriter.writeAccount(daten_final, rows, KONTO_KREDITOR, 4); // Schreibe Kreditorenkonto  in 4. Reihe (also Position 3) von daten_final
+        daten_final = AccountWriter.writeAccount(daten_final, rows, KONTO_KREDITOR, 3); // Schreibe Kreditorenkonto  in 4. Reihe (also Position 3) von daten_final
 
         // ****************** DATUM ******************
         daten_final = BroadcastCoordinator.transferData(daten_final, positionen, daten_roh, rows, RELEVANTE_ITEMS, RELEVANTE_ITEMS[0], 5);
@@ -128,26 +128,41 @@ public class TransformerAlltricks {
 
                 }
 
+                // ***************************************************
+                // GEBÜHR "Provisionssteuer" // 1
+                // ***************************************************
+                if (daten_roh[pointer_reihe][position_relevantesItemGebuehrenart].contains(gebuehrenarten[1])) {
+
+                    System.out.println("Gebührenart: " + daten_roh[pointer_reihe][position_relevantesItemGebuehrenart]);
+
+                    // ****************** UMSATZ ******************
+
+                    String wert_String = daten_roh[pointer_reihe][position_betrag];
+                    daten_final[pointer_reihe-1][0] = BroadcastCoordinator.trimNumber(wert_String, true);
+
+                    // ****************** SOLL/HABEN ******************
+
+                    daten_final[pointer_reihe-1][1] = "H";
+                    System.out.println("S/H: Reihe " + (pointer_reihe-1) + ": " + daten_final[pointer_reihe-1][1]);
+
+                    // ****************** BU-SCHLÜSSEL ******************
+
+                    String bu_schluessel_roh = daten_roh[pointer_reihe][position_beschreibung];
+                    System.out.println("Das sind die Informationen zum BU-Schlüssel: " + bu_schluessel_roh);
+
+                    daten_final[pointer_reihe-1][4] = BUSchluesselWriter.getBUSchluessel(bu_schluessel_roh);
+
+                    System.out.println("Buchungsschlüssel: Reihe " + (pointer_reihe-1) + ": \"" + daten_final[pointer_reihe-1][4] + "\"");
+
+                    // ****************** FERTIG ******************
+
+                    System.out.println("++++++++++ ENDE REIHE: " + (pointer_reihe-1) + "++++++++++");
+
+                }
 
             }
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
         return daten_final;
     }
-
-
-
 }
