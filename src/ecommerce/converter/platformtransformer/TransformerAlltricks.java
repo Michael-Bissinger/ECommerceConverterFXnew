@@ -172,7 +172,7 @@ public class TransformerAlltricks {
                     // ****************** UMSATZ ******************
 
                     String wert_String = daten_roh[pointer_reihe][position_betrag];
-                    daten_final[pointer_reihe-1][0] = BroadcastCoordinator.trimNumber(wert_String, false);
+                    daten_final[pointer_reihe-1][0] = BroadcastCoordinator.trimNumber(wert_String, true);
 
                     // ****************** SOLL/HABEN ******************
 
