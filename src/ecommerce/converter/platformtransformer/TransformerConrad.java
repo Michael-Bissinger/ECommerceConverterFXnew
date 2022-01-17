@@ -79,7 +79,7 @@ public class TransformerConrad {
         int position_relevantesItemGebuehrenart = ItemPositionCoordinator.findRelevantPosition(positionen, relevantesItem, relevanteItems);
         System.out.println("Position von Typ:" + position_relevantesItemGebuehrenart);
 
-        int position_betrag = ItemPositionCoordinator.findRelevantPosition(positionen, relevanteItems[4], relevanteItems);
+        int position_betrag = ItemPositionCoordinator.findRelevantPosition(positionen, relevanteItems[6], relevanteItems);
         System.out.println("Position von Betrag:" + position_betrag);
 
         int position_beschreibung = ItemPositionCoordinator.findRelevantPosition(positionen, relevanteItems[4], relevanteItems);
@@ -95,6 +95,39 @@ public class TransformerConrad {
             for (int pointer_reihe = 1; pointer_reihe < rows; pointer_reihe++) { // Bei "i = 1" beginnen, damit oberste Zeile nicht mitgenommen wird
 
                 System.out.println("++++++++++ START REIHE: " + (pointer_reihe - 1) + "++++++++++");
+
+
+                // ***************************************************
+                // GEBÜHR "Provisionen" // 0
+                // ***************************************************
+                if (daten_roh[pointer_reihe][position_relevantesItemGebuehrenart].contains(gebuehrenarten[0])) {
+
+                    System.out.println("Gebührenart: " + daten_roh[pointer_reihe][position_relevantesItemGebuehrenart]);
+
+                    // ****************** UMSATZ ******************
+
+                    String wert_String = daten_roh[pointer_reihe][position_betrag];
+                    daten_final[pointer_reihe-1][0] = BroadcastCoordinator.trimNumber(wert_String, true);
+
+                    // ****************** SOLL/HABEN ******************
+
+                    daten_final[pointer_reihe-1][1] = "H";
+                    System.out.println("S/H: Reihe " + (pointer_reihe-1) + ": " + daten_final[pointer_reihe-1][1]);
+
+                    // ****************** BU-SCHLÜSSEL ******************
+
+                    String bu_schluessel_roh = daten_roh[pointer_reihe][position_beschreibung];
+                    System.out.println("Das sind die Informationen zum BU-Schlüssel: " + bu_schluessel_roh);
+
+                    daten_final[pointer_reihe-1][4] = BUSchluesselWriter.getBUSchluessel(bu_schluessel_roh);
+
+                    System.out.println("Buchungsschlüssel: Reihe " + (pointer_reihe-1) + ": \"" + daten_final[pointer_reihe-1][4] + "\"");
+
+                    // ****************** FERTIG ******************
+
+                    System.out.println("++++++++++ ENDE REIHE: " + (pointer_reihe-1) + "++++++++++");
+                }
+
 
             }
         }
