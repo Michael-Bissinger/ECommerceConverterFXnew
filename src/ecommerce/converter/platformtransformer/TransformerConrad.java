@@ -20,7 +20,7 @@ public class TransformerConrad {
     private static String[] GEBUEHRENARTEN = { // Mögliche Gebührenarten bei "Conrad"
             "Provisionen", // 0
             "Provisionssteuer", // 1
-            "Rückerstattung Provisionen"}; // 2
+            "Rückerstattung der Provision"}; // 2
 
     private static String DATUM_FORMAT = "dd.MM.yy - HH:mm:ss"; // Datumsformat von "Conrad" (01.08.19 - 15:20:53)
 
@@ -33,17 +33,15 @@ public class TransformerConrad {
         // Positionen relevanter Items herausfinden
         String[][] positionen = ItemPositionCoordinator.storeRelevantPositions(daten_roh, columns, RELEVANTE_ITEMS);
 
-
         // ****************** DEBITORENKONTO ******************
-        daten_final = AccountWriter.writeAccount(daten_final, rows, KONTO_DEBITOR, 3); // Schreibe Debitorenkonto  in 3. Reihe (also Position 2) von daten_final
+        daten_final = AccountWriter.writeAccount(daten_final, rows, KONTO_DEBITOR, 2); // Schreibe Debitorenkonto  in 3. Reihe (also Position 2) von daten_final
 
         // ****************** KREDITORENKONTO ******************
-        daten_final = AccountWriter.writeAccount(daten_final, rows, KONTO_KREDITOR, 4); // Schreibe Kreditorenkonto  in 4. Reihe (also Position 3) von daten_final
+        daten_final = AccountWriter.writeAccount(daten_final, rows, KONTO_KREDITOR, 3); // Schreibe Kreditorenkonto  in 4. Reihe (also Position 3) von daten_final
 
         // ****************** DATUM ******************
         daten_final = BroadcastCoordinator.transferData(daten_final, positionen, daten_roh, rows, RELEVANTE_ITEMS, RELEVANTE_ITEMS[0], 5);
         daten_final = TransformerDate.reformatDate(daten_final, DATUM_FORMAT); // Transform to DATEV-format of Date
-
 
         // ****************** BELEGFELD 1 ******************
         daten_final = BroadcastCoordinator.transferData(daten_final, positionen, daten_roh, rows, RELEVANTE_ITEMS, RELEVANTE_ITEMS[2], 6);
@@ -60,11 +58,49 @@ public class TransformerConrad {
         // ****************** FESTSCHREIBUNG ******************
         daten_final = FixationCoordinator.writeFixation(daten_final);
 
+        // ***************************************************
+        // ****************** GEBÜHRENCHECK ******************
+        // ***************************************************
+        // Hauptinformationen für Buchung
+
+        switch (operation) {
+            case "Nur Gebühren" -> daten_final = extractFees(daten_final, daten_roh, rows, positionen, GEBUEHRENARTEN, RELEVANTE_ITEMS[5], RELEVANTE_ITEMS);
+            default -> System.out.println("FEHLER: Operation ist nicht verfügbar");
+        }
 
         return daten_final;
 
     }
 
+    private static String[][] extractFees(String[][] daten_final, String[][] daten_roh, int rows, String[][] positionen, String[] gebuehrenarten, String relevantesItem, String[] relevanteItems) {
+
+        // ****************** Relevante Items zur Bestimmung von Gebühren ******************
+
+        int position_relevantesItemGebuehrenart = ItemPositionCoordinator.findRelevantPosition(positionen, relevantesItem, relevanteItems);
+        System.out.println("Position von Typ:" + position_relevantesItemGebuehrenart);
+
+        int position_betrag = ItemPositionCoordinator.findRelevantPosition(positionen, relevanteItems[4], relevanteItems);
+        System.out.println("Position von Betrag:" + position_betrag);
+
+        int position_beschreibung = ItemPositionCoordinator.findRelevantPosition(positionen, relevanteItems[4], relevanteItems);
+        System.out.println("Position von Beschreibung:" + position_beschreibung);
+
+        // ****************** Durchtesten aller Gebührenarten ******************
+
+        System.out.println("Anzahl Gebührenarten: " + gebuehrenarten.length);
+        for (int k = 1; k < gebuehrenarten.length; k++) { // So lange iterieren wie man Gebührenarten hat
+
+            System.out.println("--- Checke Gebührenart Nr. " + (k) + "/" + (gebuehrenarten.length) + ": " + gebuehrenarten[k] + " ---");
+
+            for (int pointer_reihe = 1; pointer_reihe < rows; pointer_reihe++) { // Bei "i = 1" beginnen, damit oberste Zeile nicht mitgenommen wird
+
+                System.out.println("++++++++++ START REIHE: " + (pointer_reihe - 1) + "++++++++++");
+
+            }
+        }
 
 
+
+        return daten_final;
+    }
 }

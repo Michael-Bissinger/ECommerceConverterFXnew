@@ -123,7 +123,7 @@ public class Main extends Application{
         // Platform-Choice
         ObservableList<String> platformoptions =
                 FXCollections.observableArrayList(
-                        "Alltricks",
+                        "Conrad",
                         "Real",
                         "Conrad",
                         "Alltricks"

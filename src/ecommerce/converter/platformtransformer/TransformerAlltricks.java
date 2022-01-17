@@ -126,7 +126,6 @@ public class TransformerAlltricks {
                     // ****************** FERTIG ******************
 
                     System.out.println("++++++++++ ENDE REIHE: " + (pointer_reihe-1) + "++++++++++");
-
                 }
 
                 // ***************************************************
@@ -158,7 +157,6 @@ public class TransformerAlltricks {
                     // ****************** FERTIG ******************
 
                     System.out.println("++++++++++ ENDE REIHE: " + (pointer_reihe-1) + "++++++++++");
-
                 }
 
 
@@ -191,43 +189,39 @@ public class TransformerAlltricks {
                     // ****************** FERTIG ******************
 
                     System.out.println("++++++++++ ENDE REIHE: " + (pointer_reihe-1) + "++++++++++");
-
                 }
 
 
+                // ***************************************************
+                // GEBÜHR "Steuer auf Rückerstattung der Provision" // 3
+                // ***************************************************
+                if (daten_roh[pointer_reihe][position_relevantesItemGebuehrenart].contains(gebuehrenarten[3])) {
 
+                    System.out.println("Gebührenart: " + daten_roh[pointer_reihe][position_relevantesItemGebuehrenart]);
 
-            // ***************************************************
-            // GEBÜHR "Steuer auf Rückerstattung der Provision" // 3
-            // ***************************************************
-            if (daten_roh[pointer_reihe][position_relevantesItemGebuehrenart].contains(gebuehrenarten[3])) {
+                    // ****************** UMSATZ ******************
 
-                System.out.println("Gebührenart: " + daten_roh[pointer_reihe][position_relevantesItemGebuehrenart]);
+                    String wert_String = daten_roh[pointer_reihe][position_betrag];
+                    daten_final[pointer_reihe-1][0] = BroadcastCoordinator.trimNumber(wert_String, true);
 
-                // ****************** UMSATZ ******************
+                    // ****************** SOLL/HABEN ******************
 
-                String wert_String = daten_roh[pointer_reihe][position_betrag];
-                daten_final[pointer_reihe-1][0] = BroadcastCoordinator.trimNumber(wert_String, true);
+                    daten_final[pointer_reihe-1][1] = "S";
+                    System.out.println("S/H: Reihe " + (pointer_reihe-1) + ": " + daten_final[pointer_reihe-1][1]);
 
-                // ****************** SOLL/HABEN ******************
+                    // ****************** BU-SCHLÜSSEL ******************
 
-                daten_final[pointer_reihe-1][1] = "S";
-                System.out.println("S/H: Reihe " + (pointer_reihe-1) + ": " + daten_final[pointer_reihe-1][1]);
+                    String bu_schluessel_roh = daten_roh[pointer_reihe][position_beschreibung];
+                    System.out.println("Das sind die Informationen zum BU-Schlüssel: " + bu_schluessel_roh);
 
-                // ****************** BU-SCHLÜSSEL ******************
+                    daten_final[pointer_reihe-1][4] = BUSchluesselWriter.getBUSchluessel(bu_schluessel_roh);
 
-                String bu_schluessel_roh = daten_roh[pointer_reihe][position_beschreibung];
-                System.out.println("Das sind die Informationen zum BU-Schlüssel: " + bu_schluessel_roh);
+                    System.out.println("Buchungsschlüssel: Reihe " + (pointer_reihe-1) + ": \"" + daten_final[pointer_reihe-1][4] + "\"");
 
-                daten_final[pointer_reihe-1][4] = BUSchluesselWriter.getBUSchluessel(bu_schluessel_roh);
+                    // ****************** FERTIG ******************
 
-                System.out.println("Buchungsschlüssel: Reihe " + (pointer_reihe-1) + ": \"" + daten_final[pointer_reihe-1][4] + "\"");
-
-                // ****************** FERTIG ******************
-
-                System.out.println("++++++++++ ENDE REIHE: " + (pointer_reihe-1) + "++++++++++");
-
-            }
+                    System.out.println("++++++++++ ENDE REIHE: " + (pointer_reihe-1) + "++++++++++");
+                }
 
             }
         }
