@@ -20,5 +20,4 @@ public class DataTransformer {
 
         return daten_final;
     }
-
 }

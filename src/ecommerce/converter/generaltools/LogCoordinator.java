@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.FileHandler;
-import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
@@ -21,19 +20,13 @@ public class LogCoordinator {
 
     public static void writeLog(String message) {
 
-
         if (ACTIVITY_LOG == true) {
-
-
-            //https://stackoverflow.com/questions/15758685/how-to-write-logs-in-text-file-when-using-java-util-logging-logger
-
             Logger logger = Logger.getLogger("MyLog");
             logger.setUseParentHandlers(false);
 
             FileHandler fh;
 
             try {
-
                 fh = new FileHandler(LOGFILE_PATH);
 
                 logger.addHandler(fh);
@@ -47,18 +40,13 @@ public class LogCoordinator {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-
         }
-    else {
-        System.out.println("Kann Log nicht schreiben, da Log nicht aktiv");
-    }
-
+        else {
+            System.out.println("Kann Log nicht schreiben, da Log nicht aktiv");
+        }
     }
 
     public static void openLog() {
-
-        //https://www.javatpoint.com/how-to-open-a-file-in-java
 
         if (ACTIVITY_LOG == true) {
 
@@ -82,9 +70,7 @@ public class LogCoordinator {
         } else {
 
             System.out.println("Log-File nicht aktiv");
-
         }
-
     }
 
     public static void deleteLog() {
