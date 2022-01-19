@@ -29,7 +29,6 @@ public class TransformerReal {
 
     private static String DATUM_FORMAT = "yyyy-MM-dd HH:mm:ss"; // Datumsformat von "Real" (2019-12-01 00:23:11)
 
-
     public static String[][] transformData(String operation, String[][] daten_roh, int rows, int columns) {
 
         // Reihen: "Umsatz" (0), "Soll-Haben" (1), "Kontonummer" (2), "Gegenkonto" (3), "BU-Schlüssel" (4), "Belegdatum" (5), "Belegfeld 1" (6), "Belegfeld 2" (7), "Buchungstext" (8), "Festschreibung" (9)};
@@ -293,10 +292,6 @@ public class TransformerReal {
                     System.out.println("++++++++++ ENDE REIHE: " + (pointer_reihe-1) + "++++++++++");
 
                 }
-
-
-
-
             }
         }
 

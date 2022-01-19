@@ -1,6 +1,5 @@
 package ecommerce.converter.transformtools;
 
-
 public class BUSchluesselWriter {
 
     private static String[] BU_9 = { // Relevante Items zur Berechnung von Buchungsschlüssel 9
