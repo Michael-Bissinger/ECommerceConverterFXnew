@@ -44,7 +44,7 @@ public class TransformerConrad {
 
         // ****************** DATUM ******************
         daten_final = BroadcastCoordinator.transferData(daten_final, positionen, daten_roh, rows, RELEVANTE_ITEMS, RELEVANTE_ITEMS[0], 5);
-        daten_final = TransformerDate.reformatDate(daten_final, DATUM_FORMAT); // Transform to DATEV-format of Date
+        daten_final = TransformerDate.reformatDate(daten_final, DATUM_FORMAT); // Zu DATEV-Datum transformieren
 
         // ****************** BELEGFELD 1 ******************
         daten_final = BroadcastCoordinator.transferData(daten_final, positionen, daten_roh, rows, RELEVANTE_ITEMS, RELEVANTE_ITEMS[2], 6);

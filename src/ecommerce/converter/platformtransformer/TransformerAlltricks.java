@@ -45,7 +45,7 @@ public class TransformerAlltricks {
 
         // ****************** DATUM ******************
         daten_final = BroadcastCoordinator.transferData(daten_final, positionen, daten_roh, rows, RELEVANTE_ITEMS, RELEVANTE_ITEMS[0], 5);
-        daten_final = TransformerDate.reformatDate(daten_final, DATUM_FORMAT); // Transform to DATEV-format of Date
+        daten_final = TransformerDate.reformatDate(daten_final, DATUM_FORMAT); // Zu DATEV-Datum transformieren
 
         // ****************** BELEGFELD 1 ******************
         daten_final = BroadcastCoordinator.transferData(daten_final, positionen, daten_roh, rows, RELEVANTE_ITEMS, RELEVANTE_ITEMS[1], 6);
@@ -70,9 +70,7 @@ public class TransformerAlltricks {
             default -> System.out.println("FEHLER: Operation ist nicht verfügbar");
         }
 
-
         return daten_final;
-
     }
 
     private static String[][] extractFees(String[][] daten_final, String[][] daten_roh, int rows, String[][] positionen, String[] gebuehrenarten, String relevantesItem, String[] relevanteItems) {
@@ -98,7 +96,6 @@ public class TransformerAlltricks {
             for(int pointer_reihe=1; pointer_reihe<rows; pointer_reihe++) { // Bei "i = 1" beginnen, damit oberste Zeile nicht mitgenommen wird
 
                 System.out.println("++++++++++ START REIHE: " + (pointer_reihe - 1) + "++++++++++");
-
 
                 // ***************************************************
                 // GEBÜHR "Provisionen" // 0
@@ -162,7 +159,6 @@ public class TransformerAlltricks {
                     System.out.println("++++++++++ ENDE REIHE: " + (pointer_reihe-1) + "++++++++++");
                 }
 
-
                 // ***************************************************
                 // GEBÜHR "Rückerstattung der Provision" // 2
                 // ***************************************************
@@ -193,7 +189,6 @@ public class TransformerAlltricks {
 
                     System.out.println("++++++++++ ENDE REIHE: " + (pointer_reihe-1) + "++++++++++");
                 }
-
 
                 // ***************************************************
                 // GEBÜHR "Steuer auf Rückerstattung der Provision" // 3
@@ -257,7 +252,6 @@ public class TransformerAlltricks {
                     System.out.println("++++++++++ ENDE REIHE: " + (pointer_reihe-1) + "++++++++++");
                 }
 
-
                 // ***************************************************
                 // GEBÜHR "Abonnementsteuer" // 5
                 // ***************************************************
@@ -288,8 +282,6 @@ public class TransformerAlltricks {
 
                     System.out.println("++++++++++ ENDE REIHE: " + (pointer_reihe-1) + "++++++++++");
                 }
-
-
             }
         }
 
