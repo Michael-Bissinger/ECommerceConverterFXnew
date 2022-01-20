@@ -28,7 +28,6 @@ public class TransformerConrad {
 
     private static String DATUM_FORMAT = "dd.MM.yy - HH:mm:ss"; // Datumsformat von "Conrad" (01.08.19 - 15:20:53)
 
-
     public static String[][] transformData(String operation, String[][] daten_roh, int rows, int columns) {
 
         // Reihen: "Umsatz" (0), "Soll-Haben" (1), "Kontonummer" (2), "Gegenkonto" (3), "BU-Schlüssel" (4), "Belegdatum" (5), "Belegfeld 1" (6), "Belegfeld 2" (7), "Buchungstext" (8), "Festschreibung" (9)};
@@ -73,7 +72,6 @@ public class TransformerConrad {
         }
 
         return daten_final;
-
     }
 
     private static String[][] extractFees(String[][] daten_final, String[][] daten_roh, int rows, String[][] positionen, String[] gebuehrenarten, String relevantesItem, String[] relevanteItems) {
@@ -99,7 +97,6 @@ public class TransformerConrad {
             for (int pointer_reihe = 1; pointer_reihe < rows; pointer_reihe++) { // Bei "i = 1" beginnen, damit oberste Zeile nicht mitgenommen wird
 
                 System.out.println("++++++++++ START REIHE: " + (pointer_reihe - 1) + "++++++++++");
-
 
                 // ***************************************************
                 // GEBÜHR "Provisionen" // 0
@@ -163,7 +160,6 @@ public class TransformerConrad {
                     System.out.println("++++++++++ ENDE REIHE: " + (pointer_reihe-1) + "++++++++++");
                 }
 
-
                 // ***************************************************
                 // GEBÜHR "Rückerstattung der Provision" // 2
                 // ***************************************************
@@ -194,7 +190,6 @@ public class TransformerConrad {
 
                     System.out.println("++++++++++ ENDE REIHE: " + (pointer_reihe-1) + "++++++++++");
                 }
-
 
                 // ***************************************************
                 // GEBÜHR "Steuer auf Rückerstattung der Provision" // 3
@@ -258,7 +253,6 @@ public class TransformerConrad {
                     System.out.println("++++++++++ ENDE REIHE: " + (pointer_reihe-1) + "++++++++++");
                 }
 
-
                 // ***************************************************
                 // GEBÜHR "Abonnementsteuer" // 5
                 // ***************************************************
@@ -289,8 +283,6 @@ public class TransformerConrad {
 
                     System.out.println("++++++++++ ENDE REIHE: " + (pointer_reihe-1) + "++++++++++");
                 }
-
-
             }
         }
 
