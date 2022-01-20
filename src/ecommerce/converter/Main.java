@@ -85,7 +85,7 @@ public class Main extends Application{
                     FILEPATH = FILEPATH.substring(1);
                     // Letzten Buchstaben entfernen
                     FILEPATH = FILEPATH.substring(0, FILEPATH.length() - 1);
-                    // Pfad für Verarbetung in Java anpassen
+                    // Pfad für Verarbeitung in Java anpassen
                     FILEPATH = FILEPATH.replace("\\", "/");
 
                     System.out.println("Dateipfad: " + FILEPATH);
