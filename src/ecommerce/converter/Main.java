@@ -1,6 +1,5 @@
 package ecommerce.converter;
 
-import com.opencsv.exceptions.CsvValidationException;
 import ecommerce.converter.generaltools.LogCoordinator;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -23,9 +22,6 @@ import javafx.stage.Stage;
 import javafx.scene.layout.GridPane;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.text.ParseException;
 
 public class Main extends Application{
 
@@ -34,11 +30,7 @@ public class Main extends Application{
     @Override
     public void start(Stage primaryStage)  {
 
-
         // Controls
-        final TextField directory_newfile = new TextField();
-
-
         Label lbl_platform = new Label("Plattform:");
         lbl_platform.setTextAlignment(TextAlignment.LEFT);
         Label lbl_finalformat = new Label("Endformat:");
@@ -46,9 +38,7 @@ public class Main extends Application{
         Label lbl_operation = new Label("Operation:");
         lbl_operation.setTextAlignment(TextAlignment.LEFT);
 
-
         // Drag and Drop
-
         Label label_rawfile_drop = new Label("Rohdatei hierher ziehen (nur eine!)");
         TextField dropped = new TextField("");
         dropped.setEditable(false);
@@ -68,7 +58,6 @@ public class Main extends Application{
             public void handle(DragEvent event) {
                 if (event.getGestureSource() != dragTarget
                         && event.getDragboard().hasFiles()) {
-                    /* allow for both copying and moving, whatever user chooses */
                     event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
                 }
                 event.consume();
@@ -79,30 +68,28 @@ public class Main extends Application{
 
             @Override
             public void handle(DragEvent event) {
-                String filepath_drag;
 
                 Dragboard db = event.getDragboard();
                 boolean success = false;
                 if (db.hasFiles()) {
-                    //dropped.setText(db.getFiles().toString());
 
                     File f = new File(db.getFiles().toString());
                     f.getName();
                     dropped.setText("[" + f.getName());
 
                     FILEPATH = db.getFiles().toString();
-                    String filepathdb = db.getFiles().toString();
 
-                    //Cut first and last letter
-                    FILEPATH = FILEPATH.substring(1);                           // Remove first letter
-                    FILEPATH = FILEPATH.substring(0, FILEPATH.length() - 1);    // Remove last letter
-                    //FILEPATH = FILEPATH.replace("\\", "\\\\");     // Make useable for Java
-                    FILEPATH = FILEPATH.replace("\\", "/");     // Make useable for Java
+                    // ***** Letzten und ersten Buchstaben entfernen
+                    // Ersten Buchstaben entfernen
+                    FILEPATH = FILEPATH.substring(1);
+                    // Letzten Buchstaben entfernen
+                    FILEPATH = FILEPATH.substring(0, FILEPATH.length() - 1);
+                    // Pfad für Verarbetung in Java anpassen
+                    FILEPATH = FILEPATH.replace("\\", "/");
 
                     System.out.println("Dateipfad: " + FILEPATH);
 
-
-                    // Set color on green after File is dragged/dropped
+                    // Farbe wird grün, nachdem Datei dragged/dropped wurde
                     dragTarget.setStyle("-fx-padding: 10;" +
                             "-fx-border-style: solid inside;" +
                             "-fx-border-width: 2;" +
@@ -112,18 +99,16 @@ public class Main extends Application{
 
                     success = true;
                 }
-                /* let the source know whether the string was successfully
-                 * transferred and used */
+                // Meldung, dass der String für Dateilocation übertragen wurde
                 event.setDropCompleted(success);
 
                 event.consume();
             }
         });
 
-        // Platform-Choice
+        // Platform-Wahl
         ObservableList<String> platformoptions =
                 FXCollections.observableArrayList(
-                        //"Conrad",
                         "Real",
                         "Conrad",
                         "Alltricks"
@@ -131,7 +116,7 @@ public class Main extends Application{
         final ComboBox platforms_box = new ComboBox(platformoptions);
         platforms_box.getSelectionModel().selectFirst(); // TODO: After testing remove
 
-        // "Gebühren" or "Full"-Choice
+        // Aktuell lassen sich nur Gebühren verarbeiten, später mehr
         ObservableList<String> operationoptions =
                 FXCollections.observableArrayList(
                         "Nur Gebühren"
@@ -139,19 +124,15 @@ public class Main extends Application{
         final ComboBox operation_box = new ComboBox(operationoptions);
         operation_box.getSelectionModel().selectFirst();
 
-        // Endformat: "DATEV-Format" or "ASCII-Mask" or"XML"
+        // Endformat: Aktuell geht nur "Maske (ASCII)"
         ObservableList<String> formatoptions =
                 FXCollections.observableArrayList(
                         "Maske (ASCII)"
-                            //,
-                            //"DATEV-Format (ASCII)",
-                            //"XML"
                 );
         final ComboBox format_box = new ComboBox(formatoptions);
         format_box.getSelectionModel().selectFirst();
 
-        // Create and setup GridPane
-
+        // Setup GridPane
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
 
@@ -165,7 +146,7 @@ public class Main extends Application{
         Button btn_log = new Button();
         btn_log.setText("Log");
 
-        // Add to GridPane
+        // Hinzufügen zu GridPane
         // Legende:
         // i: Links nach rechts (column)
         // i2: Oben, unten (row)
@@ -190,28 +171,18 @@ public class Main extends Application{
         // ****** Scene setup ********
         Scene scene = new Scene(grid, 280, 310);
 
-        // HWS icon %TODO: Das HWS-Logo soll oben links stehen
-        //Image image = new Image("/icons/HWS_logo.png");
-        //Image image = new Image("HWS_logo.png");
-        //primaryStage.getIcons().add(image);
-
-        //primaryStage.getIcons().add(new Image("/HWS_logo.png"));
-
         primaryStage.setTitle("E-Commerce converter");
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        // Start program
+        // Programm starten
         btn_start.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
 
-
                 if (LogCoordinator.ACTIVITY_LOG == true) {
                     LogCoordinator.deleteLog();
                 }
-
-
                 System.out.println("---------------START------------------");
 
                 if (platforms_box.getSelectionModel().getSelectedItem() != null
@@ -224,7 +195,6 @@ public class Main extends Application{
                                 operation_box.getSelectionModel().getSelectedItem().toString(),
                                 rawfile,
                                 format_box.getSelectionModel().getSelectedItem().toString());
-
                 } else {
 
                     if (FILEPATH == null) {
@@ -240,13 +210,7 @@ public class Main extends Application{
                     }
                 }
 
-
-
-                //System.out.println(platforms_box.getSelectionModel().getSelectedItem());
-                //System.out.println("Konvertierung startet!");
-
                 System.out.println("----------------ENDE-------------------");
-
             }
         });
 
@@ -255,24 +219,7 @@ public class Main extends Application{
             public void handle(ActionEvent actionEvent) {
 
                 LogCoordinator.openLog();
-
             }
         });
-
-
-
-
-
-    }
-
-
-    static void restartSoftware() {
-
-        // TODO: Delete files in Work-Directories
-        System.out.println("Work-Directories are cleaned!");
-
-        // Reset Platform-choice
-        //platforms_box.
-
     }
 }
