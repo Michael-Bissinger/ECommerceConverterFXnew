@@ -25,7 +25,8 @@ import java.io.File;
 
 public class Main extends Application{
 
-    public static String FILEPATH = null; // Store filepath from Drag and Drop
+    public static String FILEPATH = null;
+    // Speichert Dateinamen von Drag and Drop
 
     @Override
     public void start(Stage primaryStage)  {

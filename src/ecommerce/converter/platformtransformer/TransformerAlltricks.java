@@ -5,7 +5,7 @@ import ecommerce.converter.transformtools.*;
 public class TransformerAlltricks {
 
     private static Integer KONTO_DEBITOR = 1464001; // Debitoren-Konto von "Alltricks"
-    private static Integer KONTO_KREDITOR = 7000199; // Kreditoren-Konto von "Alltricks"
+    private static Integer KONTO_KREDITOR = 70000199; // Kreditoren-Konto von "Alltricks"
 
     private static String[] RELEVANTE_ITEMS = { // Relevante Items zur Berechnung
             "Erstellungsdatum", // 0

@@ -5,7 +5,7 @@ import ecommerce.converter.transformtools.*;
 public class TransformerReal {
 
     private static Integer KONTO_DEBITOR = 1469000; // Debitoren-Konto von "Real"
-    private static Integer KONTO_KREDITOR = 7000130; // Kreditoren-Konto von "Real"
+    private static Integer KONTO_KREDITOR = 70000130; // Kreditoren-Konto von "Real"
 
     private static String[] RELEVANTE_ITEMS = { // Relevante Items zur Berechnung
             "booking_date", // 0

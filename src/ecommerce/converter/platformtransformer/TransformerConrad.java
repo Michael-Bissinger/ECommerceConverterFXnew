@@ -5,7 +5,7 @@ import ecommerce.converter.transformtools.*;
 public class TransformerConrad {
 
     private static Integer KONTO_DEBITOR = 1462000; // Debitoren-Konto von "Conrad"
-    private static Integer KONTO_KREDITOR = 7000166; // Kreditoren-Konto von "Conrad"
+    private static Integer KONTO_KREDITOR = 70000166; // Kreditoren-Konto von "Conrad"
 
     private static String[] RELEVANTE_ITEMS = { // Relevante Items zur Berechnung
             "Erstellungsdatum", // 0
