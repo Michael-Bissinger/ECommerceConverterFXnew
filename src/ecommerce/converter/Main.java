@@ -115,7 +115,7 @@ public class Main extends Application{
                         "Alltricks"
                 );
         final ComboBox platforms_box = new ComboBox(platformoptions);
-        platforms_box.getSelectionModel().selectFirst(); // TODO: After testing remove
+        platforms_box.getSelectionModel().selectFirst();
 
         // Aktuell lassen sich nur Gebühren verarbeiten, später mehr
         ObservableList<String> operationoptions =
